@@ -1,0 +1,608 @@
+<title>AgentPixel — 為 Agent 時代打造的辦公 Terminal</title>
+<style>
+  :root {
+    --paper: #efefe1;
+    --paper-raised: #f8f7ee;
+    --ink: #1b2118;
+    --ink-dim: #4b5245;
+    --ink-faint: #7c8270;
+    --rule: #c9cbb8;
+    --accent: #c97a2e;
+    --accent-strong: #a85f1d;
+    --accent-ink: #fffaf2;
+    --term-bg: #14180f;
+    --term-text: #d8dac8;
+    --term-dim: #7d8770;
+    --shadow: rgba(27, 33, 24, 0.12);
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15180f;
+      --paper-raised: #1c2016;
+      --ink: #e7e4d4;
+      --ink-dim: #9ba08c;
+      --ink-faint: #666b57;
+      --rule: #333928;
+      --accent: #e8a33d;
+      --accent-strong: #f4b85a;
+      --accent-ink: #191204;
+      --term-bg: #0c0f09;
+      --term-text: #cfe0c4;
+      --term-dim: #576250;
+      --shadow: rgba(0, 0, 0, 0.4);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #15180f;
+    --paper-raised: #1c2016;
+    --ink: #e7e4d4;
+    --ink-dim: #9ba08c;
+    --ink-faint: #666b57;
+    --rule: #333928;
+    --accent: #e8a33d;
+    --accent-strong: #f4b85a;
+    --accent-ink: #191204;
+    --term-bg: #0c0f09;
+    --term-text: #cfe0c4;
+    --term-dim: #576250;
+    --shadow: rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] {
+    --paper: #efefe1;
+    --paper-raised: #f8f7ee;
+    --ink: #1b2118;
+    --ink-dim: #4b5245;
+    --ink-faint: #7c8270;
+    --rule: #c9cbb8;
+    --accent: #c97a2e;
+    --accent-strong: #a85f1d;
+    --accent-ink: #fffaf2;
+    --term-bg: #14180f;
+    --term-text: #d8dac8;
+    --term-dim: #7d8770;
+    --shadow: rgba(27, 33, 24, 0.12);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, monospace;
+  }
+
+  .sans {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, monospace;
+    text-wrap: balance;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav.top .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+  .brand .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .btn-primary:hover { background: var(--accent-strong); }
+  .btn-ghost {
+    border-color: var(--rule);
+    color: var(--ink);
+    background: transparent;
+  }
+  .btn-ghost:hover { border-color: var(--ink-faint); }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 84px 0 60px;
+  }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    margin: 0 0 18px;
+  }
+  h1.headline {
+    font-size: clamp(32px, 4.6vw, 52px);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    max-width: 15ch;
+  }
+  p.sub {
+    font-size: 19px;
+    color: var(--ink-dim);
+    max-width: 52ch;
+    margin: 22px 0 32px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .hero-note {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    margin-top: 10px;
+  }
+
+  /* ---------- Hero mockup: split terminal + doc ---------- */
+  .mockup {
+    margin-top: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -20px var(--shadow), 0 1px 0 var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .mockup-chrome {
+    background: var(--paper-raised);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mockup-chrome .traffic { display: flex; gap: 7px; }
+  .mockup-chrome .traffic span {
+    width: 11px; height: 11px; border-radius: 50%;
+    display: block;
+    background: var(--rule);
+  }
+  .mockup-chrome .traffic span:nth-child(1) { background: #d9776b; }
+  .mockup-chrome .traffic span:nth-child(2) { background: #d9b45f; }
+  .mockup-chrome .traffic span:nth-child(3) { background: #8fae72; }
+  .mockup-title {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin: 0 auto;
+  }
+  .mockup-panes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .pane-term {
+    background: var(--term-bg);
+    color: var(--term-text);
+    padding: 22px 24px;
+    font-size: 13.5px;
+    line-height: 1.85;
+  }
+  .pane-term .path { color: var(--term-dim); }
+  .pane-term .cmd { color: var(--term-text); }
+  .pane-term .ok { color: #8fae72; }
+  .pane-term .out { color: var(--term-dim); }
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 1.1em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1.1s step-end infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; opacity: 1; }
+  }
+  @keyframes blink {
+    0%, 45% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .pane-doc {
+    background: var(--paper-raised);
+    padding: 22px 26px;
+    border-left: 1px solid var(--rule);
+    font-size: 14px;
+  }
+  .pane-doc h4 {
+    font-family: Georgia, serif;
+    font-size: 17px;
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  .pane-doc p { margin: 0 0 10px; color: var(--ink-dim); }
+  .pane-doc .tag {
+    display: inline-block;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent-strong);
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  /* ---------- Pillars ---------- */
+  section.pillar {
+    padding: 76px 0 8px;
+  }
+  .pillar-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .pillar-index {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .pillar-head h2 {
+    font-size: clamp(22px, 3vw, 30px);
+  }
+  .pillar-lede {
+    color: var(--ink-dim);
+    max-width: 60ch;
+    margin: -14px 0 40px;
+    font-size: 16px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 860px) {
+    .cards { grid-template-columns: 1fr; }
+    .mockup-panes { grid-template-columns: 1fr; }
+    .pane-doc { border-left: none; border-top: 1px solid var(--rule); }
+  }
+
+  .card {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -16px var(--shadow);
+  }
+  .card-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 13px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .card-bar span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--rule);
+  }
+  .card-body { padding: 20px 20px 22px; }
+  .card-body h3 {
+    font-size: 16.5px;
+    margin-bottom: 6px;
+    letter-spacing: -0.005em;
+  }
+  .card-body .lede {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .card-body ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card-body li {
+    color: var(--ink-dim);
+    font-size: 14.5px;
+    padding: 7px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .card-body li:first-child { border-top: none; }
+  .card-body li b {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .beta-flag {
+    display: inline-block;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--accent-strong);
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ---------- Download / footer ---------- */
+  section.download {
+    margin: 96px 0 0;
+    padding: 60px 0;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  section.download h2 {
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin-bottom: 14px;
+  }
+  section.download p {
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin: 0 auto 28px;
+  }
+  .platform-note {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    margin-top: 16px;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 0 40px;
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--ink-dim); }
+</style>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>agentpixel</div>
+    <div class="nav-links">
+      <a href="#office">文書辦公</a>
+      <a href="#terminal">Terminal 優化</a>
+      <a href="#download">下載</a>
+    </div>
+    <a class="btn btn-primary" href="#download">下載 macOS 版</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">為 Agent 時代打造的辦公工具</p>
+    <h1 class="headline">Terminal 是你的辦公室，<br>Agent 是你的同事。</h1>
+    <p class="sub">AgentPixel 把 Terminal 與文件編輯做成雙開工作台——當你的工作大半交給 CLI Agent 完成，你需要的不是切換視窗，而是一眼看見它正在寫什麼。</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#download">下載 macOS 版</a>
+      <a class="btn btn-ghost" href="#office">看看怎麼運作</a>
+    </div>
+    <p class="hero-note">目前僅支援 macOS · Beta 階段</p>
+
+    <div class="mockup">
+      <div class="mockup-chrome">
+        <div class="traffic"><span></span><span></span><span></span></div>
+        <p class="mockup-title mono">agentpixel — ~/projects/quarterly-report</p>
+      </div>
+      <div class="mockup-panes">
+        <div class="pane-term mono">
+          <div><span class="path">~/projects/quarterly-report</span></div>
+          <div class="cmd">$ claude "把 Q2 開支整理成報告草稿"</div>
+          <div class="out">Reading 12 files… drafting report.md</div>
+          <div class="out">Writing report.md<span class="cursor"></span></div>
+        </div>
+        <div class="pane-doc">
+          <span class="tag">report.md · 即時預覽</span>
+          <h4>Q2 開支報告（草稿）</h4>
+          <p>本季度總支出較上季下降 8%，主要來自雲端運算成本優化…</p>
+          <p>— 由 Agent 產出，你可以直接在此編輯 —</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="pillar" id="office">
+  <div class="wrap">
+    <div class="pillar-head">
+      <span class="pillar-index mono">01</span>
+      <h2>新時代文書辦公</h2>
+    </div>
+    <p class="pillar-lede">Agent 產出的是 Markdown、HTML，不是 .docx。當文件本身就是 Agent 的工作成果，你需要的是能立刻看見、立刻改、立刻找到的環境——而不是把它匯出到另一套辦公軟體。</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-bar"><span></span><span></span><span></span></div>
+        <div class="card-body">
+          <p class="lede">雙開與即時編輯</p>
+          <h3>分屏雙開，Terminal 與文件並排</h3>
+          <ul>
+            <li><b>分屏雙開：</b>Terminal 與文件同時顯示，直觀的並排工作流。</li>
+            <li><b>即時編輯：</b>HTML / Markdown 檔案當場編輯，體驗貼近主流編輯器。</li>
+            <li><b>Agent 驅動：</b>以 MD / HTML 為主要產出，取代 Word、PowerPoint 這類舊式流程。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-bar"><span></span><span></span><span></span></div>
+        <div class="card-body">
+          <p class="lede">找檔案不再靠猜</p>
+          <h3>即時文件瀏覽器</h3>
+          <ul>
+            <li><b>解決辦公痛點：</b>Agent 產出的檔案到底存在哪？</li>
+            <li>Terminal 操作到哪，File Explorer 就同步顯示到哪。</li>
+            <li>隨時定位、開啟、瀏覽 Agent 建立的每一份檔案。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-bar"><span></span><span></span><span></span></div>
+        <div class="card-body">
+          <p class="lede">帳單心裡有數</p>
+          <h3>訂閱 Token 消耗追蹤</h3>
+          <ul>
+            <li>管理面板內建即時 Token 用量看板。</li>
+            <li>工作中隨時掌握帳號額度消耗，不必事後才發現超用。</li>
+            <li>同時支援 Claude 與 Codex 雙軌追蹤。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillar" id="terminal">
+  <div class="wrap">
+    <div class="pillar-head">
+      <span class="pillar-index mono">02</span>
+      <h2>專為辦公優化的 Terminal</h2>
+    </div>
+    <p class="pillar-lede">同時開好幾個 Agent，是效能問題，也是狀態管理問題。這一層的功能，是讓 Terminal 本身撐得住多 Agent 的日常辦公強度。</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-bar"><span></span><span></span><span></span></div>
+        <div class="card-body">
+          <p class="lede">輕量、不失控</p>
+          <h3>資源管理器 + 狀態持久化</h3>
+          <ul>
+            <li>多 Agent 同時運作最容易吃滿系統資源，內建即時資源監控面板。</li>
+            <li><b>狀態持久化：</b>關閉重開，Tab 佈局與工作現場完整還原。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-bar"><span></span><span></span><span></span></div>
+        <div class="card-body">
+          <p class="lede">離開電腦，工作不停</p>
+          <h3>跨端聯動與遠端監控</h3>
+          <ul>
+            <li>電腦端一鍵開啟 Remote，Terminal 立即聯動到手機。</li>
+            <li>不必守在電腦前，隨時隨地掌握 Agent 工作狀態。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-bar"><span></span><span></span><span></span></div>
+        <div class="card-body">
+          <p class="lede">一個 Manager，管全部 Tab<span class="beta-flag">實驗性</span></p>
+          <h3>高階多標籤管控</h3>
+          <ul>
+            <li>Manager 模式：由一個主 Manager 統籌控制其他所有 Tab。</li>
+            <li>更高層級的全局管理，目前仍在實驗階段。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="download" id="download">
+  <div class="wrap">
+    <h2>準備好讓 Terminal 成為你的辦公室了嗎？</h2>
+    <p>AgentPixel 目前為 Beta 階段，僅支援 macOS。</p>
+    <a class="btn btn-primary" href="#">下載 macOS 版（.dmg）</a>
+    <p class="platform-note">需先安裝 Claude Code CLI 或 Codex CLI</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 AgentPixel</span>
+    <span class="sans">
+      <a href="#">GitHub</a>
+    </span>
+  </div>
+</footer>
