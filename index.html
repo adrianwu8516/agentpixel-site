@@ -648,6 +648,273 @@
   footer a { color: var(--dim); transition: color 0.15s ease; }
   footer a:hover { color: var(--amber-soft); }
   footer .f-links { display: flex; gap: 22px; }
+
+  /* ============ FEATURE SHOWCASE / CAROUSEL ============ */
+  .showcase {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+    margin-top: 6px;
+    --dur: 7s;
+  }
+  .showcase.rev .showcase-list { order: 2; }
+  @media (max-width: 940px) {
+    .showcase, .showcase.rev { grid-template-columns: 1fr; gap: 24px; }
+    .showcase.rev .showcase-list { order: 0; }
+  }
+
+  .showcase-list { display: flex; flex-direction: column; gap: 11px; }
+  .feat {
+    display: block; width: 100%; text-align: left;
+    background: rgba(255,255,255,0.014);
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    padding: 16px 18px 17px;
+    cursor: pointer; color: inherit; font: inherit;
+    position: relative; overflow: hidden;
+    transition: border-color .25s ease, background .25s ease;
+  }
+  .feat:hover { border-color: var(--line-bright); }
+  .feat:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .feat.active {
+    border-color: rgba(255,176,32,0.45);
+    background: linear-gradient(180deg, rgba(255,176,32,0.06), rgba(255,255,255,0.008));
+    box-shadow: 0 0 34px -18px rgba(255,176,32,0.7);
+  }
+  .feat-kicker {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--faint); transition: color .25s ease;
+  }
+  .feat.active .feat-kicker { color: var(--amber); }
+  .feat h3 {
+    margin: 7px 0 0; font-size: 16.5px; font-weight: 700;
+    letter-spacing: -0.01em; color: var(--dim); line-height: 1.34;
+    transition: color .25s ease;
+  }
+  .feat.active h3 { color: var(--text); }
+  .feat .feat-body {
+    display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0;
+    transition: grid-template-rows .38s ease, opacity .32s ease, margin-top .38s ease;
+  }
+  .feat.active .feat-body { grid-template-rows: 1fr; opacity: 1; margin-top: 11px; }
+  .feat .feat-body > div { overflow: hidden; }
+  .feat ul { margin: 0; padding: 0; list-style: none; }
+  .feat li {
+    position: relative; padding: 5px 0 5px 17px;
+    font-size: 13.5px; color: var(--dim); line-height: 1.5;
+  }
+  .feat li::before {
+    content: "›"; position: absolute; left: 2px; top: 5px;
+    color: var(--amber); font-family: ui-monospace, Menlo, monospace;
+  }
+  .feat li b { color: var(--text); font-weight: 600; }
+  .feat-progress { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; }
+  .feat-progress span {
+    display: block; height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--amber-deep), var(--amber-soft));
+  }
+  .feat.active .feat-progress span { animation: prog var(--dur) linear forwards; }
+  .showcase:hover .feat.active .feat-progress span { animation-play-state: paused; }
+  @keyframes prog { from { width: 0; } to { width: 100%; } }
+
+  /* stage window */
+  .showcase-stage .window { }
+  .stage-body {
+    position: relative; min-height: 312px;
+    background:
+      radial-gradient(120% 70% at 0% 0%, rgba(255,176,32,0.045), transparent 60%),
+      var(--void);
+  }
+  @media (max-width: 520px) { .stage-body { min-height: 350px; } }
+  .demo {
+    position: absolute; inset: 0; padding: 20px;
+    opacity: 0; visibility: hidden; transition: opacity .5s ease;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .demo.active { opacity: 1; visibility: visible; }
+
+  .d-clr-p { color: var(--amber); }
+  .d-clr-a { color: var(--amber-soft); }
+  .d-clr-t { color: var(--teal); }
+  .d-clr-o { color: var(--faint); }
+  .d-cur {
+    display:inline-block; width:7px; height:13px; background:var(--amber);
+    vertical-align:-2px; margin-left:2px; box-shadow:0 0 7px rgba(255,176,32,.8);
+    animation: blink 1.05s step-end infinite;
+  }
+
+  /* --- demo 1: split live edit --- */
+  .d-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 100%; }
+  .d-split .d-l { padding-right: 16px; font-size: 12.5px; line-height: 2; }
+  .d-split .d-r {
+    padding-left: 18px; border-left: 1px solid var(--line);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .d-r .d-doc-h { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .d-r p { font-size: 12.5px; color: var(--dim); line-height: 1.6; margin: 0; }
+  .demo.active .d-old { animation: strikeout .6s ease 1.4s forwards; }
+  @keyframes strikeout { to { opacity: .28; text-decoration: line-through; text-decoration-color: var(--faint); } }
+  .d-new {
+    display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0;
+  }
+  .demo.active .d-new { animation: growin .6s ease 1.9s forwards; }
+  @keyframes growin { to { grid-template-rows: 1fr; opacity: 1; margin-top: 10px; } }
+  .d-new > span { overflow: hidden; }
+  .d-new mark {
+    background: linear-gradient(90deg, rgba(255,176,32,.32), rgba(255,176,32,.12));
+    color: var(--amber-soft); padding: 0 3px; border-radius: 3px; font-weight: 600;
+  }
+  .d-l .l2 { opacity: 0; }
+  .demo.active .d-l .l2 { animation: fadeUp .4s ease .7s forwards; }
+
+  /* --- demo 2: file explorer sync --- */
+  .d-fx { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+  .d-tree { font-size: 12.5px; line-height: 1; padding-right: 14px; }
+  .d-tree .d-row { padding: 5px 8px; border-radius: 6px; color: var(--dim); white-space: pre; }
+  .d-tree .d-root { color: var(--text); }
+  .d-tree .d-dir { color: var(--teal); }
+  .demo.active .d-dir { animation: dirHi .5s ease 1.2s forwards; }
+  @keyframes dirHi { to { background: rgba(53,224,200,.1); color: var(--teal); } }
+  .d-tree .d-sub { max-height: 0; opacity: 0; overflow: hidden; padding-top: 0; padding-bottom: 0; }
+  .demo.active .d-s1 { animation: subIn .4s ease 1.5s forwards; }
+  .demo.active .d-s2 { animation: subIn .4s ease 1.7s forwards; }
+  @keyframes subIn { to { max-height: 24px; opacity: 1; padding-top: 5px; padding-bottom: 5px; } }
+  .d-tree .d-new-f { opacity: 0; color: var(--amber-soft); }
+  .demo.active .d-new-f { animation: newFile .6s ease 2.6s forwards; }
+  @keyframes newFile {
+    0% { opacity: 0; transform: translateX(-6px); }
+    40% { opacity: 1; background: rgba(255,176,32,.22); }
+    100% { opacity: 1; background: transparent; transform: translateX(0); }
+  }
+  .d-term2 { padding-left: 16px; border-left: 1px solid var(--line); font-size: 12.5px; line-height: 2; }
+  .d-term2 .r { opacity: 0; }
+  .demo.active .d-term2 .r1 { animation: fadeUp .35s ease .5s forwards; }
+  .demo.active .d-term2 .r2 { animation: fadeUp .35s ease 1.9s forwards; }
+  .demo.active .d-term2 .r3 { animation: fadeUp .35s ease 2.5s forwards; }
+
+  /* --- demo 3: token dashboard --- */
+  .d-tok { display: flex; flex-direction: column; gap: 15px; height: 100%; justify-content: center; }
+  .d-tok-head { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  .d-meter-l { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+  .d-meter-l span:first-child { color: var(--dim); }
+  .d-meter-l .d-pct { color: var(--amber-soft); font-weight: 600; }
+  .d-bar { height: 8px; background: var(--panel-2); border-radius: 5px; overflow: hidden; border: 1px solid var(--line); }
+  .d-fill { display: block; height: 100%; width: 0; border-radius: 5px; }
+  .d-fill-a { background: linear-gradient(90deg, var(--amber-deep), var(--amber)); }
+  .d-fill-b { background: linear-gradient(90deg, var(--amber-deep), var(--amber-soft)); }
+  .d-fill-c { background: linear-gradient(90deg, var(--teal-dim), var(--teal)); }
+  .demo.active .d-fill-a { animation: fill 1.1s ease .3s forwards; --w: 72%; }
+  .demo.active .d-fill-b { animation: fill 1.1s ease .5s forwards; --w: 84%; }
+  .demo.active .d-fill-c { animation: fill 1.1s ease .7s forwards; --w: 46%; }
+  @keyframes fill { to { width: var(--w); } }
+  .d-tools { display: flex; flex-direction: column; gap: 10px; }
+  .d-tool { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 10px; font-size: 12px; color: var(--dim); }
+  .d-count { display: flex; align-items: baseline; gap: 8px; margin-top: 2px; }
+  .d-count .d-num { font-size: 26px; font-weight: 700; color: var(--amber-soft); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .d-count span { font-size: 11px; color: var(--faint); }
+
+  /* --- demo 4: resource monitor --- */
+  .d-res { display: flex; flex-direction: column; gap: 13px; height: 100%; justify-content: center; }
+  .d-res-head { display: flex; justify-content: space-between; align-items: center; }
+  .d-res-head span:first-child { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  .d-load { font-size: 12px; color: var(--teal); font-weight: 600; }
+  .d-agents { display: flex; flex-direction: column; gap: 11px; }
+  .d-agent { display: grid; grid-template-columns: 14px 74px 1fr; align-items: center; gap: 10px; font-size: 12px; color: var(--dim); }
+  .d-agent .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot.ok { background: var(--teal); box-shadow: 0 0 7px var(--teal); }
+  .dot.busy { background: var(--amber); box-shadow: 0 0 7px var(--amber); }
+  .d-spark { display: flex; align-items: flex-end; gap: 3px; height: 26px; }
+  .d-spark i { flex: 1; background: linear-gradient(180deg, var(--amber-soft), var(--amber-deep)); border-radius: 2px; height: 30%; transform-origin: bottom; }
+  .demo.active .d-spark i { animation: eq 1.3s ease-in-out infinite; }
+  .d-spark.teal i { background: linear-gradient(180deg, var(--teal), var(--teal-dim)); }
+  .demo.active .d-spark i:nth-child(2){ animation-delay:.15s } .demo.active .d-spark i:nth-child(3){ animation-delay:.3s }
+  .demo.active .d-spark i:nth-child(4){ animation-delay:.45s } .demo.active .d-spark i:nth-child(5){ animation-delay:.6s }
+  .demo.active .d-spark i:nth-child(6){ animation-delay:.75s } .demo.active .d-spark i:nth-child(7){ animation-delay:.9s }
+  @keyframes eq { 0%,100%{ transform: scaleY(.35); } 50%{ transform: scaleY(1); } }
+  .d-restore {
+    align-self: flex-start; margin-top: 4px; font-size: 12px; color: var(--teal);
+    background: rgba(53,224,200,.08); border: 1px solid rgba(53,224,200,.3);
+    padding: 6px 12px; border-radius: 7px; opacity: 0;
+  }
+  .demo.active .d-restore { animation: fadeUp .5s ease 3.6s forwards; }
+
+  /* --- demo 5: remote / mobile --- */
+  .d-remote { display: grid; grid-template-columns: 1fr 128px; gap: 16px; height: 100%; align-items: center; }
+  .d-desk { display: flex; flex-direction: column; gap: 12px; }
+  .d-remote-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px;
+    background: rgba(255,255,255,.014); font-size: 13px; color: var(--text);
+  }
+  .d-switch { width: 38px; height: 21px; border-radius: 20px; background: var(--panel-2); border: 1px solid var(--line-bright); position: relative; transition: background .3s; }
+  .d-switch::after { content:""; position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; background:var(--faint); transition: transform .35s ease, background .35s; }
+  .demo.active .d-switch { animation: swOn .4s ease 1s forwards; }
+  @keyframes swOn { to { background: rgba(255,176,32,.35); border-color: var(--amber); box-shadow: 0 0 14px -2px rgba(255,176,32,.6); } }
+  .demo.active .d-switch::after { animation: swKnob .4s ease 1s forwards; }
+  @keyframes swKnob { to { transform: translateX(17px); background: var(--amber); } }
+  .d-desk-hint { font-size: 11.5px; color: var(--faint); line-height: 1.6; }
+  .d-phone {
+    justify-self: end; width: 118px; height: 232px; border-radius: 22px;
+    border: 2px solid var(--line-bright); background: var(--void-2);
+    padding: 10px 9px; position: relative; opacity: 0; transform: translateX(30px);
+    box-shadow: -14px 20px 40px -18px rgba(0,0,0,.8);
+  }
+  .demo.active .d-phone { animation: phoneIn .6s cubic-bezier(.2,.7,.3,1) 1.4s forwards; }
+  @keyframes phoneIn { to { opacity: 1; transform: translateX(0); } }
+  .d-phone-notch { width: 40px; height: 4px; border-radius: 3px; background: var(--line-bright); margin: 2px auto 12px; }
+  .d-phone-title { font-family: ui-monospace, Menlo, monospace; font-size: 10px; color: var(--amber); letter-spacing: .08em; margin-bottom: 12px; text-align: center; }
+  .d-am { font-size: 10.5px; padding: 8px 9px; border-radius: 8px; margin-bottom: 7px; background: rgba(255,255,255,.03); color: var(--dim); display: flex; align-items: center; gap: 6px; }
+  .d-am .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; box-shadow: 0 0 6px #ff5f57; }
+  .d-push {
+    position: absolute; left: 8px; right: 8px; top: 44px;
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    border: 1px solid rgba(255,176,32,.4); border-radius: 10px;
+    padding: 9px 10px; font-size: 10px; color: var(--text); line-height: 1.4;
+    box-shadow: 0 10px 24px -8px rgba(0,0,0,.7); opacity: 0; transform: translateY(-10px);
+  }
+  .demo.active .d-push { animation: pushIn .5s cubic-bezier(.2,.7,.3,1) 2.6s forwards; }
+  @keyframes pushIn { to { opacity: 1; transform: translateY(0); } }
+
+  /* --- demo 6: manager orchestration --- */
+  .d-mgr { display: flex; flex-direction: column; gap: 0; height: 100%; }
+  .d-tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  .d-tab {
+    font-size: 11.5px; padding: 7px 11px; border-radius: 8px 8px 0 0;
+    background: rgba(255,255,255,.02); border: 1px solid var(--line); border-bottom: none;
+    color: var(--dim); display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .d-tab .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .d-tab.mgr { color: var(--amber); border-color: rgba(255,176,32,.4); background: rgba(255,176,32,.07); }
+  .demo.active .d-tab.mgr { animation: mgrGlow 1.4s ease .4s; }
+  @keyframes mgrGlow { 0%,100%{ box-shadow: 0 0 0 0 rgba(255,176,32,0); } 50%{ box-shadow: 0 0 20px -4px rgba(255,176,32,.7); } }
+  .d-tab.tgt .dot { background: #ff5f57; box-shadow: 0 0 6px #ff5f57; }
+  .demo.active .d-tab.tgt .dot { animation: flip 0.4s ease 2.7s forwards; }
+  @keyframes flip { to { background: var(--teal); box-shadow: 0 0 8px var(--teal); } }
+  .d-flow { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
+  .d-wire { width: 70%; height: 2px; background: var(--line); position: relative; border-radius: 2px; overflow: visible; }
+  .d-pulse {
+    position: absolute; top: -3px; left: 0; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--amber); box-shadow: 0 0 12px var(--amber); opacity: 0;
+  }
+  .demo.active .d-pulse { animation: travel 1.1s ease 1.4s forwards; }
+  @keyframes travel { 0%{ left: 0; opacity: 1; } 100%{ left: 100%; opacity: 1; } }
+  .d-verdict {
+    font-size: 12px; color: var(--teal); background: rgba(53,224,200,.08);
+    border: 1px solid rgba(53,224,200,.3); padding: 7px 13px; border-radius: 8px;
+    opacity: 0; display: flex; align-items: center; gap: 8px;
+  }
+  .demo.active .d-verdict { animation: fadeUp .5s ease 3s forwards; }
+  .d-verdict .mono-s { font-family: ui-monospace, Menlo, monospace; color: var(--amber-soft); font-size: 11px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feat-progress span { animation: none !important; }
+    .demo * { animation-duration: .001s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; }
+  }
 </style>
 
 <div class="backdrop"></div>
@@ -746,38 +1013,96 @@
     </div>
     <p class="pillar-lede">Agent 產出的是 Markdown、HTML，不是 .docx。當文件本身就是 Agent 的工作成果，你需要能立刻看見、立刻改、立刻找到的環境——而不是把它匯出到另一套辦公軟體。</p>
 
-    <div class="cards">
-      <div class="card">
-        <span class="corner tl"></span><span class="corner br"></span>
-        <span class="kicker">雙開與即時編輯</span>
-        <h3>分屏雙開<br>Terminal 與文件並排</h3>
-        <ul>
-          <li><b>分屏雙開：</b>Terminal 與文件同時顯示，直觀的並排工作流。</li>
-          <li><b>即時編輯：</b>HTML / Markdown 檔案當場編輯，體驗貼近主流編輯器。</li>
-          <li><b>Agent 驅動：</b>以 MD / HTML 為主要產出，取代 Word、PowerPoint 舊式流程。</li>
-        </ul>
+    <div class="showcase" data-showcase>
+      <div class="showcase-list">
+        <button class="feat active" type="button">
+          <span class="feat-kicker">雙開與即時編輯</span>
+          <h3>分屏雙開，Terminal 與文件並排</h3>
+          <div class="feat-body"><div><ul>
+            <li><b>分屏雙開：</b>Terminal 與文件同時顯示，直觀的並排工作流。</li>
+            <li><b>即時編輯：</b>HTML / Markdown 檔案當場編輯，體驗貼近主流編輯器。</li>
+            <li><b>Agent 驅動：</b>以 MD / HTML 為主要產出，取代 Word、PowerPoint 舊式流程。</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
+        <button class="feat" type="button">
+          <span class="feat-kicker">找檔案不再靠猜</span>
+          <h3>即時文件瀏覽器</h3>
+          <div class="feat-body"><div><ul>
+            <li><b>解決辦公痛點：</b>Agent 產出的檔案到底存在哪？</li>
+            <li>Terminal 操作到哪，File Explorer 就同步顯示到哪。</li>
+            <li>隨時定位、開啟、瀏覽 Agent 建立的每一份檔案。</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
+        <button class="feat" type="button">
+          <span class="feat-kicker">帳單心裡有數</span>
+          <h3>訂閱 Token 消耗追蹤</h3>
+          <div class="feat-body"><div><ul>
+            <li>管理面板內建即時 Token 用量看板。</li>
+            <li>工作中隨時掌握帳號額度消耗，不必事後才發現超用。</li>
+            <li>同時支援 Claude 與 Codex 雙軌追蹤。</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
       </div>
 
-      <div class="card">
-        <span class="corner tl"></span><span class="corner br"></span>
-        <span class="kicker">找檔案不再靠猜</span>
-        <h3>即時文件瀏覽器</h3>
-        <ul>
-          <li><b>解決辦公痛點：</b>Agent 產出的檔案到底存在哪？</li>
-          <li>Terminal 操作到哪，File Explorer 就同步顯示到哪。</li>
-          <li>隨時定位、開啟、瀏覽 Agent 建立的每一份檔案。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <span class="corner tl"></span><span class="corner br"></span>
-        <span class="kicker">帳單心裡有數</span>
-        <h3>訂閱 Token 消耗追蹤</h3>
-        <ul>
-          <li>管理面板內建即時 Token 用量看板。</li>
-          <li>工作中隨時掌握帳號額度消耗，不必事後才發現超用。</li>
-          <li>同時支援 Claude 與 Codex 雙軌追蹤。</li>
-        </ul>
+      <div class="showcase-stage">
+        <div class="window">
+          <div class="win-bar">
+            <div class="traffic"><i></i><i></i><i></i></div>
+            <p class="win-title">report.md — 雙開編輯</p>
+          </div>
+          <div class="stage-body">
+            <!-- demo 1: split live edit -->
+            <div class="demo active" data-title="report.md — 雙開編輯">
+              <div class="d-split">
+                <div class="d-l">
+                  <div><span class="d-clr-p">$</span> claude "潤飾開場段落"</div>
+                  <div class="l2"><span class="d-clr-a">◇</span> <span class="d-clr-o">編輯 report.md…</span><span class="d-cur"></span></div>
+                </div>
+                <div class="d-r">
+                  <div class="d-doc-h">Q2 開支報告</div>
+                  <p class="d-old">本季支出下降，原因是成本優化。</p>
+                  <p class="d-new"><span>本季總支出較上季 <mark>顯著下降 8%</mark>，主要來自雲端運算成本優化與供應商重新議約。</span></p>
+                </div>
+              </div>
+            </div>
+            <!-- demo 2: file explorer sync -->
+            <div class="demo" data-title="~/quarterly-report — File Explorer">
+              <div class="d-fx">
+                <div class="d-tree">
+                  <div class="d-row d-root">▾ quarterly-report</div>
+                  <div class="d-row">  report.md</div>
+                  <div class="d-row d-dir">▸ data</div>
+                  <div class="d-row d-sub d-s1">    q1.csv</div>
+                  <div class="d-row d-sub d-s2">    q2.csv</div>
+                  <div class="d-row d-new-f">  chart.svg</div>
+                </div>
+                <div class="d-term2">
+                  <div class="r r1"><span class="d-clr-p">$</span> cd data</div>
+                  <div class="r r2"><span class="d-clr-p">$</span> claude "畫成長圖"</div>
+                  <div class="r r3"><span class="d-clr-t">✓</span> <span class="d-clr-o">建立 chart.svg</span></div>
+                </div>
+              </div>
+            </div>
+            <!-- demo 3: token dashboard -->
+            <div class="demo" data-title="Token 用量看板">
+              <div class="d-tok">
+                <div class="d-tok-head">Token 用量 · 本週</div>
+                <div>
+                  <div class="d-meter-l"><span>5h window</span><span class="d-pct">28% left</span></div>
+                  <div class="d-bar"><i class="d-fill d-fill-a"></i></div>
+                </div>
+                <div class="d-tools">
+                  <div class="d-tool"><span>Claude</span><div class="d-bar"><i class="d-fill d-fill-b"></i></div></div>
+                  <div class="d-tool"><span>Codex</span><div class="d-bar"><i class="d-fill d-fill-c"></i></div></div>
+                </div>
+                <div class="d-count"><b class="d-num" data-count="128400">0</b><span>tokens 已用</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -791,35 +1116,89 @@
     </div>
     <p class="pillar-lede">同時開好幾個 Agent，是效能問題，也是狀態管理問題。這一層的功能，是讓 Terminal 本身撐得住多 Agent 的日常辦公強度。</p>
 
-    <div class="cards">
-      <div class="card">
-        <span class="corner tl"></span><span class="corner br"></span>
-        <span class="kicker">輕量、不失控</span>
-        <h3>資源管理器<br>＋ 狀態持久化</h3>
-        <ul>
-          <li>多 Agent 同時運作最容易吃滿系統資源，內建即時資源監控面板。</li>
-          <li><b>狀態持久化：</b>關閉重開，Tab 佈局與工作現場完整還原。</li>
-        </ul>
+    <div class="showcase rev" data-showcase>
+      <div class="showcase-list">
+        <button class="feat active" type="button">
+          <span class="feat-kicker">輕量、不失控</span>
+          <h3>資源管理器 ＋ 狀態持久化</h3>
+          <div class="feat-body"><div><ul>
+            <li>多 Agent 同時運作最容易吃滿系統資源，內建即時資源監控面板。</li>
+            <li><b>狀態持久化：</b>關閉重開，Tab 佈局與工作現場完整還原。</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
+        <button class="feat" type="button">
+          <span class="feat-kicker">離開電腦，工作不停</span>
+          <h3>跨端聯動與遠端監控</h3>
+          <div class="feat-body"><div><ul>
+            <li>電腦端一鍵開啟 Remote，Terminal 立即聯動到手機。</li>
+            <li>不必守在電腦前，隨時隨地掌握 Agent 工作狀態。</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
+        <button class="feat" type="button">
+          <span class="feat-kicker">一個 Manager，管全部 Tab</span>
+          <h3>高階多標籤管控<span class="beta-flag">實驗性</span></h3>
+          <div class="feat-body"><div><ul>
+            <li>Manager 模式：由一個主 Manager 統籌控制其他所有 Tab。</li>
+            <li>更高層級的全局管理，目前仍在實驗階段。</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
       </div>
 
-      <div class="card">
-        <span class="corner tl"></span><span class="corner br"></span>
-        <span class="kicker">離開電腦，工作不停</span>
-        <h3>跨端聯動<br>與遠端監控</h3>
-        <ul>
-          <li>電腦端一鍵開啟 Remote，Terminal 立即聯動到手機。</li>
-          <li>不必守在電腦前，隨時隨地掌握 Agent 工作狀態。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <span class="corner tl"></span><span class="corner br"></span>
-        <span class="kicker">一個 Manager，管全部 Tab</span>
-        <h3>高階多標籤管控<span class="beta-flag">實驗性</span></h3>
-        <ul>
-          <li>Manager 模式：由一個主 Manager 統籌控制其他所有 Tab。</li>
-          <li>更高層級的全局管理，目前仍在實驗階段。</li>
-        </ul>
+      <div class="showcase-stage">
+        <div class="window">
+          <div class="win-bar">
+            <div class="traffic"><i></i><i></i><i></i></div>
+            <p class="win-title">Activity — 資源監控</p>
+          </div>
+          <div class="stage-body">
+            <!-- demo 4: resource monitor -->
+            <div class="demo active" data-title="Activity — 資源監控">
+              <div class="d-res">
+                <div class="d-res-head"><span>資源監控 · 4 agents</span><span class="d-load">LOAD 42%</span></div>
+                <div class="d-agents">
+                  <div class="d-agent"><span class="dot busy"></span><span>worker-1</span><div class="d-spark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+                  <div class="d-agent"><span class="dot ok"></span><span>worker-2</span><div class="d-spark teal"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+                  <div class="d-agent"><span class="dot busy"></span><span>worker-3</span><div class="d-spark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+                </div>
+                <div class="d-restore">⟲ 關閉重開 · session 已還原</div>
+              </div>
+            </div>
+            <!-- demo 5: remote / mobile -->
+            <div class="demo" data-title="Remote — 跨端聯動">
+              <div class="d-remote">
+                <div class="d-desk">
+                  <div class="d-remote-toggle"><span>Remote 遠端存取</span><i class="d-switch"></i></div>
+                  <div class="d-desk-hint">一鍵開啟後，Terminal 即時<br>聯動到你的手機。</div>
+                </div>
+                <div class="d-phone">
+                  <div class="d-phone-notch"></div>
+                  <div class="d-phone-title">AGENTPIXEL</div>
+                  <div class="d-am"><span class="dot ok"></span>worker-1 · running</div>
+                  <div class="d-am"><span class="dot red"></span>worker-2 · blocked</div>
+                  <div class="d-push">🔔 worker-2 需要你確認一個操作</div>
+                </div>
+              </div>
+            </div>
+            <!-- demo 6: manager orchestration -->
+            <div class="demo" data-title="Manager — 多標籤管控">
+              <div class="d-mgr">
+                <div class="d-tabs">
+                  <div class="d-tab mgr">♛ Manager</div>
+                  <div class="d-tab">worker-1</div>
+                  <div class="d-tab tgt">worker-2<span class="dot"></span></div>
+                  <div class="d-tab">worker-3</div>
+                </div>
+                <div class="d-flow">
+                  <div class="d-wire"><span class="d-pulse"></span></div>
+                  <div class="d-verdict">Manager 自動核准 · <span class="mono-s">npm test</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -858,3 +1237,54 @@
     <span>© 2026 AgentPixel</span>
   </div>
 </footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DUR = 7000;
+
+  document.querySelectorAll('[data-showcase]').forEach(function (sc) {
+    var feats = Array.prototype.slice.call(sc.querySelectorAll('.feat'));
+    var demos = Array.prototype.slice.call(sc.querySelectorAll('.demo'));
+    var titleEl = sc.querySelector('.win-title');
+    if (!feats.length || feats.length !== demos.length) return;
+    var i = 0, timer = null;
+
+    function countUp(demo) {
+      var el = demo.querySelector('[data-count]');
+      if (!el) return;
+      var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+      if (reduce) { el.textContent = target.toLocaleString(); return; }
+      var start = null, dur = 1400;
+      function step(ts) {
+        if (start === null) start = ts;
+        var t = Math.min(1, (ts - start) / dur);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(target * eased).toLocaleString();
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function show(n) {
+      i = (n + demos.length) % demos.length;
+      feats.forEach(function (f, k) { f.classList.toggle('active', k === i); });
+      demos.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+      if (titleEl) titleEl.textContent = demos[i].getAttribute('data-title') || '';
+      countUp(demos[i]);
+    }
+    function next() { show(i + 1); }
+    function play() { if (reduce) return; stop(); timer = setInterval(next, DUR); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    feats.forEach(function (f, k) {
+      f.addEventListener('click', function () { show(k); play(); });
+    });
+    sc.addEventListener('mouseenter', stop);
+    sc.addEventListener('mouseleave', play);
+
+    show(0);
+    play();
+  });
+})();
+</script>
