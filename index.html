@@ -793,6 +793,81 @@
   .d-l .l2 { opacity: 0; }
   .demo.active .d-l .l2 { animation: fadeUp .4s ease .5s forwards; }
 
+  /* --- feature 1 demo: file-explorer live story --- */
+  .demo.demo-fx2 { padding: 0; }
+  .d-fx2 { display: grid; grid-template-columns: 0.92fr 1.08fr; height: 100%; }
+  .d-tree2 {
+    position: relative; padding: 18px 15px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 12.5px;
+    background: var(--void);
+  }
+  .d-tree2 .d-row2 {
+    position: relative; display: flex; align-items: center; gap: 8px;
+    height: 30px; padding: 0 9px; border-radius: 6px;
+    color: var(--dim); white-space: nowrap;
+  }
+  .d-tree2 .d-root2 { color: var(--text); }
+  .d-tree2 .fr { opacity: 0; padding-left: 22px; }
+  .demo.active .fr1 { animation: fileArrive .5s ease .4s forwards; }
+  .demo.active .fr2 { animation: fileArrive .5s ease 1.0s forwards; }
+  .demo.active .fr3 { animation: fileArrive .5s ease 1.6s forwards; }
+  .demo.active .fr4 { animation: fileArrive .5s ease 2.2s forwards; }
+  @keyframes fileArrive {
+    0% { opacity: 0; transform: translateX(-10px); }
+    35% { opacity: 1; transform: translateX(0); background: rgba(255,176,32,.18); }
+    100% { opacity: 1; background: transparent; }
+  }
+  .d-badge {
+    font-family: ui-monospace, Menlo, monospace; font-size: 9.5px; font-weight: 700;
+    color: var(--amber-ink); background: var(--amber);
+    padding: 1px 6px; border-radius: 10px; opacity: 0;
+  }
+  .demo.active .fr1 .d-badge { animation: badgePop 1.7s ease .4s forwards; }
+  .demo.active .fr2 .d-badge { animation: badgePop 1.7s ease 1.0s forwards; }
+  .demo.active .fr3 .d-badge { animation: badgePop 1.7s ease 1.6s forwards; }
+  .demo.active .fr4 .d-badge { animation: badgePop 2.6s ease 2.2s forwards; }
+  @keyframes badgePop {
+    0% { opacity: 0; transform: scale(.7); }
+    12% { opacity: 1; transform: scale(1); }
+    72% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .d-tree2 .d-sel::after {
+    content: ""; position: absolute; inset: 0; border-radius: 6px;
+    background: rgba(255,176,32,.12); border: 1px solid rgba(255,176,32,.5);
+    opacity: 0; pointer-events: none;
+  }
+  .demo.active .d-sel::after { animation: fadeIn .35s ease 3.25s forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .d-cursor2 {
+    position: absolute; left: 20px; top: 30px; opacity: 0;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,.55)); pointer-events: none;
+  }
+  .demo.active .d-cursor2 { animation: curJourney 2.7s cubic-bezier(.4,0,.2,1) 1.7s forwards; }
+  @keyframes curJourney {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    14% { opacity: 1; }
+    58% { opacity: 1; transform: translate(58px, 122px) scale(1); }
+    66% { transform: translate(58px, 122px) scale(.82); }
+    76% { transform: translate(58px, 122px) scale(1); }
+    100% { opacity: 1; transform: translate(58px, 122px) scale(1); }
+  }
+  .d-right2 { position: relative; border-left: 1px solid var(--line); }
+  .d-preview-hint {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: var(--faint); font-size: 12px; font-family: ui-monospace, Menlo, monospace;
+    letter-spacing: 0.03em;
+  }
+  .demo.active .d-preview-hint { animation: fadeOut .3s ease 3.3s forwards; }
+  @keyframes fadeOut { to { opacity: 0; } }
+  .d-preview {
+    position: absolute; inset: 0; background: #ffffff; color: #1a1f27;
+    padding: 20px 22px; opacity: 0;
+  }
+  .demo.active .d-preview { animation: fadeUp .5s ease 3.4s forwards; }
+  .d-preview .d-doc-h { font-size: 14px; font-weight: 700; margin: 4px 0 10px; letter-spacing: -.01em; color: #12161c; }
+  .d-preview p { font-size: 12.5px; color: #4a515c; line-height: 1.95; margin: 0; }
+
   /* --- demo 2: file explorer sync --- */
   .d-fx { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
   .d-tree { font-size: 12.5px; line-height: 1; padding-right: 14px; }
@@ -1040,22 +1115,22 @@
     <div class="showcase" data-showcase>
       <div class="showcase-list">
         <button class="feat active" type="button">
-          <span class="feat-kicker">雙開與即時編輯</span>
-          <h3>分屏雙開，Terminal 與文件並排</h3>
+          <span class="feat-kicker">邊生成邊檢視</span>
+          <h3>分屏雙開</h3>
           <div class="feat-body"><div><ul>
-            <li><b>分屏雙開：</b>Terminal 與文件同時顯示，直觀的並排工作流。</li>
-            <li><b>即時編輯：</b>HTML / Markdown 檔案當場編輯，體驗貼近主流編輯器。</li>
-            <li><b>Agent 驅動：</b>以 MD / HTML 為主要產出，取代 Word、PowerPoint 舊式流程。</li>
+            <li><b>即時看見產出：</b>LLM 一邊工作，你就一邊即時看到它生成的內容。</li>
+            <li>Terminal 與文件並排，不用切換視窗。</li>
+            <li>新檔案即時出現在 File Explorer，點一下就能檢視。</li>
           </ul></div></div>
           <div class="feat-progress"><span></span></div>
         </button>
         <button class="feat" type="button">
-          <span class="feat-kicker">找檔案不再靠猜</span>
-          <h3>即時文件瀏覽器</h3>
+          <span class="feat-kicker">人與 AI 一起寫</span>
+          <h3>與 LLM 共同編輯文檔</h3>
           <div class="feat-body"><div><ul>
-            <li><b>解決辦公痛點：</b>Agent 產出的檔案到底存在哪？</li>
-            <li>Terminal 操作到哪，File Explorer 就同步顯示到哪。</li>
-            <li>隨時定位、開啟、瀏覽 Agent 建立的每一份檔案。</li>
+            <li><b>不只是生成：</b>除了 LLM 產出，你也能手動打字、直接修改。</li>
+            <li>Markdown / HTML 當場編輯，體驗貼近主流編輯器。</li>
+            <li>人與 AI 在同一份文件上協作。</li>
           </ul></div></div>
           <div class="feat-progress"><span></span></div>
         </button>
@@ -1075,11 +1150,34 @@
         <div class="window">
           <div class="win-bar">
             <div class="traffic"><i></i><i></i><i></i></div>
-            <p class="win-title">report.md — 雙開編輯</p>
+            <p class="win-title">~/quarterly-report — 即時新增</p>
           </div>
           <div class="stage-body">
-            <!-- demo 1: split live edit -->
-            <div class="demo demo-doc active" data-title="report.md — 雙開編輯">
+            <!-- demo 1: file-explorer live story -->
+            <div class="demo demo-fx2 active" data-title="~/quarterly-report — 即時新增">
+              <div class="d-fx2">
+                <div class="d-tree2">
+                  <div class="d-row2 d-root2">▾ quarterly-report</div>
+                  <div class="d-row2 fr fr1">report.md<span class="d-badge">新增</span></div>
+                  <div class="d-row2 fr fr2">summary.md<span class="d-badge">新增</span></div>
+                  <div class="d-row2 fr fr3">chart.html<span class="d-badge">新增</span></div>
+                  <div class="d-row2 fr fr4 d-sel">notes.md<span class="d-badge">新增</span></div>
+                  <span class="d-cursor2" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 2l0 15.5 4-3.9 2.3 5 2.2-1-2.3-4.9 5.6 0z" fill="#eef1f7" stroke="#0a0d13" stroke-width="1" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div class="d-right2">
+                  <div class="d-preview-hint">▸ 點檔案即可預覽</div>
+                  <div class="d-preview">
+                    <div class="d-doc-tabs"><span class="d-doc-tab active">notes.md</span></div>
+                    <div class="d-doc-h">專案會議記錄</div>
+                    <p>· Q2 報告初稿完成，待審閱<br>· 雲端成本較上季下降 8%<br>· 下週與供應商對齊合約</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- demo 2: split live edit (co-editing / typing) -->
+            <div class="demo demo-doc" data-title="report.md — 與 LLM 共同編輯">
               <div class="d-split">
                 <div class="d-l">
                   <div><span class="d-clr-p">$</span> claude "撰寫 Q2 報告開場"</div>
@@ -1093,24 +1191,6 @@
                   <div class="d-doc-h">Q2 開支報告</div>
                   <p class="d-typed" data-typetext="本季總支出較上季顯著下降 8%，主要來自雲端運算成本優化與供應商重新議約。"></p>
                   <div class="d-doc-note">✎ <b>Markdown</b> 與 <b>HTML</b> 都能在編輯器裡即時編輯</div>
-                </div>
-              </div>
-            </div>
-            <!-- demo 2: file explorer sync -->
-            <div class="demo" data-title="~/quarterly-report — File Explorer">
-              <div class="d-fx">
-                <div class="d-tree">
-                  <div class="d-row d-root">▾ quarterly-report</div>
-                  <div class="d-row">  report.md</div>
-                  <div class="d-row d-dir">▸ data</div>
-                  <div class="d-row d-sub d-s1">    q1.csv</div>
-                  <div class="d-row d-sub d-s2">    q2.csv</div>
-                  <div class="d-row d-new-f">  chart.svg</div>
-                </div>
-                <div class="d-term2">
-                  <div class="r r1"><span class="d-clr-p">$</span> cd data</div>
-                  <div class="r r2"><span class="d-clr-p">$</span> claude "畫成長圖"</div>
-                  <div class="r r3"><span class="d-clr-t">✓</span> <span class="d-clr-o">建立 chart.svg</span></div>
                 </div>
               </div>
             </div>
