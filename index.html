@@ -361,7 +361,8 @@
   .doc {
     padding: 20px 22px;
     border-left: 1px solid var(--line);
-    background: linear-gradient(180deg, rgba(255,255,255,0.018), transparent);
+    background: #ffffff;
+    color: #1a1f27;
   }
   .doc .doc-tag {
     display: inline-flex;
@@ -369,30 +370,31 @@
     gap: 6px;
     font-family: ui-monospace, Menlo, monospace;
     font-size: 10.5px;
-    color: var(--teal);
+    color: #0f8a78;
     letter-spacing: 0.04em;
     margin-bottom: 14px;
   }
   .doc .doc-tag i {
     width: 6px; height: 6px; border-radius: 50%;
-    background: var(--teal); box-shadow: 0 0 8px var(--teal);
+    background: #12b39c;
   }
   .doc h5 {
     margin: 0 0 10px;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: -0.01em;
+    color: #12161c;
   }
   .doc p {
     margin: 0 0 9px;
     font-size: 12.5px;
-    color: var(--dim);
+    color: #4a515c;
     line-height: 1.6;
   }
   .doc .metric {
     margin-top: 14px;
     padding-top: 12px;
-    border-top: 1px dashed var(--line-bright);
+    border-top: 1px dashed #e3e6ea;
     display: flex;
     gap: 18px;
     font-family: ui-monospace, Menlo, monospace;
@@ -400,12 +402,12 @@
   .doc .metric div span {
     display: block;
     font-size: 10px;
-    color: var(--faint);
+    color: #70757e;
     letter-spacing: 0.05em;
   }
   .doc .metric div b {
     font-size: 17px;
-    color: var(--amber-soft);
+    color: #c07714;
     font-weight: 700;
   }
 
@@ -749,11 +751,17 @@
   .d-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 100%; }
   .d-split .d-l { padding-right: 16px; font-size: 12.5px; line-height: 2; }
   .d-split .d-r {
-    padding-left: 18px; border-left: 1px solid var(--line);
+    align-self: start;
+    margin-left: 16px;
+    padding: 15px 16px;
+    background: #ffffff;
+    color: #1a1f27;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px -14px rgba(0,0,0,.7);
     font-family: -apple-system, system-ui, sans-serif;
   }
-  .d-r .d-doc-h { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .d-r p { font-size: 12.5px; color: var(--dim); line-height: 1.6; margin: 0; }
+  .d-r .d-doc-h { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; color: #12161c; }
+  .d-r p { font-size: 12.5px; color: #4a515c; line-height: 1.6; margin: 0; }
   .demo.active .d-old { animation: strikeout .6s ease 1.4s forwards; }
   @keyframes strikeout { to { opacity: .28; text-decoration: line-through; text-decoration-color: var(--faint); } }
   .d-new {
@@ -763,8 +771,8 @@
   @keyframes growin { to { grid-template-rows: 1fr; opacity: 1; margin-top: 10px; } }
   .d-new > span { overflow: hidden; }
   .d-new mark {
-    background: linear-gradient(90deg, rgba(255,176,32,.32), rgba(255,176,32,.12));
-    color: var(--amber-soft); padding: 0 3px; border-radius: 3px; font-weight: 600;
+    background: rgba(255,176,32,.42);
+    color: #3a2a08; padding: 0 3px; border-radius: 3px; font-weight: 600;
   }
   .d-l .l2 { opacity: 0; }
   .demo.active .d-l .l2 { animation: fadeUp .4s ease .7s forwards; }
