@@ -748,16 +748,14 @@
   }
 
   /* --- demo 1: split live edit --- */
+  .demo.demo-doc { padding: 0; }
   .d-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 100%; }
-  .d-split .d-l { padding-right: 16px; font-size: 12.5px; line-height: 2; }
+  .d-split .d-l { padding: 20px 18px; font-size: 12.5px; line-height: 2; }
   .d-split .d-r {
-    align-self: start;
-    margin-left: 16px;
-    padding: 15px 16px;
+    padding: 20px 22px;
+    border-left: 1px solid var(--line);
     background: #ffffff;
     color: #1a1f27;
-    border-radius: 10px;
-    box-shadow: 0 12px 28px -14px rgba(0,0,0,.7);
     font-family: -apple-system, system-ui, sans-serif;
   }
   .d-r .d-doc-h { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; color: #12161c; }
@@ -1063,7 +1061,7 @@
           </div>
           <div class="stage-body">
             <!-- demo 1: split live edit -->
-            <div class="demo active" data-title="report.md — 雙開編輯">
+            <div class="demo demo-doc active" data-title="report.md — 雙開編輯">
               <div class="d-split">
                 <div class="d-l">
                   <div><span class="d-clr-p">$</span> claude "潤飾開場段落"</div>
