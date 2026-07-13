@@ -758,22 +758,35 @@
     color: #1a1f27;
     font-family: -apple-system, system-ui, sans-serif;
   }
+  .d-doc-tabs {
+    display: flex; gap: 16px; margin-bottom: 13px;
+    border-bottom: 1px solid #eceef1; padding-bottom: 9px;
+  }
+  .d-doc-tab {
+    font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+    color: #9aa0aa; position: relative;
+  }
+  .d-doc-tab.active { color: #12161c; font-weight: 600; }
+  .d-doc-tab.active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -10px;
+    height: 2px; background: var(--amber); border-radius: 2px;
+  }
   .d-r .d-doc-h { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; color: #12161c; }
-  .d-r p { font-size: 12.5px; color: #4a515c; line-height: 1.6; margin: 0; }
-  .demo.active .d-old { animation: strikeout .6s ease 1.4s forwards; }
-  @keyframes strikeout { to { opacity: .28; text-decoration: line-through; text-decoration-color: var(--faint); } }
-  .d-new {
-    display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0;
+  .d-typed {
+    font-size: 12.5px; color: #4a515c; line-height: 1.65; margin: 0;
+    min-height: 3.3em;
   }
-  .demo.active .d-new { animation: growin .6s ease 1.9s forwards; }
-  @keyframes growin { to { grid-template-rows: 1fr; opacity: 1; margin-top: 10px; } }
-  .d-new > span { overflow: hidden; }
-  .d-new mark {
-    background: rgba(255,176,32,.42);
-    color: #3a2a08; padding: 0 3px; border-radius: 3px; font-weight: 600;
+  .d-typed.typing::after {
+    content: "▏"; color: var(--amber-deep); margin-left: -1px; font-weight: 400;
+    animation: blink 1s step-end infinite;
   }
+  .d-doc-note {
+    margin-top: 14px; padding-top: 11px; border-top: 1px solid #eceef1;
+    font-size: 11px; color: #6b7280; line-height: 1.5;
+  }
+  .d-doc-note b { color: #c07714; font-weight: 700; }
   .d-l .l2 { opacity: 0; }
-  .demo.active .d-l .l2 { animation: fadeUp .4s ease .7s forwards; }
+  .demo.active .d-l .l2 { animation: fadeUp .4s ease .5s forwards; }
 
   /* --- demo 2: file explorer sync --- */
   .d-fx { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
@@ -1064,13 +1077,17 @@
             <div class="demo demo-doc active" data-title="report.md — 雙開編輯">
               <div class="d-split">
                 <div class="d-l">
-                  <div><span class="d-clr-p">$</span> claude "潤飾開場段落"</div>
-                  <div class="l2"><span class="d-clr-a">◇</span> <span class="d-clr-o">編輯 report.md…</span><span class="d-cur"></span></div>
+                  <div><span class="d-clr-p">$</span> claude "撰寫 Q2 報告開場"</div>
+                  <div class="l2"><span class="d-clr-a">◇</span> <span class="d-clr-o">正在輸入 report.md…</span></div>
                 </div>
                 <div class="d-r">
+                  <div class="d-doc-tabs">
+                    <span class="d-doc-tab active">report.md</span>
+                    <span class="d-doc-tab">index.html</span>
+                  </div>
                   <div class="d-doc-h">Q2 開支報告</div>
-                  <p class="d-old">本季支出下降，原因是成本優化。</p>
-                  <p class="d-new"><span>本季總支出較上季 <mark>顯著下降 8%</mark>，主要來自雲端運算成本優化與供應商重新議約。</span></p>
+                  <p class="d-typed" data-typetext="本季總支出較上季顯著下降 8%，主要來自雲端運算成本優化與供應商重新議約。"></p>
+                  <div class="d-doc-note">✎ <b>Markdown</b> 與 <b>HTML</b> 都能在編輯器裡即時編輯</div>
                 </div>
               </div>
             </div>
@@ -1272,12 +1289,32 @@
       requestAnimationFrame(step);
     }
 
+    function typeText(demo) {
+      demo.querySelectorAll('[data-typetext]').forEach(function (el) {
+        var full = el.getAttribute('data-typetext') || '';
+        if (el._typeTimer) { clearInterval(el._typeTimer); el._typeTimer = null; }
+        if (reduce) { el.textContent = full; el.classList.remove('typing'); return; }
+        el.textContent = '';
+        el.classList.add('typing');
+        var idx = 0;
+        el._typeTimer = setInterval(function () {
+          idx++;
+          el.textContent = full.slice(0, idx);
+          if (idx >= full.length) {
+            clearInterval(el._typeTimer); el._typeTimer = null;
+            el.classList.remove('typing');
+          }
+        }, 55);
+      });
+    }
+
     function show(n) {
       i = (n + demos.length) % demos.length;
       feats.forEach(function (f, k) { f.classList.toggle('active', k === i); });
       demos.forEach(function (d, k) { d.classList.toggle('active', k === i); });
       if (titleEl) titleEl.textContent = demos[i].getAttribute('data-title') || '';
       countUp(demos[i]);
+      typeText(demos[i]);
     }
     function next() { show(i + 1); }
     function play() { if (reduce) return; stop(); timer = setInterval(next, DUR); }
