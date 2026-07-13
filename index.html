@@ -391,6 +391,11 @@
     color: #4a515c;
     line-height: 1.6;
   }
+  .doc-typed { min-height: 3.4em; }
+  .doc-typed.typing::after {
+    content: "▏"; color: var(--amber-deep); margin-left: -1px; font-weight: 400;
+    animation: blink 1s step-end infinite;
+  }
   .doc .metric {
     margin-top: 14px;
     padding-top: 12px;
@@ -993,7 +998,7 @@
             <div class="doc">
               <span class="doc-tag"><i></i>report.md · 即時預覽</span>
               <h5>Q2 開支報告</h5>
-              <p>本季總支出較上季下降，主要來自雲端運算成本優化與供應商重新議約。</p>
+              <p class="doc-typed" data-typetext="本季總支出較上季下降，主要來自雲端運算成本優化與供應商重新議約。"></p>
               <p>— 由 Agent 產出，可直接在此編輯 —</p>
               <div class="metric">
                 <div><span>QoQ</span><b>−8%</b></div>
@@ -1266,6 +1271,23 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DUR = 7000;
 
+  function typeInto(el) {
+    var full = el.getAttribute('data-typetext') || '';
+    if (el._typeTimer) { clearInterval(el._typeTimer); el._typeTimer = null; }
+    if (reduce) { el.textContent = full; el.classList.remove('typing'); return; }
+    el.textContent = '';
+    el.classList.add('typing');
+    var idx = 0;
+    el._typeTimer = setInterval(function () {
+      idx++;
+      el.textContent = full.slice(0, idx);
+      if (idx >= full.length) {
+        clearInterval(el._typeTimer); el._typeTimer = null;
+        el.classList.remove('typing');
+      }
+    }, 55);
+  }
+
   document.querySelectorAll('[data-showcase]').forEach(function (sc) {
     var feats = Array.prototype.slice.call(sc.querySelectorAll('.feat'));
     var demos = Array.prototype.slice.call(sc.querySelectorAll('.demo'));
@@ -1290,22 +1312,7 @@
     }
 
     function typeText(demo) {
-      demo.querySelectorAll('[data-typetext]').forEach(function (el) {
-        var full = el.getAttribute('data-typetext') || '';
-        if (el._typeTimer) { clearInterval(el._typeTimer); el._typeTimer = null; }
-        if (reduce) { el.textContent = full; el.classList.remove('typing'); return; }
-        el.textContent = '';
-        el.classList.add('typing');
-        var idx = 0;
-        el._typeTimer = setInterval(function () {
-          idx++;
-          el.textContent = full.slice(0, idx);
-          if (idx >= full.length) {
-            clearInterval(el._typeTimer); el._typeTimer = null;
-            el.classList.remove('typing');
-          }
-        }, 55);
-      });
+      demo.querySelectorAll('[data-typetext]').forEach(typeInto);
     }
 
     function show(n) {
@@ -1329,5 +1336,18 @@
     show(0);
     play();
   });
+
+  // hero doc: type out when it scrolls into view (re-types on re-entry)
+  var heroEls = document.querySelectorAll('.hero [data-typetext]');
+  if (heroEls.length) {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) typeInto(e.target); });
+      }, { threshold: 0.6 });
+      heroEls.forEach(function (el) { io.observe(el); });
+    } else {
+      heroEls.forEach(typeInto);
+    }
+  }
 })();
 </script>
