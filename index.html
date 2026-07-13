@@ -793,80 +793,112 @@
   .d-l .l2 { opacity: 0; }
   .demo.active .d-l .l2 { animation: fadeUp .4s ease .5s forwards; }
 
-  /* --- feature 1 demo: file-explorer live story --- */
-  .demo.demo-fx2 { padding: 0; }
-  .d-fx2 { display: grid; grid-template-columns: 0.92fr 1.08fr; height: 100%; }
-  .d-tree2 {
-    position: relative; padding: 18px 15px;
-    font-family: ui-monospace, Menlo, monospace; font-size: 12.5px;
-    background: var(--void);
+  /* --- feature 1 demo: three-column split (explorer · agent · file) --- */
+  .demo.demo-fx3 { padding: 0; }
+  .d-fx3 {
+    display: grid; grid-template-columns: minmax(126px, 0.82fr) 1fr 1.12fr;
+    height: 100%; font-size: 12px;
   }
-  .d-tree2 .d-row2 {
-    position: relative; display: flex; align-items: center; gap: 8px;
-    height: 30px; padding: 0 9px; border-radius: 6px;
-    color: var(--dim); white-space: nowrap;
+  .d-fx3 > div { min-width: 0; overflow: hidden; }
+  .d-col-head {
+    font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 10px;
   }
-  .d-tree2 .d-root2 { color: var(--text); }
-  .d-tree2 .fr { opacity: 0; padding-left: 22px; }
-  .demo.active .fr1 { animation: fileArrive .5s ease .4s forwards; }
-  .demo.active .fr2 { animation: fileArrive .5s ease 1.0s forwards; }
-  .demo.active .fr3 { animation: fileArrive .5s ease 1.6s forwards; }
-  .demo.active .fr4 { animation: fileArrive .5s ease 2.2s forwards; }
+
+  /* col 1: explorer */
+  .d-col-tree {
+    position: relative; padding: 14px 12px; background: var(--void);
+    font-family: ui-monospace, Menlo, monospace;
+  }
+  .d-row3 {
+    position: relative; display: flex; align-items: center; gap: 6px;
+    height: 27px; padding: 0 8px; border-radius: 5px; color: var(--dim); white-space: nowrap;
+  }
+  .d-root3 { color: var(--text); }
+  .d-row3.f { opacity: 0; padding-left: 18px; }
+  .demo.active .f1 { animation: fileArrive .5s ease .5s forwards; }
+  .demo.active .f2 { animation: fileArrive .5s ease 1.1s forwards; }
+  .demo.active .f3 { animation: fileArrive .5s ease 1.7s forwards; }
   @keyframes fileArrive {
     0% { opacity: 0; transform: translateX(-10px); }
     35% { opacity: 1; transform: translateX(0); background: rgba(255,176,32,.18); }
     100% { opacity: 1; background: transparent; }
   }
   .d-badge {
-    font-family: ui-monospace, Menlo, monospace; font-size: 9.5px; font-weight: 700;
+    font-family: ui-monospace, Menlo, monospace; font-size: 9px; font-weight: 700;
     color: var(--amber-ink); background: var(--amber);
     padding: 1px 6px; border-radius: 10px; opacity: 0;
   }
-  .demo.active .fr1 .d-badge { animation: badgePop 1.7s ease .4s forwards; }
-  .demo.active .fr2 .d-badge { animation: badgePop 1.7s ease 1.0s forwards; }
-  .demo.active .fr3 .d-badge { animation: badgePop 1.7s ease 1.6s forwards; }
-  .demo.active .fr4 .d-badge { animation: badgePop 2.6s ease 2.2s forwards; }
+  .demo.active .f1 .d-badge { animation: badgePop 1.6s ease .5s forwards; }
+  .demo.active .f2 .d-badge { animation: badgePop 1.6s ease 1.1s forwards; }
+  .demo.active .f3 .d-badge { animation: badgePop 1.6s ease 1.7s forwards; }
   @keyframes badgePop {
     0% { opacity: 0; transform: scale(.7); }
-    12% { opacity: 1; transform: scale(1); }
+    14% { opacity: 1; transform: scale(1); }
     72% { opacity: 1; }
     100% { opacity: 0; }
   }
-  .d-tree2 .d-sel::after {
-    content: ""; position: absolute; inset: 0; border-radius: 6px;
+  /* selection highlight — summary.md pulses on then off, notes.md stays */
+  .d-row3.f::after {
+    content: ""; position: absolute; inset: 0; border-radius: 5px;
     background: rgba(255,176,32,.12); border: 1px solid rgba(255,176,32,.5);
     opacity: 0; pointer-events: none;
   }
-  .demo.active .d-sel::after { animation: fadeIn .35s ease 3.25s forwards; }
+  .demo.active .f2::after { animation: selPulse 1.4s ease 2.7s forwards; }
+  .demo.active .f3::after { animation: fadeIn .3s ease 4.1s forwards; }
+  @keyframes selPulse { 0% { opacity: 0; } 16% { opacity: 1; } 82% { opacity: 1; } 100% { opacity: 0; } }
   @keyframes fadeIn { to { opacity: 1; } }
-  .d-cursor2 {
-    position: absolute; left: 20px; top: 30px; opacity: 0;
+  .d-cursor3 {
+    position: absolute; left: 16px; top: 24px; opacity: 0;
     filter: drop-shadow(0 2px 3px rgba(0,0,0,.55)); pointer-events: none;
   }
-  .demo.active .d-cursor2 { animation: curJourney 2.7s cubic-bezier(.4,0,.2,1) 1.7s forwards; }
-  @keyframes curJourney {
+  .demo.active .d-cursor3 { animation: cur3 4.2s cubic-bezier(.4,0,.2,1) 1.9s forwards; }
+  @keyframes cur3 {
     0% { opacity: 0; transform: translate(0, 0) scale(1); }
-    14% { opacity: 1; }
-    58% { opacity: 1; transform: translate(58px, 122px) scale(1); }
-    66% { transform: translate(58px, 122px) scale(.82); }
-    76% { transform: translate(58px, 122px) scale(1); }
-    100% { opacity: 1; transform: translate(58px, 122px) scale(1); }
+    10% { opacity: 1; }
+    24% { transform: translate(38px, 66px) scale(1); }
+    30% { transform: translate(38px, 66px) scale(.8); }
+    36% { transform: translate(38px, 66px) scale(1); }
+    62% { transform: translate(38px, 93px) scale(1); }
+    68% { transform: translate(38px, 93px) scale(.8); }
+    74% { transform: translate(38px, 93px) scale(1); }
+    100% { opacity: 1; transform: translate(38px, 93px) scale(1); }
   }
-  .d-right2 { position: relative; border-left: 1px solid var(--line); }
-  .d-preview-hint {
+
+  /* col 2: agent output */
+  .d-col-term {
+    padding: 14px 13px; border-left: 1px solid var(--line);
+    background: var(--void-2); font-family: ui-monospace, Menlo, monospace;
+  }
+  .d-col-term .tl { opacity: 0; line-height: 1.95; color: var(--dim); }
+  .demo.active .t1 { animation: fadeUp .35s ease .35s forwards; }
+  .demo.active .t2 { animation: fadeUp .35s ease .9s forwards; }
+  .demo.active .t3 { animation: fadeUp .35s ease 1.5s forwards; }
+  .demo.active .t4 { animation: fadeUp .35s ease 2.1s forwards; }
+  .demo.active .t5 { animation: fadeUp .35s ease 2.7s forwards; }
+
+  /* col 3: opened file (switches summary.md -> notes.md) */
+  .d-col-doc { position: relative; border-left: 1px solid var(--line); background: #ffffff; }
+  .d-doc-hint2 {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    color: var(--faint); font-size: 12px; font-family: ui-monospace, Menlo, monospace;
-    letter-spacing: 0.03em;
+    color: #9aa0aa; font-family: ui-monospace, Menlo, monospace; font-size: 11px;
   }
-  .demo.active .d-preview-hint { animation: fadeOut .3s ease 3.3s forwards; }
+  .demo.active .d-doc-hint2 { animation: fadeOut .3s ease 2.6s forwards; }
   @keyframes fadeOut { to { opacity: 0; } }
-  .d-preview {
-    position: absolute; inset: 0; background: #ffffff; color: #1a1f27;
-    padding: 20px 22px; opacity: 0;
+  .d-doc-panel {
+    position: absolute; inset: 0; padding: 16px 18px;
+    background: #ffffff; color: #1a1f27; opacity: 0;
   }
-  .demo.active .d-preview { animation: fadeUp .5s ease 3.4s forwards; }
-  .d-preview .d-doc-h { font-size: 14px; font-weight: 700; margin: 4px 0 10px; letter-spacing: -.01em; color: #12161c; }
-  .d-preview p { font-size: 12.5px; color: #4a515c; line-height: 1.95; margin: 0; }
+  .demo.active .d-docA { animation: docSwap 1.5s ease 2.7s forwards; }
+  .demo.active .d-docB { animation: fadeUp .5s ease 4.1s forwards; }
+  @keyframes docSwap {
+    0% { opacity: 0; transform: translateY(6px); }
+    22% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .d-doc-panel .d-doc-h { font-size: 13.5px; font-weight: 700; margin: 3px 0 9px; letter-spacing: -.01em; color: #12161c; }
+  .d-doc-panel p { font-size: 12px; color: #4a515c; line-height: 1.9; margin: 0; }
 
   /* --- demo 2: file explorer sync --- */
   .d-fx { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
@@ -1153,25 +1185,41 @@
             <p class="win-title">~/quarterly-report — 即時新增</p>
           </div>
           <div class="stage-body">
-            <!-- demo 1: file-explorer live story -->
-            <div class="demo demo-fx2 active" data-title="~/quarterly-report — 即時新增">
-              <div class="d-fx2">
-                <div class="d-tree2">
-                  <div class="d-row2 d-root2">▾ quarterly-report</div>
-                  <div class="d-row2 fr fr1">report.md<span class="d-badge">新增</span></div>
-                  <div class="d-row2 fr fr2">summary.md<span class="d-badge">新增</span></div>
-                  <div class="d-row2 fr fr3">chart.html<span class="d-badge">新增</span></div>
-                  <div class="d-row2 fr fr4 d-sel">notes.md<span class="d-badge">新增</span></div>
-                  <span class="d-cursor2" aria-hidden="true">
+            <!-- demo 1: three-column split (explorer · agent · opened file) -->
+            <div class="demo demo-fx3 active" data-title="~/quarterly-report — 分屏三欄">
+              <div class="d-fx3">
+                <!-- col 1: file explorer -->
+                <div class="d-col-tree">
+                  <div class="d-col-head">Explorer</div>
+                  <div class="d-row3 d-root3">▾ quarterly-report</div>
+                  <div class="d-row3 f f1">report.md<span class="d-badge">新增</span></div>
+                  <div class="d-row3 f f2">summary.md<span class="d-badge">新增</span></div>
+                  <div class="d-row3 f f3">notes.md<span class="d-badge">新增</span></div>
+                  <span class="d-cursor3" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="17" height="17"><path d="M4 2l0 15.5 4-3.9 2.3 5 2.2-1-2.3-4.9 5.6 0z" fill="#eef1f7" stroke="#0a0d13" stroke-width="1" stroke-linejoin="round"/></svg>
                   </span>
                 </div>
-                <div class="d-right2">
-                  <div class="d-preview-hint">▸ 點檔案即可預覽</div>
-                  <div class="d-preview">
+                <!-- col 2: agent output -->
+                <div class="d-col-term">
+                  <div class="d-col-head">Agent</div>
+                  <div class="tl t1"><span class="d-clr-p">$</span> claude "整理 Q2 報告"</div>
+                  <div class="tl t2"><span class="d-clr-a">◇</span> <span class="d-clr-o">建立 report.md</span></div>
+                  <div class="tl t3"><span class="d-clr-a">◇</span> <span class="d-clr-o">建立 summary.md</span></div>
+                  <div class="tl t4"><span class="d-clr-a">◇</span> <span class="d-clr-o">建立 notes.md</span></div>
+                  <div class="tl t5"><span class="d-clr-t">✓</span> <span class="d-clr-o">完成 3 份文件</span><span class="d-cur"></span></div>
+                </div>
+                <!-- col 3: opened file (switches) -->
+                <div class="d-col-doc">
+                  <div class="d-doc-hint2">← 從左側點檔案開啟</div>
+                  <div class="d-doc-panel d-docA">
+                    <div class="d-doc-tabs"><span class="d-doc-tab active">summary.md</span></div>
+                    <div class="d-doc-h">Q2 摘要</div>
+                    <p>· 總支出較上季下降 8%<br>· 雲端成本優化見效<br>· 供應商合約重新議定</p>
+                  </div>
+                  <div class="d-doc-panel d-docB">
                     <div class="d-doc-tabs"><span class="d-doc-tab active">notes.md</span></div>
                     <div class="d-doc-h">專案會議記錄</div>
-                    <p>· Q2 報告初稿完成，待審閱<br>· 雲端成本較上季下降 8%<br>· 下週與供應商對齊合約</p>
+                    <p>· 報告初稿待審閱<br>· 下週與供應商對齊<br>· 指派 owner 與期限</p>
                   </div>
                 </div>
               </div>
