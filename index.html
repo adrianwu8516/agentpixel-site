@@ -790,6 +790,31 @@
     font-size: 11px; color: #6b7280; line-height: 1.5;
   }
   .d-doc-note b { color: #c07714; font-weight: 700; }
+
+  /* co-edit: LLM types, then a human selects / deletes / rewrites */
+  .d-coedit { font-size: 12.5px; color: #4a515c; line-height: 1.7; margin: 0; min-height: 3.4em; }
+  .ce-caret {
+    display: inline-block; width: 7px; height: 14px; vertical-align: -2px; margin-left: 1px;
+    animation: blink 1s step-end infinite;
+  }
+  .ce-caret-llm { background: var(--amber-deep); box-shadow: 0 0 7px rgba(217,138,18,.6); }
+  .ce-caret-h { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,.7); }
+  .ce-sel {
+    background: rgba(59,130,246,.28); color: #12161c; border-radius: 2px; padding: 0 1px;
+    animation: selIn .28s ease;
+  }
+  @keyframes selIn { from { background: rgba(59,130,246,0); } to { background: rgba(59,130,246,.28); } }
+  .ce-mid { color: #1e4fa3; font-weight: 600; }
+  .ce-mid.ce-done { color: #1e4fa3; font-weight: 600; }
+  .d-edit-tag {
+    display: inline-block; margin-top: 10px;
+    font-size: 10.5px; color: #2563eb; letter-spacing: 0.02em;
+    background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.4);
+    padding: 2px 9px; border-radius: 10px;
+    opacity: 0; transform: translateY(-3px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .d-edit-tag.show { opacity: 1; transform: none; }
   .d-l .l2 { opacity: 0; }
   .demo.active .d-l .l2 { animation: fadeUp .4s ease .5s forwards; }
 
@@ -1237,8 +1262,13 @@
                     <span class="d-doc-tab">index.html</span>
                   </div>
                   <div class="d-doc-h">Q2 開支報告</div>
-                  <p class="d-typed" data-typetext="本季總支出較上季顯著下降 8%，主要來自雲端運算成本優化與供應商重新議約。"></p>
-                  <div class="d-doc-note">✎ <b>Markdown</b> 與 <b>HTML</b> 都能在編輯器裡即時編輯</div>
+                  <p class="d-coedit"
+                     data-base="本季總支出較上季下降 8%，"
+                     data-llm="主要來自雲端成本優化"
+                     data-tail="。"
+                     data-human="團隊也精簡了非核心雲端訂閱"></p>
+                  <div class="d-edit-tag">✎ 手動修改</div>
+                  <div class="d-doc-note"><b>LLM 生成</b> · 你可以直接<b>選取、刪改</b>、續寫</div>
                 </div>
               </div>
             </div>
@@ -1416,6 +1446,63 @@
     }, 55);
   }
 
+  // LLM types a sentence, then a "human" selects a phrase, deletes it, and rewrites it.
+  function coEdit(demo) {
+    var el = demo.querySelector('.d-coedit');
+    if (!el) return;
+    var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+    var base = el.getAttribute('data-base') || '';
+    var llm = el.getAttribute('data-llm') || '';
+    var tail = el.getAttribute('data-tail') || '';
+    var human = el.getAttribute('data-human') || '';
+    var tag = demo.querySelector('.d-edit-tag');
+
+    if (el._ceTimers) { el._ceTimers.forEach(clearTimeout); }
+    if (el._ceInt) { clearInterval(el._ceInt); el._ceInt = null; }
+    el._ceTimers = [];
+    if (tag) tag.classList.remove('show');
+    var T = function (fn, ms) { el._ceTimers.push(setTimeout(fn, ms)); };
+
+    if (reduce) { el.innerHTML = esc(base) + esc(human) + esc(tail); return; }
+
+    // stage 1 — LLM types the full sentence (amber caret)
+    el.innerHTML = '<span class="ce-txt"></span><span class="ce-caret ce-caret-llm"></span>';
+    var txt = el.querySelector('.ce-txt');
+    var full = base + llm + tail, i = 0;
+    el._ceInt = setInterval(function () {
+      i++;
+      txt.textContent = full.slice(0, i);
+      if (i >= full.length) { clearInterval(el._ceInt); el._ceInt = null; afterType(); }
+    }, 45);
+
+    function afterType() {
+      // stage 2 — human selects the LLM phrase
+      T(function () {
+        el.innerHTML = esc(base) + '<mark class="ce-sel">' + esc(llm) + '</mark>' + esc(tail);
+        if (tag) tag.classList.add('show');
+      }, 550);
+      // stage 3 — delete the selection, drop a human (blue) caret in its place
+      T(function () {
+        el.innerHTML = esc(base) + '<span class="ce-mid"></span><span class="ce-caret ce-caret-h"></span>' + esc(tail);
+      }, 1250);
+      // stage 4 — human types the replacement
+      T(function () {
+        var mid = el.querySelector('.ce-mid'), j = 0;
+        el._ceInt = setInterval(function () {
+          j++;
+          mid.textContent = human.slice(0, j);
+          if (j >= human.length) {
+            clearInterval(el._ceInt); el._ceInt = null;
+            T(function () {
+              el.innerHTML = esc(base) + '<span class="ce-mid ce-done">' + esc(human) + '</span>' + esc(tail);
+              if (tag) tag.classList.remove('show');
+            }, 950);
+          }
+        }, 55);
+      }, 1650);
+    }
+  }
+
   document.querySelectorAll('[data-showcase]').forEach(function (sc) {
     var feats = Array.prototype.slice.call(sc.querySelectorAll('.feat'));
     var demos = Array.prototype.slice.call(sc.querySelectorAll('.demo'));
@@ -1450,6 +1537,7 @@
       if (titleEl) titleEl.textContent = demos[i].getAttribute('data-title') || '';
       countUp(demos[i]);
       typeText(demos[i]);
+      coEdit(demos[i]);
     }
     function next() { show(i + 1); }
     function play() { if (reduce) return; stop(); timer = setInterval(next, DUR); }
