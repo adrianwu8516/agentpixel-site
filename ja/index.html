@@ -1339,6 +1339,20 @@ h1.headline.punch { font-size: clamp(40px, 6.2vw, 72px); line-height: 1.02; }
 }
 .rm-paired i { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); }
 
+.rm-qr {
+  margin-top: 9px; display: flex; gap: 10px; align-items: center;
+  border: 1px solid var(--line); border-radius: 9px; padding: 9px 10px;
+  background: rgba(255,255,255,.014);
+}
+.rm-qr-box { width: 42px; height: 42px; background: #fff; border-radius: 6px; padding: 3px; flex: none; }
+.rm-qr-box svg { width: 100%; height: 100%; display: block; }
+.rm-qr-meta { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.rm-qr-label { font-size: 10.5px; color: var(--dim); }
+.rm-qr-url {
+  font-family: ui-monospace, Menlo, monospace; font-size: 9.5px; color: var(--faint);
+  word-break: break-all; line-height: 1.4;
+}
+
 /* link between mac and phone */
 .rm-body::after {
   content: "";
@@ -1411,7 +1425,31 @@ section.extras { padding: 104px 0 0; }
 .card-meter .cm-track i { display: block; height: 100%; border-radius: 4px; }
 .card-meter .cm-track i.a { width: 72%; background: linear-gradient(90deg, var(--amber-deep), var(--amber)); }
 .card-meter .cm-track i.b { width: 46%; background: linear-gradient(90deg, var(--teal-dim), var(--teal)); }
-.card-meter .cm-two { display: grid; gap: 8px; }
+.card-meter .cm-track i.c { width: 45%; background: linear-gradient(90deg, var(--amber-deep), var(--amber-soft)); }
+.card-meter .cm-glabel {
+  font-family: ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 700;
+  color: var(--dim); letter-spacing: .04em; margin-bottom: 7px;
+}
+.card-meter .cm-item + .cm-item { margin-top: 10px; }
+.card-meter .cm-reset { font-size: 9.5px; color: var(--faint); margin-top: 4px; font-family: ui-monospace, Menlo, monospace; }
+.card-meter .cm-group + .cm-group { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+
+.card-checklist { margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+.ck-row {
+  display: grid; grid-template-columns: 15px 58px 1fr; align-items: center; gap: 8px;
+  font-family: ui-monospace, Menlo, monospace; font-size: 10.5px; color: var(--dim);
+}
+.ck-box { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid var(--line-bright); background: var(--panel-2); position: relative; flex: none; box-sizing: border-box; }
+.ck-row.ok .ck-box { background: var(--teal); border-color: var(--teal); }
+.ck-row.ok .ck-box::after {
+  content: ""; position: absolute; left: 4px; top: 1px; width: 4px; height: 7px;
+  border: solid var(--void); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.ck-row.wait .ck-box { border-color: rgba(255,176,32,.55); background: rgba(255,176,32,.08); }
+.ck-row.wait .ck-box::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--amber); opacity: .75; }
+.ck-name { color: var(--text); font-weight: 600; }
+.ck-scope { color: var(--faint); }
+.ck-row.wait .ck-scope { color: var(--amber-soft); }
 
 /* --- remote slogan (replaces the numbered list) --- */
 .rm-slogan { border-left: 2px solid var(--amber); padding-left: 24px; }
@@ -1899,6 +1937,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
                 <span class="rm-sw"></span>
               </div>
               <div data-i18n-html="d.r.paired" class="rm-paired"><i></i>ペアリング済み · iPhone</div>
+              <div class="rm-qr">
+                <div class="rm-qr-box"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><rect width="29" height="29" fill="#fff"></rect><g fill="#111"><rect x="9" y="0" width="1" height="1"></rect><rect x="10" y="0" width="1" height="1"></rect><rect x="11" y="0" width="1" height="1"></rect><rect x="15" y="0" width="1" height="1"></rect><rect x="17" y="0" width="1" height="1"></rect><rect x="18" y="0" width="1" height="1"></rect><rect x="20" y="0" width="1" height="1"></rect><rect x="8" y="1" width="1" height="1"></rect><rect x="11" y="1" width="1" height="1"></rect><rect x="14" y="1" width="1" height="1"></rect><rect x="17" y="1" width="1" height="1"></rect><rect x="18" y="1" width="1" height="1"></rect><rect x="20" y="1" width="1" height="1"></rect><rect x="8" y="2" width="1" height="1"></rect><rect x="9" y="2" width="1" height="1"></rect><rect x="16" y="2" width="1" height="1"></rect><rect x="10" y="3" width="1" height="1"></rect><rect x="11" y="3" width="1" height="1"></rect><rect x="12" y="3" width="1" height="1"></rect><rect x="13" y="3" width="1" height="1"></rect><rect x="14" y="3" width="1" height="1"></rect><rect x="15" y="3" width="1" height="1"></rect><rect x="16" y="3" width="1" height="1"></rect><rect x="18" y="3" width="1" height="1"></rect><rect x="19" y="3" width="1" height="1"></rect><rect x="20" y="3" width="1" height="1"></rect><rect x="8" y="4" width="1" height="1"></rect><rect x="12" y="4" width="1" height="1"></rect><rect x="14" y="4" width="1" height="1"></rect><rect x="15" y="4" width="1" height="1"></rect><rect x="9" y="5" width="1" height="1"></rect><rect x="10" y="5" width="1" height="1"></rect><rect x="11" y="5" width="1" height="1"></rect><rect x="12" y="5" width="1" height="1"></rect><rect x="13" y="5" width="1" height="1"></rect><rect x="16" y="5" width="1" height="1"></rect><rect x="18" y="5" width="1" height="1"></rect><rect x="8" y="6" width="1" height="1"></rect><rect x="9" y="6" width="1" height="1"></rect><rect x="11" y="6" width="1" height="1"></rect><rect x="14" y="6" width="1" height="1"></rect><rect x="15" y="6" width="1" height="1"></rect><rect x="18" y="6" width="1" height="1"></rect><rect x="19" y="6" width="1" height="1"></rect><rect x="20" y="6" width="1" height="1"></rect><rect x="11" y="7" width="1" height="1"></rect><rect x="12" y="7" width="1" height="1"></rect><rect x="17" y="7" width="1" height="1"></rect><rect x="0" y="8" width="1" height="1"></rect><rect x="2" y="8" width="1" height="1"></rect><rect x="7" y="8" width="1" height="1"></rect><rect x="9" y="8" width="1" height="1"></rect><rect x="12" y="8" width="1" height="1"></rect><rect x="15" y="8" width="1" height="1"></rect><rect x="20" y="8" width="1" height="1"></rect><rect x="21" y="8" width="1" height="1"></rect><rect x="22" y="8" width="1" height="1"></rect><rect x="26" y="8" width="1" height="1"></rect><rect x="27" y="8" width="1" height="1"></rect><rect x="1" y="9" width="1" height="1"></rect><rect x="3" y="9" width="1" height="1"></rect><rect x="6" y="9" width="1" height="1"></rect><rect x="9" y="9" width="1" height="1"></rect><rect x="12" y="9" width="1" height="1"></rect><rect x="15" y="9" width="1" height="1"></rect><rect x="16" y="9" width="1" height="1"></rect><rect x="21" y="9" width="1" height="1"></rect><rect x="22" y="9" width="1" height="1"></rect><rect x="23" y="9" width="1" height="1"></rect><rect x="25" y="9" width="1" height="1"></rect><rect x="26" y="9" width="1" height="1"></rect><rect x="27" y="9" width="1" height="1"></rect><rect x="0" y="10" width="1" height="1"></rect><rect x="3" y="10" width="1" height="1"></rect><rect x="4" y="10" width="1" height="1"></rect><rect x="6" y="10" width="1" height="1"></rect><rect x="7" y="10" width="1" height="1"></rect><rect x="13" y="10" width="1" height="1"></rect><rect x="14" y="10" width="1" height="1"></rect><rect x="21" y="10" width="1" height="1"></rect><rect x="22" y="10" width="1" height="1"></rect><rect x="23" y="10" width="1" height="1"></rect><rect x="25" y="10" width="1" height="1"></rect><rect x="26" y="10" width="1" height="1"></rect><rect x="0" y="11" width="1" height="1"></rect><rect x="1" y="11" width="1" height="1"></rect><rect x="6" y="11" width="1" height="1"></rect><rect x="12" y="11" width="1" height="1"></rect><rect x="14" y="11" width="1" height="1"></rect><rect x="15" y="11" width="1" height="1"></rect><rect x="16" y="11" width="1" height="1"></rect><rect x="17" y="11" width="1" height="1"></rect><rect x="19" y="11" width="1" height="1"></rect><rect x="27" y="11" width="1" height="1"></rect><rect x="28" y="11" width="1" height="1"></rect><rect x="4" y="12" width="1" height="1"></rect><rect x="8" y="12" width="1" height="1"></rect><rect x="10" y="12" width="1" height="1"></rect><rect x="11" y="12" width="1" height="1"></rect><rect x="14" y="12" width="1" height="1"></rect><rect x="15" y="12" width="1" height="1"></rect><rect x="17" y="12" width="1" height="1"></rect><rect x="20" y="12" width="1" height="1"></rect><rect x="24" y="12" width="1" height="1"></rect><rect x="26" y="12" width="1" height="1"></rect><rect x="27" y="12" width="1" height="1"></rect><rect x="0" y="13" width="1" height="1"></rect><rect x="1" y="13" width="1" height="1"></rect><rect x="3" y="13" width="1" height="1"></rect><rect x="7" y="13" width="1" height="1"></rect><rect x="8" y="13" width="1" height="1"></rect><rect x="9" y="13" width="1" height="1"></rect><rect x="13" y="13" width="1" height="1"></rect><rect x="14" y="13" width="1" height="1"></rect><rect x="20" y="13" width="1" height="1"></rect><rect x="22" y="13" width="1" height="1"></rect><rect x="25" y="13" width="1" height="1"></rect><rect x="26" y="13" width="1" height="1"></rect><rect x="27" y="13" width="1" height="1"></rect><rect x="0" y="14" width="1" height="1"></rect><rect x="3" y="14" width="1" height="1"></rect><rect x="5" y="14" width="1" height="1"></rect><rect x="9" y="14" width="1" height="1"></rect><rect x="11" y="14" width="1" height="1"></rect><rect x="12" y="14" width="1" height="1"></rect><rect x="15" y="14" width="1" height="1"></rect><rect x="19" y="14" width="1" height="1"></rect><rect x="20" y="14" width="1" height="1"></rect><rect x="26" y="14" width="1" height="1"></rect><rect x="27" y="14" width="1" height="1"></rect><rect x="28" y="14" width="1" height="1"></rect><rect x="4" y="15" width="1" height="1"></rect><rect x="5" y="15" width="1" height="1"></rect><rect x="6" y="15" width="1" height="1"></rect><rect x="9" y="15" width="1" height="1"></rect><rect x="11" y="15" width="1" height="1"></rect><rect x="17" y="15" width="1" height="1"></rect><rect x="19" y="15" width="1" height="1"></rect><rect x="24" y="15" width="1" height="1"></rect><rect x="26" y="15" width="1" height="1"></rect><rect x="0" y="16" width="1" height="1"></rect><rect x="3" y="16" width="1" height="1"></rect><rect x="5" y="16" width="1" height="1"></rect><rect x="6" y="16" width="1" height="1"></rect><rect x="7" y="16" width="1" height="1"></rect><rect x="8" y="16" width="1" height="1"></rect><rect x="11" y="16" width="1" height="1"></rect><rect x="13" y="16" width="1" height="1"></rect><rect x="17" y="16" width="1" height="1"></rect><rect x="19" y="16" width="1" height="1"></rect><rect x="21" y="16" width="1" height="1"></rect><rect x="22" y="16" width="1" height="1"></rect><rect x="25" y="16" width="1" height="1"></rect><rect x="28" y="16" width="1" height="1"></rect><rect x="1" y="17" width="1" height="1"></rect><rect x="3" y="17" width="1" height="1"></rect><rect x="9" y="17" width="1" height="1"></rect><rect x="10" y="17" width="1" height="1"></rect><rect x="12" y="17" width="1" height="1"></rect><rect x="13" y="17" width="1" height="1"></rect><rect x="16" y="17" width="1" height="1"></rect><rect x="17" y="17" width="1" height="1"></rect><rect x="18" y="17" width="1" height="1"></rect><rect x="19" y="17" width="1" height="1"></rect><rect x="20" y="17" width="1" height="1"></rect><rect x="21" y="17" width="1" height="1"></rect><rect x="27" y="17" width="1" height="1"></rect><rect x="0" y="18" width="1" height="1"></rect><rect x="1" y="18" width="1" height="1"></rect><rect x="7" y="18" width="1" height="1"></rect><rect x="11" y="18" width="1" height="1"></rect><rect x="12" y="18" width="1" height="1"></rect><rect x="15" y="18" width="1" height="1"></rect><rect x="19" y="18" width="1" height="1"></rect><rect x="20" y="18" width="1" height="1"></rect><rect x="21" y="18" width="1" height="1"></rect><rect x="22" y="18" width="1" height="1"></rect><rect x="25" y="18" width="1" height="1"></rect><rect x="26" y="18" width="1" height="1"></rect><rect x="28" y="18" width="1" height="1"></rect><rect x="2" y="19" width="1" height="1"></rect><rect x="4" y="19" width="1" height="1"></rect><rect x="7" y="19" width="1" height="1"></rect><rect x="9" y="19" width="1" height="1"></rect><rect x="12" y="19" width="1" height="1"></rect><rect x="13" y="19" width="1" height="1"></rect><rect x="1" y="20" width="1" height="1"></rect><rect x="2" y="20" width="1" height="1"></rect><rect x="7" y="20" width="1" height="1"></rect><rect x="8" y="20" width="1" height="1"></rect><rect x="9" y="20" width="1" height="1"></rect><rect x="10" y="20" width="1" height="1"></rect><rect x="11" y="20" width="1" height="1"></rect><rect x="13" y="20" width="1" height="1"></rect><rect x="14" y="20" width="1" height="1"></rect><rect x="17" y="20" width="1" height="1"></rect><rect x="18" y="20" width="1" height="1"></rect><rect x="20" y="20" width="1" height="1"></rect><rect x="21" y="20" width="1" height="1"></rect><rect x="28" y="20" width="1" height="1"></rect><rect x="8" y="21" width="1" height="1"></rect><rect x="9" y="21" width="1" height="1"></rect><rect x="13" y="21" width="1" height="1"></rect><rect x="17" y="21" width="1" height="1"></rect><rect x="18" y="21" width="1" height="1"></rect><rect x="20" y="21" width="1" height="1"></rect><rect x="21" y="21" width="1" height="1"></rect><rect x="23" y="21" width="1" height="1"></rect><rect x="24" y="21" width="1" height="1"></rect><rect x="26" y="21" width="1" height="1"></rect><rect x="28" y="21" width="1" height="1"></rect><rect x="8" y="22" width="1" height="1"></rect><rect x="10" y="22" width="1" height="1"></rect><rect x="12" y="22" width="1" height="1"></rect><rect x="14" y="22" width="1" height="1"></rect><rect x="15" y="22" width="1" height="1"></rect><rect x="16" y="22" width="1" height="1"></rect><rect x="17" y="22" width="1" height="1"></rect><rect x="19" y="22" width="1" height="1"></rect><rect x="22" y="22" width="1" height="1"></rect><rect x="23" y="22" width="1" height="1"></rect><rect x="24" y="22" width="1" height="1"></rect><rect x="27" y="22" width="1" height="1"></rect><rect x="12" y="23" width="1" height="1"></rect><rect x="13" y="23" width="1" height="1"></rect><rect x="14" y="23" width="1" height="1"></rect><rect x="15" y="23" width="1" height="1"></rect><rect x="18" y="23" width="1" height="1"></rect><rect x="21" y="23" width="1" height="1"></rect><rect x="24" y="23" width="1" height="1"></rect><rect x="27" y="23" width="1" height="1"></rect><rect x="28" y="23" width="1" height="1"></rect><rect x="8" y="24" width="1" height="1"></rect><rect x="11" y="24" width="1" height="1"></rect><rect x="13" y="24" width="1" height="1"></rect><rect x="16" y="24" width="1" height="1"></rect><rect x="20" y="24" width="1" height="1"></rect><rect x="23" y="24" width="1" height="1"></rect><rect x="25" y="24" width="1" height="1"></rect><rect x="27" y="24" width="1" height="1"></rect><rect x="9" y="25" width="1" height="1"></rect><rect x="17" y="25" width="1" height="1"></rect><rect x="23" y="25" width="1" height="1"></rect><rect x="26" y="25" width="1" height="1"></rect><rect x="28" y="25" width="1" height="1"></rect><rect x="10" y="26" width="1" height="1"></rect><rect x="11" y="26" width="1" height="1"></rect><rect x="13" y="26" width="1" height="1"></rect><rect x="14" y="26" width="1" height="1"></rect><rect x="16" y="26" width="1" height="1"></rect><rect x="19" y="26" width="1" height="1"></rect><rect x="20" y="26" width="1" height="1"></rect><rect x="22" y="26" width="1" height="1"></rect><rect x="9" y="27" width="1" height="1"></rect><rect x="10" y="27" width="1" height="1"></rect><rect x="12" y="27" width="1" height="1"></rect><rect x="18" y="27" width="1" height="1"></rect><rect x="20" y="27" width="1" height="1"></rect><rect x="21" y="27" width="1" height="1"></rect><rect x="22" y="27" width="1" height="1"></rect><rect x="23" y="27" width="1" height="1"></rect><rect x="24" y="27" width="1" height="1"></rect><rect x="27" y="27" width="1" height="1"></rect><rect x="28" y="27" width="1" height="1"></rect><rect x="12" y="28" width="1" height="1"></rect><rect x="13" y="28" width="1" height="1"></rect><rect x="14" y="28" width="1" height="1"></rect><rect x="15" y="28" width="1" height="1"></rect><rect x="16" y="28" width="1" height="1"></rect><rect x="17" y="28" width="1" height="1"></rect><rect x="19" y="28" width="1" height="1"></rect><rect x="23" y="28" width="1" height="1"></rect></g><g fill="#111"><rect x="0" y="0" width="7" height="7"></rect><rect x="22" y="0" width="7" height="7"></rect><rect x="0" y="22" width="7" height="7"></rect></g><g fill="#fff"><rect x="1" y="1" width="5" height="5"></rect><rect x="23" y="1" width="5" height="5"></rect><rect x="1" y="23" width="5" height="5"></rect></g><g fill="#111"><rect x="2" y="2" width="3" height="3"></rect><rect x="24" y="2" width="3" height="3"></rect><rect x="2" y="24" width="3" height="3"></rect></g></svg></div>
+                <div class="rm-qr-meta">
+                  <span data-i18n="d.r.qrlabel" class="rm-qr-label">スキャンして新しい端末をペアリング</span>
+                  <span class="rm-qr-url">agentpixel.app/r/8f2c…</span>
+                </div>
+              </div>
             </div>
 
             <div class="rm-phone">
@@ -1936,18 +1981,29 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
         <span data-i18n="s4.c1k" class="kicker">上限</span>
         <h3 data-i18n="s4.c1h">書いている途中で上限に当たらない</h3>
         <ul>
-          <li data-i18n="s4.c1a">5時間ウィンドウの残量が、常に画面上に。</li>
+          <li data-i18n="s4.c1a">5時間枠と週間枠、それぞれの残量といつリセットされるかが一目でわかる。</li>
           <li data-i18n-html="s4.c1b">Claude と Codex は<b>別々に集計</b>。</li>
         </ul>
         <div class="card-meter">
-          <div class="cm-two">
-            <div>
-              <div data-i18n-html="d.t.a" class="cm-lab"><span>Claude · 5時間枠</span><b>残り 28%</b></div>
+          <div class="cm-group">
+            <div class="cm-glabel">Claude</div>
+            <div class="cm-item">
+              <div data-i18n-html="d.t.a" class="cm-lab"><span>5時間枠</span><b>残り 28%</b></div>
               <div class="cm-track"><i class="a"></i></div>
+              <div data-i18n="d.t.a.reset" class="cm-reset">6時間42分後にリセット</div>
             </div>
-            <div>
-              <div data-i18n-html="d.t.b" class="cm-lab"><span>Codex</span><b>残り 54%</b></div>
+            <div class="cm-item">
+              <div data-i18n-html="d.t.c" class="cm-lab"><span>週間枠</span><b>残り 55%</b></div>
+              <div class="cm-track"><i class="c"></i></div>
+              <div data-i18n="d.t.c.reset" class="cm-reset">月曜 00:00 にリセット</div>
+            </div>
+          </div>
+          <div class="cm-group">
+            <div class="cm-glabel">Codex</div>
+            <div class="cm-item">
+              <div data-i18n-html="d.t.b" class="cm-lab"><span>週間枠</span><b>残り 54%</b></div>
               <div class="cm-track"><i class="b"></i></div>
+              <div data-i18n="d.t.b.reset" class="cm-reset">月曜 00:00 にリセット</div>
             </div>
           </div>
         </div>
@@ -1968,9 +2024,14 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
         <span class="kicker">Labs</span>
         <h3 data-i18n-html="s4.c3h">マネージャーモード<span class="beta-flag">実験的</span></h3>
         <ul>
-          <li data-i18n="s4.c3a">1つのマネージャータブが他のすべてを統括し、指定した操作を自動承認できる。</li>
+          <li data-i18n="s4.c3a">各セッションが自動実行できる範囲を1つずつ設定。それ以外は引き続き承認が必要。</li>
           <li data-i18n="s4.c3b">動きはする。最適な使い方は我々もまだ探している。</li>
         </ul>
+        <div class="card-checklist">
+          <div class="ck-row ok"><span class="ck-box"></span><span class="ck-name">worker-1</span><span data-i18n="d.m.r1" class="ck-scope">npm test</span></div>
+          <div class="ck-row ok"><span class="ck-box"></span><span class="ck-name">worker-2</span><span data-i18n="d.m.r2" class="ck-scope">ファイル書き込み</span></div>
+          <div class="ck-row wait"><span class="ck-box"></span><span class="ck-name">worker-3</span><span data-i18n="d.m.r3" class="ck-scope">承認待ち</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -2072,13 +2133,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       's4.h2': '還有這些', 's4.sub': '小事，但每天都會遇到',
       's4.c1k': '額度', 's4.c1h': '不會寫到一半，突然沒額度',
-      's4.c1a': '五小時窗口剩多少，隨時在畫面上。',
+      's4.c1a': '五小時與週窗口各剩多少、何時重置，一次看完。',
       's4.c1b': 'Claude 與 Codex <b>分開算</b>。',
       's4.c2k': '狀態持久化', 's4.c2h': '關掉重開，現場還在',
       's4.c2a': '分頁佈局、工作目錄、每個 agent 的位置，完整還原。',
       's4.c2b': '當機、重開機、下班關電腦，都接得回來。',
       's4.c3h': 'Manager 模式<span class="beta-flag">實驗性</span>',
-      's4.c3a': '一個主 Manager 統籌其他所有分頁，可自動核准指定操作。',
+      's4.c3a': '逐一設定每個 Session 能自動執行什麼，其餘操作留給你核准。',
       's4.c3b': '跑得起來了，但最好的用法我們自己也還在找。',
 
       'mani.label': '不綁定廠商',
@@ -2124,12 +2185,21 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       'd.r.toggle': 'Remote 遠端存取',
       'd.r.paired': '<i></i>已配對 · iPhone',
+      'd.r.qrlabel': '掃碼配對新裝置',
       'd.r.newtab': '＋ 開新分頁',
       'd.r.ask': '🔔 worker-2 要你確認',
       'd.r.yes': '允許', 'd.r.no': '拒絕',
 
-      'd.t.a': '<span>Claude · 5h window</span><b>剩 28%</b>',
-      'd.t.b': '<span>Codex</span><b>剩 54%</b>',
+      'd.t.a': '<span>5 小時 window</span><b>剩 28%</b>',
+      'd.t.a.reset': '6 小時 42 分後重置',
+      'd.t.c': '<span>本週 window</span><b>剩 55%</b>',
+      'd.t.c.reset': '週一 00:00 重置',
+      'd.t.b': '<span>本週 window</span><b>剩 54%</b>',
+      'd.t.b.reset': '週一 00:00 重置',
+
+      'd.m.r1': 'npm test',
+      'd.m.r2': '檔案寫入',
+      'd.m.r3': '待你核准',
 
       'w.1': '~/quarterly-report — 分屏三欄',
       'w.2': 'report.md — 隨時接手改',
@@ -2178,13 +2248,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       's4.h2': 'A few more things', 's4.sub': 'Small, but you hit them every day',
       's4.c1k': 'Limits', 's4.c1h': 'Never run out mid-sentence',
-      's4.c1a': 'What\u2019s left in your 5-hour window, always on screen.',
+      's4.c1a': 'How much is left in your 5-hour and weekly windows, and when they reset \u2014 all at a glance.',
       's4.c1b': 'Claude and Codex counted <b>separately</b>.',
       's4.c2k': 'Session restore', 's4.c2h': 'Quit, reopen, nothing moved',
       's4.c2a': 'Tab layout, working directories, every agent\u2019s spot \u2014 all restored.',
       's4.c2b': 'Crash, reboot, or just going home. It comes back.',
       's4.c3h': 'Manager mode<span class="beta-flag">Experimental</span>',
-      's4.c3a': 'One Manager tab runs all the others, and can auto-approve chosen commands.',
+      's4.c3a': 'Set what each session can auto-run, one by one \u2014 everything else still waits for your approval.',
       's4.c3b': 'It works. We\u2019re still figuring out the best way to use it.',
 
       'mani.label': 'Vendor-neutral',
@@ -2230,12 +2300,21 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       'd.r.toggle': 'Remote access',
       'd.r.paired': '<i></i>Paired \u00b7 iPhone',
+      'd.r.qrlabel': 'Scan to pair a new device',
       'd.r.newtab': '+ New tab',
       'd.r.ask': '\ud83d\udd14 worker-2 needs approval',
       'd.r.yes': 'Allow', 'd.r.no': 'Deny',
 
-      'd.t.a': '<span>Claude \u00b7 5h window</span><b>28% left</b>',
-      'd.t.b': '<span>Codex</span><b>54% left</b>',
+      'd.t.a': '<span>5h window</span><b>28% left</b>',
+      'd.t.a.reset': 'Resets in 6h 42m',
+      'd.t.c': '<span>Weekly window</span><b>55% left</b>',
+      'd.t.c.reset': 'Resets Mon 00:00',
+      'd.t.b': '<span>Weekly window</span><b>54% left</b>',
+      'd.t.b.reset': 'Resets Mon 00:00',
+
+      'd.m.r1': 'npm test',
+      'd.m.r2': 'file writes',
+      'd.m.r3': 'waiting on you',
 
       'w.1': '~/quarterly-report \u2014 three-pane split',
       'w.2': 'report.md \u2014 take over anytime',
@@ -2284,13 +2363,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       's4.h2': 'ほかにも', 's4.sub': '小さいけれど、毎日ぶつかること',
       's4.c1k': '上限', 's4.c1h': '書いている途中で上限に当たらない',
-      's4.c1a': '5時間ウィンドウの残量が、常に画面上に。',
+      's4.c1a': '5時間枠と週間枠、それぞれの残量といつリセットされるかが一目でわかる。',
       's4.c1b': 'Claude と Codex は<b>別々に集計</b>。',
       's4.c2k': '状態の永続化', 's4.c2h': '閉じて開き直しても、そのまま',
       's4.c2a': 'タブ配置も作業ディレクトリも、各エージェントの位置も完全に復元。',
       's4.c2b': 'クラッシュも再起動も、退勤時のシャットダウンも問題ない。',
       's4.c3h': 'マネージャーモード<span class="beta-flag">実験的</span>',
-      's4.c3a': '1つのマネージャータブが他のすべてを統括し、指定した操作を自動承認できる。',
+      's4.c3a': '各セッションが自動実行できる範囲を1つずつ設定。それ以外は引き続き承認が必要。',
       's4.c3b': '動きはする。最適な使い方は我々もまだ探している。',
 
       'mani.label': 'ベンダー中立',
@@ -2336,12 +2415,21 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       'd.r.toggle': 'リモートアクセス',
       'd.r.paired': '<i></i>ペアリング済み · iPhone',
+      'd.r.qrlabel': 'スキャンして新しい端末をペアリング',
       'd.r.newtab': '＋ 新しいタブ',
       'd.r.ask': '🔔 worker-2 が確認待ち',
       'd.r.yes': '許可', 'd.r.no': '拒否',
 
-      'd.t.a': '<span>Claude · 5時間枠</span><b>残り 28%</b>',
-      'd.t.b': '<span>Codex</span><b>残り 54%</b>',
+      'd.t.a': '<span>5時間枠</span><b>残り 28%</b>',
+      'd.t.a.reset': '6時間42分後にリセット',
+      'd.t.c': '<span>週間枠</span><b>残り 55%</b>',
+      'd.t.c.reset': '月曜 00:00 にリセット',
+      'd.t.b': '<span>週間枠</span><b>残り 54%</b>',
+      'd.t.b.reset': '月曜 00:00 にリセット',
+
+      'd.m.r1': 'npm test',
+      'd.m.r2': 'ファイル書き込み',
+      'd.m.r3': '承認待ち',
 
       'w.1': '~/quarterly-report — 3ペイン分割',
       'w.2': 'report.md — いつでも引き取れる',
