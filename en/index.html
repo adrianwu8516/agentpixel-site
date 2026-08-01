@@ -666,6 +666,20 @@
   }
   .dl-meta b { color: var(--dim); font-weight: 600; }
 
+
+  /* ---------- download: one card per platform ---------- */
+  .dl-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; max-width:720px; margin:0 auto; }
+  @media (max-width:720px){ .dl-grid{ grid-template-columns:1fr; } }
+  .dl-card { display:flex; flex-direction:column; align-items:center; padding:26px 20px 22px;
+             border:1px solid var(--line-bright); border-radius:16px; background:rgba(255,255,255,0.02); }
+  .dl-card .dl-os { font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.12em;
+                    color:var(--faint); margin-bottom:14px; }
+  .dl-card .platform-note { margin-top:14px; min-height:3.2em; }
+  .dl-card .dl-alt { margin-top:10px; font-family:ui-monospace,Menlo,monospace; font-size:12px;
+                     color:var(--faint); min-height:1.4em; }
+  .dl-card .dl-alt a { color:var(--dim); }
+  .dl-card .dl-meta { margin-top:auto; padding-top:16px; width:100%; gap:14px; }
+
   /* ---------- footer ---------- */
   footer {
     margin-top: 88px;
@@ -1550,7 +1564,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       <button type="button" class="lang-b" data-lang="en"><span class="lg-full">EN</span><span class="lg-abbr">EN</span></button>
       <button type="button" class="lang-b" data-lang="ja"><span class="lg-full">日本語</span><span class="lg-abbr">日</span></button>
     </div>
-    <a class="btn btn-primary btn-sm" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-arm64.dmg">
+    <a class="btn btn-primary btn-sm" href="#dl">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
       <span data-i18n="nav.dlbtn">Download</span>
     </a>
@@ -1571,6 +1585,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
           <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-arm64.dmg">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
             <span data-i18n="hero.cta1">Download for macOS</span>
+          </a>
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64-setup.exe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
+            <span data-i18n="hero.ctaWin">Download for Windows</span>
           </a>
           <a data-i18n="hero.cta2" class="btn btn-ghost" href="#see">See it run</a>
         </div>
@@ -2062,15 +2080,35 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       <span class="label">READY TO INSTALL</span>
       <h2 data-i18n="dl.h2">Make the terminal your office</h2>
       <p data-i18n="dl.sub" class="d-sub">Free while it’s in beta.</p>
-      <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-arm64.dmg">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
-        <span data-i18n="dl.btn">Download for macOS (.dmg)</span>
-      </a>
-      <p data-i18n="dl.note" class="platform-note">Apple Silicon (M-series) Macs only · Requires the Claude Code or Codex CLI</p>
-      <div class="dl-meta">
-        <span data-i18n-html="dl.m1"><b>Version</b> v0.3.1-beta</span>
-        <span data-i18n-html="dl.m2"><b>Size</b> 33 MB</span>
-        <span data-i18n-html="dl.m3"><b>Arch</b> arm64</span>
+      <div class="dl-grid">
+        <div class="dl-card">
+          <span class="dl-os">MACOS</span>
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-arm64.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
+            <span data-i18n="dl.btn">Download for macOS (.dmg)</span>
+          </a>
+          <p data-i18n-html="dl.note" class="platform-note">Apple Silicon only</p>
+          <div class="dl-alt">&nbsp;</div>
+          <div class="dl-meta">
+            <span data-i18n-html="dl.m1"><b>Version</b> v0.3.1-beta</span>
+            <span data-i18n-html="dl.m2"><b>Size</b> 33 MB</span>
+            <span data-i18n-html="dl.m3"><b>Arch</b> arm64</span>
+          </div>
+        </div>
+        <div class="dl-card">
+          <span class="dl-os">WINDOWS</span>
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64-setup.exe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
+            <span data-i18n="dl.btnWin">Download for Windows (.exe)</span>
+          </a>
+          <p data-i18n-html="dl.noteWin" class="platform-note">Windows 10 1809 or later</p>
+          <div class="dl-alt" data-i18n-html="dl.altWin"><a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a></div>
+          <div class="dl-meta">
+            <span data-i18n-html="dl.wm1"><b>Version</b> v0.3.1-beta</span>
+            <span data-i18n-html="dl.wm2"><b>Size</b> 38 MB</span>
+            <span data-i18n-html="dl.wm3"><b>Arch</b> x64</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2110,7 +2148,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'hero.sub': '看著 AI 寫，隨時動手改。像搭檔一樣，一起把工作做完。',
       'hero.cta1': '下載 macOS 版',
       'hero.cta2': '看它怎麼跑',
-      'hero.note': '僅支援 <b>Apple Silicon (M 系列)</b> Mac · Beta 免費',
+      'hero.note': 'macOS 需 <b>Apple Silicon</b> · Windows 需 <b>10 1809</b> 以上 · Beta 免費',
 
       'strip.1': '不綁定廠商 · <span class="mono">Claude Code</span> 與 <span class="mono">Codex</span>',
       'strip.2': '原生 macOS App · 輕量省電',
@@ -2156,6 +2194,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'dl.btn': '下載 macOS 版（.dmg）',
       'dl.note': '僅支援 Apple Silicon (M 系列) Mac · 需先安裝 Claude Code CLI 或 Codex CLI',
       'dl.m1': '<b>版本</b> v0.3.1-beta', 'dl.m2': '<b>大小</b> 33 MB', 'dl.m3': '<b>架構</b> arm64',
+      'hero.ctaWin': '下載 Windows 版', 'dl.btnWin': '下載 Windows 版（.exe）',
+      'dl.noteWin': 'Windows 10 1809 以上 · 尚未簽章，開啟時請點「其他資訊 → 仍要執行」',
+      'dl.altWin': '或下載 <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a>',
+      'dl.wm1': '<b>版本</b> v0.3.1-beta', 'dl.wm2': '<b>大小</b> 38 MB', 'dl.wm3': '<b>架構</b> x64',
 
       'd.h.cmd': 'claude "把 Q2 開支整理成報告"',
       'd.h.tag': '<i></i>report.md · 即時預覽',
@@ -2271,6 +2313,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'dl.btn': 'Download for macOS (.dmg)',
       'dl.note': 'Apple Silicon (M-series) Macs only · Requires the Claude Code or Codex CLI',
       'dl.m1': '<b>Version</b> v0.3.1-beta', 'dl.m2': '<b>Size</b> 33 MB', 'dl.m3': '<b>Arch</b> arm64',
+      'hero.ctaWin': 'Download for Windows', 'dl.btnWin': 'Download for Windows (.exe)',
+      'dl.noteWin': 'Windows 10 1809 or later · Unsigned, so choose <b>More info &rarr; Run anyway</b>',
+      'dl.altWin': 'or get the <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a>',
+      'dl.wm1': '<b>Version</b> v0.3.1-beta', 'dl.wm2': '<b>Size</b> 38 MB', 'dl.wm3': '<b>Arch</b> x64',
 
       'd.h.cmd': 'claude "turn Q2 spend into a report"',
       'd.h.tag': '<i></i>report.md \u00b7 live preview',
@@ -2386,6 +2432,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'dl.btn': 'macOS版をダウンロード（.dmg）',
       'dl.note': 'Apple Silicon（Mシリーズ）Mac のみ · Claude Code CLI または Codex CLI が必要',
       'dl.m1': '<b>バージョン</b> v0.3.1-beta', 'dl.m2': '<b>サイズ</b> 33 MB', 'dl.m3': '<b>アーキテクチャ</b> arm64',
+      'hero.ctaWin': 'Windows版をダウンロード', 'dl.btnWin': 'Windows版をダウンロード（.exe）',
+      'dl.noteWin': 'Windows 10 1809 以降 · 未署名のため「詳細情報 → 実行」を選んでください',
+      'dl.altWin': 'または <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a>',
+      'dl.wm1': '<b>バージョン</b> v0.3.1-beta', 'dl.wm2': '<b>サイズ</b> 38 MB', 'dl.wm3': '<b>アーキテクチャ</b> x64',
 
       'd.h.cmd': 'claude "Q2の支出をレポートにまとめて"',
       'd.h.tag': '<i></i>report.md · ライブプレビュー',
