@@ -84,6 +84,12 @@ ja/index.html       日本語
 og*.png             各語系的社群分享預覽圖
 ```
 
+## 授權
+
+專有授權，保留一切權利 — 詳見 [LICENSE](LICENSE)。
+
+App **可以自由下載使用**（Beta 期間免費，個人與商業用途皆可）。但網站原始碼、文案與品牌素材不得複製轉載，發行檔不得轉散布或重新打包。
+
 ---
 
 <details>
@@ -102,6 +108,8 @@ Instead of one more chat box, AgentPixel gives you the whole terminal: a live fi
 - **Remote** — pick up from your phone. Switch tabs, swap CLIs, start new work; get a push when an agent needs your approval. The work still runs on your own computer.
 
 Free during beta — [download for macOS or Windows](https://github.com/adrianwu8516/agentpixel-site/releases/latest) · [website](https://adrianwu8516.github.io/agentpixel-site/en/)
+
+Proprietary, all rights reserved — see [LICENSE](LICENSE). The app is free to download and use during beta; the website source, copy, and brand assets are not licensed for reuse.
 
 </details>
 

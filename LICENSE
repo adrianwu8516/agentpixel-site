@@ -1,0 +1,67 @@
+AgentPixel — Proprietary License
+Copyright (c) 2026 AgentPixel. All rights reserved.
+
+This repository is NOT open source software.
+
+It contains the source of the AgentPixel website, the AgentPixel brand
+assets, and the distribution point for the AgentPixel application
+binaries published under Releases. The source code of the AgentPixel
+application itself is not part of this repository.
+
+
+YOU MAY
+
+  * Download, install, and use the AgentPixel application for personal
+    or commercial purposes. During the beta period this is free of
+    charge.
+  * Link to this repository, to the website, and to the release pages.
+  * Quote short excerpts of the website text for the purpose of review,
+    commentary, reporting, or teaching, with attribution.
+  * Fork this repository as GitHub's interface permits, provided you do
+    not publish, deploy, or otherwise distribute its contents in a way
+    that conflicts with the restrictions below.
+
+
+YOU MAY NOT, without prior written permission
+
+  * Copy, republish, deploy, or redistribute the website source, its
+    text and layout, or the brand assets (logo, icons, and preview
+    images), in whole or in substantial part.
+  * Redistribute, mirror, repackage, bundle, rent, or sell the
+    application binaries, or host them anywhere other than the official
+    releases.
+  * Modify, adapt, translate, reverse engineer, decompile, or
+    disassemble the application, or attempt to derive its source code,
+    except to the extent such restriction is prohibited by applicable
+    law.
+  * Remove or alter any copyright, trademark, or other proprietary
+    notice.
+  * Use the AgentPixel name, logo, or brand assets to identify,
+    endorse, or promote any other product or service, or in a way that
+    suggests affiliation where none exists.
+
+
+NO WARRANTY
+
+  The website and the application are provided "AS IS", without
+  warranty of any kind, express or implied, including but not limited
+  to the warranties of merchantability, fitness for a particular
+  purpose, and noninfringement. This is beta software; it may change,
+  break, or be discontinued at any time. In no event shall the
+  copyright holder be liable for any claim, damages, or other
+  liability, whether in an action of contract, tort, or otherwise,
+  arising from, out of, or in connection with the software or the use
+  or other dealings in the software.
+
+
+THIRD-PARTY NAMES
+
+  Claude and Claude Code are trademarks of Anthropic. Codex is a
+  trademark of OpenAI. macOS and Apple Silicon are trademarks of Apple
+  Inc. Windows is a trademark of Microsoft Corporation. AgentPixel is
+  not affiliated with, endorsed by, or sponsored by any of them. These
+  names are used only to describe compatibility.
+
+
+For permissions beyond the scope of this license, please open an issue
+on this repository.
