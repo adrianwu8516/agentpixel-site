@@ -31,8 +31,8 @@ Beta 階段，免費下載。
 
 | 平台 | 檔案 | 需求 |
 |---|---|---|
-| **macOS** | [`.dmg`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) | Apple Silicon（M 系列）only · ~33 MB |
-| **Windows** | [`.exe`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) / [`.msi`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) | Windows 10 1809 或更新 · x64 · ~38 MB |
+| **macOS** | [`.dmg`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) · 33 MB | Apple Silicon（M 系列）only |
+| **Windows** | [`.exe`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) 38 MB · [`.msi`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) 47 MB | Windows 10 1809 或更新 · x64 |
 
 > 所有版本都在 [Releases](https://github.com/adrianwu8516/agentpixel-site/releases) 頁面。
 
