@@ -2,8 +2,8 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentPixel — The best office software is a terminal</title>
-<meta name="description" content="You give the order, the agent writes the doc, and you watch every word land. Don’t like something? Fix it yourself. Works with Claude Code and Codex.">
+<title>AgentPixel — The terminal just became office software</title>
+<meta name="description" content="The AI writes on the left, you edit on the right — same file, same moment. Excel, Word, PDF and CSV open right beside the agent, ready to edit. Works with Claude Code and Codex.">
 <meta name="theme-color" content="#06080d">
 <link rel="icon" href="https://adrianwu8516.github.io/agentpixel-site/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="https://adrianwu8516.github.io/agentpixel-site/favicon-32.png" sizes="32x32" type="image/png">
@@ -22,29 +22,29 @@
 <meta property="og:locale:alternate" content="zh_TW">
 <meta property="og:locale:alternate" content="ja_JP">
 <meta property="og:url" content="https://adrianwu8516.github.io/agentpixel-site/en/">
-<meta property="og:title" content="The best office software is a terminal.">
-<meta property="og:description" content="Watch an agent write your report. Don’t like it? Fix it yourself. Claude Code and Codex.">
-<meta property="og:image" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=3">
-<meta property="og:image:secure_url" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=3">
+<meta property="og:title" content="The terminal just became office software.">
+<meta property="og:description" content="The AI writes on the left, you edit on the right. You look at the document, not the commands. Claude Code and Codex.">
+<meta property="og:image" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=4">
+<meta property="og:image:secure_url" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=4">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentPixel key visual: “The best office software is a terminal.” with four pixel-art agents working side by side at laptops on a dark console.">
+<meta property="og:image:alt" content="AgentPixel key visual: “The terminal just became office software.” with four pixel-art agents working side by side at laptops on a dark console.">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The best office software is a terminal.">
-<meta name="twitter:description" content="Watch an agent write your report. Don’t like it? Fix it yourself. Claude Code and Codex.">
-<meta name="twitter:image" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=3">
+<meta name="twitter:title" content="The terminal just became office software.">
+<meta name="twitter:description" content="The AI writes on the left, you edit on the right. You look at the document, not the commands. Claude Code and Codex.">
+<meta name="twitter:image" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=4">
 <meta name="twitter:image:alt" content="AgentPixel key visual: four pixel-art agents working side by side at laptops on a dark console.">
 
 <!-- Legacy / non-Open-Graph scrapers (LINE, QQ, some in-app browsers) -->
-<link rel="image_src" href="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=3">
-<meta itemprop="name" content="AgentPixel — The best office software is a terminal">
-<meta itemprop="description" content="Watch an agent write your report. Don’t like it? Fix it yourself. Claude Code and Codex.">
-<meta itemprop="image" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=3">
+<link rel="image_src" href="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=4">
+<meta itemprop="name" content="AgentPixel — The terminal just became office software">
+<meta itemprop="description" content="The AI writes on the left, you edit on the right. You look at the document, not the commands. Claude Code and Codex.">
+<meta itemprop="image" content="https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=4">
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"AgentPixel","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Windows","url":"https://adrianwu8516.github.io/agentpixel-site/en/","image":"https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=3","description":"Watch an agent write your report. Don’t like it? Fix it yourself. Claude Code and Codex.","inLanguage":"en"}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"AgentPixel","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Windows","url":"https://adrianwu8516.github.io/agentpixel-site/en/","image":"https://adrianwu8516.github.io/agentpixel-site/og-en.png?v=4","description":"The AI writes on the left, you edit on the right. You look at the document, not the commands. Claude Code and Codex.","inLanguage":"en"}
 </script>
 
 <style>
@@ -880,6 +880,34 @@
   .d-edit-tag.show { opacity: 1; transform: none; }
   .d-l .l2 { opacity: 0; }
   .demo.active .d-l .l2 { animation: fadeUp .4s ease .5s forwards; }
+  .d-l .l3 { opacity: 0; }
+  .demo.active .d-l .l3 { animation: fadeUp .4s ease 1.1s forwards; }
+
+  /* --- demo 3: spreadsheet, agent-made, human-edited cell --- */
+  .d-sheet-tabs { display: flex; gap: 2px; margin: -4px 0 10px; font-size: 10.5px; }
+  .d-sheet-tabs span {
+    padding: 2px 10px; border: 1px solid #e3e6eb; border-bottom: none; border-radius: 5px 5px 0 0;
+    color: #6b7280; background: #f4f6f9;
+  }
+  .d-sheet-tabs span.active { color: #12161c; background: #fff; font-weight: 600; }
+  .d-grid {
+    width: 100%; border-collapse: collapse; font-size: 11.5px; color: #1a1f27;
+    font-variant-numeric: tabular-nums;
+  }
+  .d-grid th, .d-grid td { border: 1px solid #e3e6eb; padding: 5px 8px; text-align: right; white-space: nowrap; }
+  .d-grid th { background: #f4f6f9; color: #4a515c; font-weight: 600; font-size: 10.5px; }
+  .d-grid th:first-child, .d-grid td:first-child { text-align: left; }
+  .d-grid td.neg { color: #0f7b6c; }
+  .d-grid td.d-cell-h {
+    color: #1e4fa3; font-weight: 600; position: relative;
+    box-shadow: inset 0 0 0 1.5px rgba(59,130,246,0); background: rgba(59,130,246,0);
+  }
+  .demo.active .d-grid td.d-cell-h { animation: cellEdit .5s ease 1.6s forwards; }
+  @keyframes cellEdit {
+    to { box-shadow: inset 0 0 0 1.5px rgba(59,130,246,.9); background: rgba(59,130,246,.12); }
+  }
+  .d-edit-tag-x { opacity: 0; transform: translateY(-3px); }
+  .demo.active .d-edit-tag-x { animation: fadeUp .3s ease 2.1s forwards; }
 
   /* --- feature 1 demo: three-column split (explorer · agent · file) --- */
   .demo.demo-fx3 { padding: 0; }
@@ -1573,7 +1601,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       <b>AgentPixel</b><span class="tag">BETA</span>
     </div>
     <div class="nav-links">
-      <a data-i18n="nav.see" href="#see">See it</a>
+      <a data-i18n="nav.see" href="#see">Side by side</a>
       <a data-i18n="nav.office" href="#office">The office</a>
       <a data-i18n="nav.remote" href="#remote">Remote</a>
       <a data-i18n="nav.dl" href="#download">Download</a>
@@ -1596,16 +1624,16 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       <div class="hero-copy">
         <div class="hero-eyebrow">
           <span class="pulse"></span>
-          <span data-i18n="hero.eyebrow">AI-powered productivity for everyday work</span>
+          <span data-i18n="hero.eyebrow">Work beside your agents · Claude Code & Codex</span>
         </div>
-        <h1 data-i18n-html="hero.h1" class="headline punch">The best office software<br><span class="grad">is a terminal.</span></h1>
-        <p data-i18n="hero.sub" class="sub">Watch it write, and jump in anytime. Like a teammate — you get the work done together.</p>
+        <h1 data-i18n-html="hero.h1" class="headline punch">The terminal just became<br><span class="grad">office software.</span></h1>
+        <p data-i18n="hero.sub" class="sub">The AI writes on the left, you edit on the right — same file, same moment. You look at the document, not the commands.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-arm64.dmg">
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.1-beta/AgentPixel-0.4.1-beta-arm64.dmg">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
             <span data-i18n="hero.cta1">Download for macOS</span>
           </a>
-          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64-setup.exe">
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.0-beta/AgentPixel-0.4.0-beta-x64-setup.exe">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
             <span data-i18n="hero.ctaWin">Download for Windows</span>
           </a>
@@ -1666,9 +1694,9 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
   <div class="wrap">
     <div class="pillar-head">
       <span class="pillar-index">[ 01 ]</span>
-      <h2 data-i18n="s1.h2">The AI is done. Where are the files?</h2>
+      <h2 data-i18n="s1.h2">It writes. You edit. Same file.</h2>
     </div>
-    <p data-i18n="s1.lede" class="pillar-lede">It just wrote five of them. You shouldn’t have to dig through Finder — or re-run the whole prompt to change four words.</p>
+    <p data-i18n="s1.lede" class="pillar-lede">We call it working side by side: the agent turns out five files and they appear on the left as they land. Watch it write, step in when something’s off — no waiting for it to finish, no re-prompting to change four words.</p>
 
     <div class="showcase" data-showcase="">
       <div class="showcase-list">
@@ -1687,6 +1715,15 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
           <div class="feat-body"><div><ul>
             <li data-i18n-html="s1.f2a">Watch it type word by word — <b>no waiting for it to finish</b>.</li>
             <li data-i18n="s1.f2b">Click in and start typing. You and the AI share one file.</li>
+          </ul></div></div>
+          <div class="feat-progress"><span></span></div>
+        </button>
+        <button class="feat" type="button">
+          <span data-i18n="s1.f3k" class="feat-kicker">Excel, Word, PDF too</span>
+          <h3 data-i18n="s1.f3h">40+ formats open beside the agent, ready to edit</h3>
+          <div class="feat-body"><div><ul>
+            <li data-i18n-html="s1.f3a">Spreadsheets, Word, PDF, CSV, notebooks, databases — <b>all rendered in the same window</b>, no switching apps.</li>
+            <li data-i18n="s1.f3b">Grid files (CSV, Excel, SQLite) edit in place and save back to the original; documents hand off to your default app in one click.</li>
           </ul></div></div>
           <div class="feat-progress"><span></span></div>
         </button>
@@ -1752,6 +1789,32 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
                 </div>
               </div>
             </div>
+            <div class="demo demo-doc demo-xlsx" data-title="Q2-expenses.xlsx — view it, edit it" data-i18n-attr="data-title:w.4">
+              <div class="d-split">
+                <div class="d-l">
+                  <div data-i18n-html="d.s.cmd"><span class="d-clr-p">$</span> claude "turn Q2 expenses into an Excel file"</div>
+                  <div data-i18n-html="d.s.a" class="l2"><span class="d-clr-a">◇</span> <span class="d-clr-o">created Q2-expenses.xlsx</span></div>
+                  <div data-i18n-html="d.s.b" class="l3"><span class="d-clr-t">✓</span> <span class="d-clr-o">2 sheets · 48 rows</span></div>
+                </div>
+                <div class="d-r">
+                  <div class="d-doc-tabs">
+                    <span class="d-doc-tab active">Q2-expenses.xlsx</span>
+                    <span class="d-doc-tab">report.md</span>
+                  </div>
+                  <div class="d-sheet-tabs"><span data-i18n="d.s.sh1" class="active">Detail</span><span data-i18n="d.s.sh2">Summary</span></div>
+                  <table class="d-grid" aria-label="Q2 expenses">
+                    <thead><tr><th data-i18n="d.s.h1">Item</th><th data-i18n="d.s.h2">Last Q</th><th data-i18n="d.s.h3">This Q</th><th data-i18n="d.s.h4">Change</th></tr></thead>
+                    <tbody>
+                      <tr><td data-i18n="d.s.r1">Cloud compute</td><td>412,000</td><td>348,000</td><td class="neg">−15.5%</td></tr>
+                      <tr><td data-i18n="d.s.r2">Vendors</td><td>265,000</td><td>240,000</td><td class="neg">−9.4%</td></tr>
+                      <tr><td data-i18n="d.s.r3">Subscriptions</td><td>88,000</td><td class="d-cell-h">61,000</td><td class="neg">−30.7%</td></tr>
+                    </tbody>
+                  </table>
+                  <div data-i18n="d.s.tag" class="d-edit-tag d-edit-tag-x">✎ Edited by you · saved back to .xlsx</div>
+                  <div data-i18n-html="d.s.note" class="d-doc-note"><b>Made by the agent</b> · edit the cell directly, <b>styles and other sheets stay untouched</b></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1765,7 +1828,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       <span class="pillar-index">[ 02 ]</span>
       <h2 data-i18n="s2.h2">Your agents now have faces.</h2>
     </div>
-    <p data-i18n="s2.lede" class="pillar-lede">Who’s working, who’s stuck, who’s done — at a glance. And how many more your Mac can take.</p>
+    <p data-i18n="s2.lede" class="pillar-lede">Who’s working, who’s stuck, who’s done — at a glance. Plus what the whole machine is using, what AgentPixel is using, and how many more it can take.</p>
 
     <div class="po-wrap">
       <div class="po-stage">
@@ -1928,12 +1991,12 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       <div class="po-readout">
         <div class="po-meters">
           <div class="po-meter">
-            <div data-i18n-html="d.o.cpu" class="po-mlab"><span>CPU</span><span class="po-mval">42%</span></div>
-            <div class="po-track"><i style="--w:42%"></i></div>
+            <div data-i18n-html="d.o.cpu" class="po-mlab"><span>Whole machine</span><span class="po-mval">6.1 / 16 GB</span></div>
+            <div class="po-track"><i style="--w:38%"></i></div>
           </div>
           <div class="po-meter">
-            <div data-i18n-html="d.o.mem" class="po-mlab"><span>Memory</span><span class="po-mval">6.1 / 16 GB</span></div>
-            <div class="po-track"><i style="--w:38%"></i></div>
+            <div data-i18n-html="d.o.mem" class="po-mlab"><span>AgentPixel</span><span class="po-mval">1.4 GB</span></div>
+            <div class="po-track"><i style="--w:9%"></i></div>
           </div>
           <div class="po-meter">
             <div data-i18n-html="d.o.room" class="po-mlab"><span>Room for</span><span class="po-mval ok">~3 more</span></div>
@@ -2097,33 +2160,33 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
   <div class="wrap">
     <div class="download-inner">
       <span class="label">READY TO INSTALL</span>
-      <h2 data-i18n="dl.h2">Make the terminal your office</h2>
+      <h2 data-i18n="dl.h2">Upgrade your terminal to office software</h2>
       <p data-i18n="dl.sub" class="d-sub">Free while it’s in beta.</p>
       <div class="dl-grid">
         <div class="dl-card">
           <span class="dl-os">MACOS</span>
-          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-arm64.dmg">
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.1-beta/AgentPixel-0.4.1-beta-arm64.dmg">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
             <span data-i18n="dl.btn">Download for macOS (.dmg)</span>
           </a>
-          <p data-i18n-html="dl.note" class="platform-note">Apple Silicon only</p>
+          <p data-i18n-html="dl.note" class="platform-note">Apple Silicon (M-series) Macs only · Requires the Claude Code or Codex CLI</p>
           <div class="dl-alt">&nbsp;</div>
           <div class="dl-meta">
-            <span data-i18n-html="dl.m1"><b>Version</b> v0.3.1-beta</span>
-            <span data-i18n-html="dl.m2"><b>Size</b> 33 MB</span>
+            <span data-i18n-html="dl.m1"><b>Version</b> v0.4.1-beta</span>
+            <span data-i18n-html="dl.m2"><b>Size</b> 54 MB</span>
             <span data-i18n-html="dl.m3"><b>Arch</b> arm64</span>
           </div>
         </div>
         <div class="dl-card">
           <span class="dl-os">WINDOWS</span>
-          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64-setup.exe">
+          <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.0-beta/AgentPixel-0.4.0-beta-x64-setup.exe">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"></path></svg>
             <span data-i18n="dl.btnWin">Download for Windows (.exe)</span>
           </a>
-          <p data-i18n-html="dl.noteWin" class="platform-note">Windows 10 1809 or later</p>
-          <div class="dl-alt" data-i18n-html="dl.altWin"><a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a></div>
+          <p data-i18n-html="dl.noteWin" class="platform-note">Windows 10 1809 or later · Unsigned, so choose <b>More info &rarr; Run anyway</b></p>
+          <div class="dl-alt" data-i18n-html="dl.altWin">or get the <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.0-beta/AgentPixel-0.4.0-beta-x64.msi">.msi</a></div>
           <div class="dl-meta">
-            <span data-i18n-html="dl.wm1"><b>Version</b> v0.3.1-beta</span>
+            <span data-i18n-html="dl.wm1"><b>Version</b> v0.4.0-beta</span>
             <span data-i18n-html="dl.wm2"><b>Size</b> 38 MB</span>
             <span data-i18n-html="dl.wm3"><b>Arch</b> x64</span>
           </div>
@@ -2154,17 +2217,17 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- 繁體中文 ---------------- */
     zh: {
-      'meta.title': 'AgentPixel — Terminal 才是最強辦公軟體',
-      'meta.desc': '你下指令，Agent 寫文件，你在旁邊看著它一個字一個字寫出來。不順眼的地方，自己改。支援 Claude Code 與 Codex。',
-      'meta.ogtitle': 'Terminal 才是最強辦公軟體！',
-      'meta.ogdesc': '看著 Agent 幫你寫報告。看不順眼，直接改。支援 Claude Code 與 Codex。',
-      'meta.ogimg': 'og.png?v=3',
+      'meta.title': 'AgentPixel — Terminal，升級成辦公軟體了',
+      'meta.desc': 'AI 在左邊寫，你在右邊改——同一份檔案、同一個時間。Excel、Word、PDF、CSV 都在旁邊直接看，該改就改。支援 Claude Code 與 Codex。',
+      'meta.ogtitle': 'Terminal，升級成辦公軟體了。',
+      'meta.ogdesc': 'AI 在左邊寫，你在右邊改。你看的是文件，不是指令。支援 Claude Code 與 Codex。',
+      'meta.ogimg': 'og.png?v=4',
 
-      'nav.see': '看得見', 'nav.office': '辦公室', 'nav.remote': '遠端', 'nav.dl': '下載', 'nav.dlbtn': '下載',
+      'nav.see': '並肩工作', 'nav.office': '辦公室', 'nav.remote': '遠端', 'nav.dl': '下載', 'nav.dlbtn': '下載',
 
-      'hero.eyebrow': '用 AI 全面提升日常工作生產力',
-      'hero.h1': '<span class="nowrap">Terminal 才是</span><span class="grad">最強辦公軟體！</span>',
-      'hero.sub': '看著 AI 寫，隨時動手改。像搭檔一樣，一起把工作做完。',
+      'hero.eyebrow': '跟 AI 並肩工作 · Claude Code 與 Codex',
+      'hero.h1': '<span class="nowrap">Terminal，</span><span class="grad">升級成辦公軟體了。</span>',
+      'hero.sub': 'AI 在左邊寫，你在右邊改——同一份檔案、同一個時間。你看的是文件，不是指令。',
       'hero.cta1': '下載 macOS 版',
       'hero.cta2': '看它怎麼跑',
       'hero.note': 'macOS 需 <b>Apple Silicon</b> · Windows 需 <b>10 1809</b> 以上 · Beta 免費',
@@ -2173,17 +2236,20 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'strip.2': '原生 macOS App · 輕量省電',
       'strip.3': '本機優先 · 資料不離開你的電腦',
 
-      's1.h2': 'AI 寫完了。檔案在哪？',
-      's1.lede': '它一次生五份檔案。你不該還要開 Finder 一個一個找，更不該為了改四個字重下一次 prompt。',
+      's1.h2': '它寫，你改。同一份檔案。',
+      's1.lede': '我們叫它並肩工作：AI 一次生五份檔案，生出來就在左邊；你看著它寫，不順眼就直接改——不必等它跑完，也不必為了改四個字重下一次 prompt。',
       's1.f1k': '生出來就在左邊', 's1.f1h': '檔案即時出現，點一下就打開',
       's1.f1a': '新檔案一產出就<b>出現在左側</b>，點一下打開。',
       's1.f1b': 'Terminal 與文件並排，單螢幕筆電也做得到。',
       's1.f2k': '不順眼就自己改', 's1.f2h': '看著它寫，隨時接手',
       's1.f2a': '一個字一個字看它寫，<b>不必等它跑完</b>。',
       's1.f2b': '想改就點進去打字，人和 AI 共用同一份檔案。',
+      's1.f3k': 'Excel、Word、PDF 也一樣', 's1.f3h': '40 多種格式，在旁邊直接看，該改就改',
+      's1.f3a': '試算表、Word、PDF、CSV、Notebook、資料庫……<b>都在同一個視窗裡渲染出來</b>，不用切去別的 App。',
+      's1.f3b': '表格類（CSV、Excel、SQLite）直接改儲存格、存回原檔；文件類一鍵交給預設 App。',
 
       's2.h2': '你的 Agent 們，現在有臉了。',
-      's2.lede': '誰在忙、誰舉手、誰做完了，一眼看完。順便告訴你，電腦還撐得住幾個。',
+      's2.lede': '誰在忙、誰舉手、誰做完了，一眼看完。順便告訴你：整台電腦用了多少、AgentPixel 占多少、還撐得住幾個。',
       's2.callout': 'worker-2 舉手了 ↓',
       's2.restore': '⟲ 關掉重開 · 大家都還在座位上',
 
@@ -2208,15 +2274,15 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'mani.small': 'AgentPixel 不在乎你用誰。這句話，Anthropic 和 Microsoft 都說不出口。',
       'mani.next': '你的下一個 CLI',
 
-      'dl.h2': '讓 Terminal 成為你的辦公室',
+      'dl.h2': '把你的 Terminal 升級成辦公軟體',
       'dl.sub': 'Beta 階段，免費下載。',
       'dl.btn': '下載 macOS 版（.dmg）',
       'dl.note': '僅支援 Apple Silicon (M 系列) Mac · 需先安裝 Claude Code CLI 或 Codex CLI',
-      'dl.m1': '<b>版本</b> v0.3.1-beta', 'dl.m2': '<b>大小</b> 33 MB', 'dl.m3': '<b>架構</b> arm64',
+      'dl.m1': '<b>版本</b> v0.4.1-beta', 'dl.m2': '<b>大小</b> 54 MB', 'dl.m3': '<b>架構</b> arm64',
       'hero.ctaWin': '下載 Windows 版', 'dl.btnWin': '下載 Windows 版（.exe）',
       'dl.noteWin': 'Windows 10 1809 以上 · 尚未簽章，開啟時請點「其他資訊 → 仍要執行」',
-      'dl.altWin': '或下載 <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a>',
-      'dl.wm1': '<b>版本</b> v0.3.1-beta', 'dl.wm2': '<b>大小</b> 38 MB', 'dl.wm3': '<b>架構</b> x64',
+      'dl.altWin': '或下載 <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.0-beta/AgentPixel-0.4.0-beta-x64.msi">.msi</a>',
+      'dl.wm1': '<b>版本</b> v0.4.0-beta', 'dl.wm2': '<b>大小</b> 38 MB', 'dl.wm3': '<b>架構</b> x64',
 
       'd.h.cmd': 'claude "把 Q2 開支整理成報告"',
       'd.h.tag': '<i></i>report.md · 即時預覽',
@@ -2244,8 +2310,17 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'd.d.tag': '✎ 手動修改',
       'd.d.note': '<b>LLM 生成</b> · 你可以直接<b>選取、刪改</b>、續寫',
 
-      'd.o.cpu': '<span>CPU</span><span class="po-mval">42%</span>',
-      'd.o.mem': '<span>記憶體</span><span class="po-mval">6.1 / 16 GB</span>',
+      'd.s.cmd': '<span class="d-clr-p">$</span> claude "把 Q2 開支整理成 Excel"',
+      'd.s.a': '<span class="d-clr-a">◇</span> <span class="d-clr-o">建立 Q2-expenses.xlsx</span>',
+      'd.s.b': '<span class="d-clr-t">✓</span> <span class="d-clr-o">2 個工作表 · 48 列</span>',
+      'd.s.sh1': '明細', 'd.s.sh2': '摘要',
+      'd.s.h1': '項目', 'd.s.h2': '上季', 'd.s.h3': '本季', 'd.s.h4': '變化',
+      'd.s.r1': '雲端運算', 'd.s.r2': '供應商', 'd.s.r3': '訂閱服務',
+      'd.s.tag': '✎ 手動修改 · 已存回 .xlsx',
+      'd.s.note': '<b>Agent 產出</b> · 你直接改儲存格，<b>樣式與其他工作表原封不動</b>',
+
+      'd.o.cpu': '<span>整台電腦</span><span class="po-mval">6.1 / 16 GB</span>',
+      'd.o.mem': '<span>AgentPixel</span><span class="po-mval">1.4 GB</span>',
       'd.o.room': '<span>還能再開</span><span class="po-mval ok">約 3 個</span>',
 
       'd.r.toggle': 'Remote 遠端存取',
@@ -2268,22 +2343,23 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       'w.1': '~/quarterly-report — 分屏三欄',
       'w.2': 'report.md — 隨時接手改',
-      'w.3': 'Remote — 手機接手'
+      'w.3': 'Remote — 手機接手',
+      'w.4': 'Q2-expenses.xlsx — 直接看，直接改'
     },
 
     /* ---------------- English ---------------- */
     en: {
-      'meta.title': 'AgentPixel — The best office software is a terminal',
-      'meta.desc': 'You give the order, the agent writes the doc, and you watch every word land. Don\u2019t like something? Fix it yourself. Works with Claude Code and Codex.',
-      'meta.ogtitle': 'The best office software is a terminal.',
-      'meta.ogdesc': 'Watch an agent write your report. Don\u2019t like it? Fix it yourself. Claude Code and Codex.',
-      'meta.ogimg': 'og-en.png?v=3',
+      'meta.title': 'AgentPixel — The terminal just became office software',
+      'meta.desc': 'The AI writes on the left, you edit on the right \u2014 same file, same moment. Excel, Word, PDF and CSV open right beside the agent, ready to edit. Works with Claude Code and Codex.',
+      'meta.ogtitle': 'The terminal just became office software.',
+      'meta.ogdesc': 'The AI writes on the left, you edit on the right. You look at the document, not the commands. Claude Code and Codex.',
+      'meta.ogimg': 'og-en.png?v=4',
 
-      'nav.see': 'See it', 'nav.office': 'The office', 'nav.remote': 'Remote', 'nav.dl': 'Download', 'nav.dlbtn': 'Download',
+      'nav.see': 'Side by side', 'nav.office': 'The office', 'nav.remote': 'Remote', 'nav.dl': 'Download', 'nav.dlbtn': 'Download',
 
-      'hero.eyebrow': 'AI-powered productivity for everyday work',
-      'hero.h1': 'The best office software<br><span class="grad">is a terminal.</span>',
-      'hero.sub': 'Watch it write, and jump in anytime. Like a teammate \u2014 you get the work done together.',
+      'hero.eyebrow': 'Work beside your agents \u00b7 Claude Code & Codex',
+      'hero.h1': 'The terminal just became<br><span class="grad">office software.</span>',
+      'hero.sub': 'The AI writes on the left, you edit on the right \u2014 same file, same moment. You look at the document, not the commands.',
       'hero.cta1': 'Download for macOS',
       'hero.cta2': 'See it run',
       'hero.note': '<b>Apple Silicon (M-series)</b> Macs only · Free in beta',
@@ -2292,17 +2368,20 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'strip.2': 'Native macOS app · Light on your battery',
       'strip.3': 'Local-first · Nothing leaves your Mac',
 
-      's1.h2': 'The AI is done. Where are the files?',
-      's1.lede': 'It just wrote five of them. You shouldn\u2019t have to dig through Finder \u2014 or re-run the whole prompt to change four words.',
+      's1.h2': 'It writes. You edit. Same file.',
+      's1.lede': 'We call it working side by side: the agent turns out five files and they appear on the left as they land. Watch it write, step in when something\u2019s off \u2014 no waiting for it to finish, no re-prompting to change four words.',
       's1.f1k': 'Right there on the left', 's1.f1h': 'Files appear instantly. Click to open.',
       's1.f1a': 'New files <b>show up on the left</b> the moment they\u2019re written.',
       's1.f1b': 'Terminal and document side by side \u2014 even on one laptop screen.',
       's1.f2k': 'Don\u2019t like it? Fix it', 's1.f2h': 'Watch it write. Take over anytime.',
       's1.f2a': 'Watch it type word by word \u2014 <b>no waiting for it to finish</b>.',
       's1.f2b': 'Click in and start typing. You and the AI share one file.',
+      's1.f3k': 'Excel, Word, PDF too', 's1.f3h': '40+ formats open beside the agent, ready to edit',
+      's1.f3a': 'Spreadsheets, Word, PDF, CSV, notebooks, databases \u2014 <b>all rendered in the same window</b>, no switching apps.',
+      's1.f3b': 'Grid files (CSV, Excel, SQLite) edit in place and save back to the original; documents hand off to your default app in one click.',
 
       's2.h2': 'Your agents now have faces.',
-      's2.lede': 'Who\u2019s working, who\u2019s stuck, who\u2019s done \u2014 at a glance. And how many more your Mac can take.',
+      's2.lede': 'Who\u2019s working, who\u2019s stuck, who\u2019s done \u2014 at a glance. Plus what the whole machine is using, what AgentPixel is using, and how many more it can take.',
       's2.callout': 'worker-2 needs you \u2193',
       's2.restore': '\u27f2 Quit and reopen \u00b7 everyone\u2019s still at their desk',
 
@@ -2327,15 +2406,15 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'mani.small': 'AgentPixel doesn\u2019t care which one you use. Neither Anthropic nor Microsoft can say that.',
       'mani.next': 'your next CLI',
 
-      'dl.h2': 'Make the terminal your office',
+      'dl.h2': 'Upgrade your terminal to office software',
       'dl.sub': 'Free while it\u2019s in beta.',
       'dl.btn': 'Download for macOS (.dmg)',
       'dl.note': 'Apple Silicon (M-series) Macs only · Requires the Claude Code or Codex CLI',
-      'dl.m1': '<b>Version</b> v0.3.1-beta', 'dl.m2': '<b>Size</b> 33 MB', 'dl.m3': '<b>Arch</b> arm64',
+      'dl.m1': '<b>Version</b> v0.4.1-beta', 'dl.m2': '<b>Size</b> 54 MB', 'dl.m3': '<b>Arch</b> arm64',
       'hero.ctaWin': 'Download for Windows', 'dl.btnWin': 'Download for Windows (.exe)',
       'dl.noteWin': 'Windows 10 1809 or later · Unsigned, so choose <b>More info &rarr; Run anyway</b>',
-      'dl.altWin': 'or get the <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a>',
-      'dl.wm1': '<b>Version</b> v0.3.1-beta', 'dl.wm2': '<b>Size</b> 38 MB', 'dl.wm3': '<b>Arch</b> x64',
+      'dl.altWin': 'or get the <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.0-beta/AgentPixel-0.4.0-beta-x64.msi">.msi</a>',
+      'dl.wm1': '<b>Version</b> v0.4.0-beta', 'dl.wm2': '<b>Size</b> 38 MB', 'dl.wm3': '<b>Arch</b> x64',
 
       'd.h.cmd': 'claude "turn Q2 spend into a report"',
       'd.h.tag': '<i></i>report.md \u00b7 live preview',
@@ -2363,8 +2442,17 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'd.d.tag': '\u270e Edited by hand',
       'd.d.note': '<b>Written by the LLM</b> \u00b7 you can <b>select, delete, rewrite</b>',
 
-      'd.o.cpu': '<span>CPU</span><span class="po-mval">42%</span>',
-      'd.o.mem': '<span>Memory</span><span class="po-mval">6.1 / 16 GB</span>',
+      'd.s.cmd': '<span class="d-clr-p">$</span> claude "turn Q2 expenses into an Excel file"',
+      'd.s.a': '<span class="d-clr-a">\u25c7</span> <span class="d-clr-o">created Q2-expenses.xlsx</span>',
+      'd.s.b': '<span class="d-clr-t">\u2713</span> <span class="d-clr-o">2 sheets \u00b7 48 rows</span>',
+      'd.s.sh1': 'Detail', 'd.s.sh2': 'Summary',
+      'd.s.h1': 'Item', 'd.s.h2': 'Last Q', 'd.s.h3': 'This Q', 'd.s.h4': 'Change',
+      'd.s.r1': 'Cloud compute', 'd.s.r2': 'Vendors', 'd.s.r3': 'Subscriptions',
+      'd.s.tag': '\u270e Edited by you \u00b7 saved back to .xlsx',
+      'd.s.note': '<b>Made by the agent</b> \u00b7 edit the cell directly, <b>styles and other sheets stay untouched</b>',
+
+      'd.o.cpu': '<span>Whole machine</span><span class="po-mval">6.1 / 16 GB</span>',
+      'd.o.mem': '<span>AgentPixel</span><span class="po-mval">1.4 GB</span>',
       'd.o.room': '<span>Room for</span><span class="po-mval ok">~3 more</span>',
 
       'd.r.toggle': 'Remote access',
@@ -2387,22 +2475,23 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       'w.1': '~/quarterly-report \u2014 three-pane split',
       'w.2': 'report.md \u2014 take over anytime',
-      'w.3': 'Remote \u2014 hand off to your phone'
+      'w.3': 'Remote \u2014 hand off to your phone',
+      'w.4': 'Q2-expenses.xlsx \u2014 view it, edit it'
     },
 
     /* ---------------- 日本語 ---------------- */
     ja: {
-      'meta.title': 'AgentPixel — 最強のオフィスソフトは、ターミナルだった',
-      'meta.desc': '指示を出せば書き始める。一文字ずつ書かれていくのを横で見ながら、気に入らないところは自分で直す。Claude Code と Codex に対応。',
-      'meta.ogtitle': '最強のオフィスソフトは、ターミナルだった。',
-      'meta.ogdesc': 'エージェントがレポートを書くのを見ながら、気に入らなければ自分で直す。Claude Code と Codex に対応。',
-      'meta.ogimg': 'og-ja.png?v=3',
+      'meta.title': 'AgentPixel — ターミナルが、オフィスソフトになりました',
+      'meta.desc': 'AI が左で書き、あなたが右で直す——同じファイル、同じ瞬間。Excel・Word・PDF・CSV もすぐ横で開いて、そのまま編集。Claude Code と Codex に対応。',
+      'meta.ogtitle': 'ターミナルが、オフィスソフトになりました。',
+      'meta.ogdesc': 'AI が左で書き、あなたが右で直す。見ているのは書類で、コマンドじゃない。Claude Code と Codex に対応。',
+      'meta.ogimg': 'og-ja.png?v=4',
 
-      'nav.see': '見える', 'nav.office': 'オフィス', 'nav.remote': 'リモート', 'nav.dl': 'ダウンロード', 'nav.dlbtn': 'ダウンロード',
+      'nav.see': '並んで働く', 'nav.office': 'オフィス', 'nav.remote': 'リモート', 'nav.dl': 'ダウンロード', 'nav.dlbtn': 'ダウンロード',
 
-      'hero.eyebrow': 'AI で日常業務の生産性を底上げ',
-      'hero.h1': '最強のオフィスソフトは、<br><span class="grad">ターミナルだった。</span>',
-      'hero.sub': '書いているところを見ながら、いつでも手を入れられる。相棒として、一緒に仕事を仕上げる。',
+      'hero.eyebrow': 'AI と並んで働く · Claude Code と Codex',
+      'hero.h1': 'ターミナルが、<br><span class="grad">オフィスソフトに<br>なりました。</span>',
+      'hero.sub': 'AI が左で書き、あなたが右で直す——同じファイル、同じ瞬間。見ているのは書類で、コマンドじゃない。',
       'hero.cta1': 'macOS版をダウンロード',
       'hero.cta2': '動きを見る',
       'hero.note': '<b>Apple Silicon（Mシリーズ）</b>Mac のみ · ベータ版は無料',
@@ -2411,17 +2500,20 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'strip.2': 'ネイティブ macOS アプリ · 軽量・省電力',
       'strip.3': 'ローカル優先 · データは端末から出ない',
 
-      's1.h2': 'AI は書き終えた。ファイルはどこ？',
-      's1.lede': '一度に5つのファイルができる。Finder で一つずつ探す必要も、四文字直すためにプロンプトを打ち直す必要もない。',
+      's1.h2': 'AI が書く。あなたが直す。同じファイル。',
+      's1.lede': 'これを「並んで働く」と呼んでいます。AI が一気に 5 つのファイルを作れば、左側にすぐ現れる。書いているのを見ながら、気に入らなければその場で直す——終わるのを待たなくていいし、4 文字直すためにプロンプトを打ち直す必要もない。',
       's1.f1k': 'できた瞬間、左に出る', 's1.f1h': '新しいファイルが即座に表示、クリックで開く',
       's1.f1a': '生成された瞬間に<b>左側に表示</b>。クリックで開く。',
       's1.f1b': 'ターミナルと文書を並べて表示。ノート1画面でもできる。',
       's1.f2k': '気に入らなければ直す', 's1.f2h': '書いている途中で、いつでも引き取れる',
       's1.f2a': '一文字ずつ書かれるのが見える。<b>完了を待たなくていい</b>。',
       's1.f2b': 'クリックして打ち込むだけ。人と AI が同じファイルを共有する。',
+      's1.f3k': 'Excel も Word も PDF も', 's1.f3h': '40 種類以上のファイルを横で開いて、そのまま編集',
+      's1.f3a': '表計算、Word、PDF、CSV、ノートブック、データベース……<b>すべて同じウィンドウで表示</b>。別のアプリに切り替えなくていい。',
+      's1.f3b': '表形式（CSV・Excel・SQLite）はセルを直接編集して元のファイルに保存。文書類はワンクリックで既定のアプリへ。',
 
       's2.h2': 'あなたのエージェントに、顔がついた。',
-      's2.lede': '誰が動いていて、誰が手を挙げ、誰が終わったか。ついでに、あと何個動かせるかも。',
+      's2.lede': '誰が動いていて、誰が手を挙げ、誰が終わったか。ついでに、マシン全体の使用量、AgentPixel の使用量、あと何個動かせるかも。',
       's2.callout': 'worker-2 が手を挙げた ↓',
       's2.restore': '⟲ 閉じて開き直しても、全員まだ席にいる',
 
@@ -2446,15 +2538,15 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'mani.small': 'AgentPixel はどれを使おうと気にしない。Anthropic にも Microsoft にも言えない一言。',
       'mani.next': '次に来る CLI',
 
-      'dl.h2': 'ターミナルを、あなたのオフィスに',
+      'dl.h2': 'あなたのターミナルを、オフィスソフトに',
       'dl.sub': 'ベータ版につき無料。',
       'dl.btn': 'macOS版をダウンロード（.dmg）',
       'dl.note': 'Apple Silicon（Mシリーズ）Mac のみ · Claude Code CLI または Codex CLI が必要',
-      'dl.m1': '<b>バージョン</b> v0.3.1-beta', 'dl.m2': '<b>サイズ</b> 33 MB', 'dl.m3': '<b>アーキテクチャ</b> arm64',
+      'dl.m1': '<b>バージョン</b> v0.4.1-beta', 'dl.m2': '<b>サイズ</b> 54 MB', 'dl.m3': '<b>アーキテクチャ</b> arm64',
       'hero.ctaWin': 'Windows版をダウンロード', 'dl.btnWin': 'Windows版をダウンロード（.exe）',
       'dl.noteWin': 'Windows 10 1809 以降 · 未署名のため「詳細情報 → 実行」を選んでください',
-      'dl.altWin': 'または <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.3.1-beta/AgentPixel-0.3.1-beta-x64.msi">.msi</a>',
-      'dl.wm1': '<b>バージョン</b> v0.3.1-beta', 'dl.wm2': '<b>サイズ</b> 38 MB', 'dl.wm3': '<b>アーキテクチャ</b> x64',
+      'dl.altWin': 'または <a href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.0-beta/AgentPixel-0.4.0-beta-x64.msi">.msi</a>',
+      'dl.wm1': '<b>バージョン</b> v0.4.0-beta', 'dl.wm2': '<b>サイズ</b> 38 MB', 'dl.wm3': '<b>アーキテクチャ</b> x64',
 
       'd.h.cmd': 'claude "Q2の支出をレポートにまとめて"',
       'd.h.tag': '<i></i>report.md · ライブプレビュー',
@@ -2482,8 +2574,17 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'd.d.tag': '✎ 手動で修正',
       'd.d.note': '<b>LLM が生成</b> · <b>選択・削除・書き直し</b>ができる',
 
-      'd.o.cpu': '<span>CPU</span><span class="po-mval">42%</span>',
-      'd.o.mem': '<span>メモリ</span><span class="po-mval">6.1 / 16 GB</span>',
+      'd.s.cmd': '<span class="d-clr-p">$</span> claude "Q2 の経費を Excel にまとめて"',
+      'd.s.a': '<span class="d-clr-a">◇</span> <span class="d-clr-o">Q2-expenses.xlsx を作成</span>',
+      'd.s.b': '<span class="d-clr-t">✓</span> <span class="d-clr-o">2 シート · 48 行</span>',
+      'd.s.sh1': '明細', 'd.s.sh2': 'サマリー',
+      'd.s.h1': '項目', 'd.s.h2': '前四半期', 'd.s.h3': '今四半期', 'd.s.h4': '増減',
+      'd.s.r1': 'クラウド', 'd.s.r2': 'ベンダー', 'd.s.r3': 'サブスク',
+      'd.s.tag': '✎ 手動で修正 · .xlsx に保存済み',
+      'd.s.note': '<b>エージェントが作成</b> · セルを直接編集、<b>書式も他のシートもそのまま</b>',
+
+      'd.o.cpu': '<span>マシン全体</span><span class="po-mval">6.1 / 16 GB</span>',
+      'd.o.mem': '<span>AgentPixel</span><span class="po-mval">1.4 GB</span>',
       'd.o.room': '<span>あと</span><span class="po-mval ok">約3個</span>',
 
       'd.r.toggle': 'リモートアクセス',
@@ -2506,7 +2607,8 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       'w.1': '~/quarterly-report — 3ペイン分割',
       'w.2': 'report.md — いつでも引き取れる',
-      'w.3': 'リモート — スマホで引き継ぐ'
+      'w.3': 'リモート — スマホで引き継ぐ',
+      'w.4': 'Q2-expenses.xlsx — 見て、そのまま直す'
     }
   };
 

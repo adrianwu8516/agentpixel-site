@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>AgentPixel OG card</title>
+<style>
+  /* Rendered at exactly 1200×630 by tools/render-og.sh (Playwright screenshot).
+     ?lang=zh|en|ja picks copy + the language-specific pixel panel. */
+  html, body { margin: 0; padding: 0; background: #0b0e14; }
+  .card {
+    position: relative; width: 1200px; height: 630px; overflow: hidden;
+    background: #0b0e14;
+    font-family: -apple-system, "SF Pro Display", "PingFang TC", "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", system-ui, sans-serif;
+    color: #eef1f7;
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 40px 40px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 45%, #000 40%, transparent 100%);
+  }
+  .glow {
+    position: absolute; left: -120px; top: -180px; width: 700px; height: 560px;
+    background: radial-gradient(closest-side, rgba(255,176,32,.16), rgba(255,176,32,0));
+  }
+  .frame { position: absolute; inset: 22px; border: 1px solid rgba(255,255,255,.08); border-radius: 22px; }
+
+  .brand { position: absolute; left: 64px; top: 152px; display: flex; align-items: center; gap: 12px; }
+  .logo { width: 36px; height: 36px; border-radius: 9px; background: #ffb020; display: grid; place-items: center; box-shadow: 0 0 22px rgba(255,176,32,.45); }
+  .logo i { width: 14px; height: 14px; border-radius: 3px; background: #0b0e14; display: block; }
+  .brand b { font-size: 26px; letter-spacing: -.01em; }
+  .beta { margin-left: 4px; font: 600 11px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .12em; color: #8a94a8; border: 1px solid #2a3140; padding: 5px 8px; border-radius: 6px; }
+
+  .h1 { position: absolute; left: 64px; top: 220px; margin: 0; font-weight: 800; letter-spacing: -.02em; line-height: 1.12; text-wrap: balance; }
+  .h1 .w { color: #f3f5f9; }
+  .h1 .a { background: linear-gradient(90deg, #ffb020, #ffc94a 55%, #ffb020); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { position: absolute; left: 64px; top: 396px; width: 590px; margin: 0; font-size: 20px; line-height: 1.5; color: #a4acbb; }
+  .chips { position: absolute; left: 64px; bottom: 138px; display: flex; gap: 12px; }
+  .chip { font: 500 14px/1 ui-monospace, "SF Mono", Menlo, monospace; color: #cfd5e0; border: 1px solid #2a3140; border-radius: 999px; padding: 10px 16px; }
+  .chip.next { color: #6b7485; border-style: dashed; }
+  .panel { position: absolute; right: 92px; top: 178px; width: 420px; height: 277px; border-radius: 12px;
+           box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); }
+  .url { position: absolute; right: 64px; bottom: 44px; font: 14px/1 ui-monospace, "SF Mono", Menlo, monospace; color: #525d70; }
+
+  /* per-language sizing */
+  .lang-zh .h1 { font-size: 66px; }
+  .lang-en .h1 { font-size: 52px; letter-spacing: -.025em; top: 204px; line-height: 1.08; }
+  .lang-en .sub { top: 392px; font-size: 18px; width: 600px; }
+  .lang-en .chips { bottom: 112px; }
+  .lang-ja .h1 { font-size: 50px; top: 204px; line-height: 1.12; }
+  .lang-ja .sub { top: 392px; font-size: 18px; width: 560px; }
+  .lang-ja .chips { bottom: 112px; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="grid"></div><div class="glow"></div><div class="frame"></div>
+  <div class="brand"><span class="logo"><i></i></span><b>AgentPixel</b><span class="beta">BETA</span></div>
+  <h1 class="h1" id="h1"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="chips"><span class="chip">Claude Code</span><span class="chip">Codex</span><span class="chip next" id="next"></span></div>
+  <img class="panel" id="panel" alt="">
+  <div class="url">adrianwu8516.github.io/agentpixel-site</div>
+</div>
+<script>
+  var COPY = {
+    zh: { h1: '<span class="w">Terminal，</span><br><span class="a">升級成辦公軟體了。</span>',
+          sub: 'AI 在左邊寫，你在右邊改。你看的是文件，不是指令。', next: '你的下一個 CLI' },
+    en: { h1: '<span class="w">The terminal<br>just became</span><br><span class="a">office software.</span>',
+          sub: 'The AI writes on the left, you edit on the right. You look at the document, not the commands.', next: 'your next CLI' },
+    ja: { h1: '<span class="w">ターミナルが、</span><br><span class="a">オフィスソフトに<br>なりました。</span>',
+          sub: 'AI が左で書き、あなたが右で直す。見ているのは書類で、コマンドじゃない。', next: '次の CLI も' }
+  };
+  var lang = new URLSearchParams(location.search).get('lang') || 'zh';
+  var c = COPY[lang] || COPY.zh;
+  document.documentElement.lang = { zh: 'zh-Hant', en: 'en', ja: 'ja' }[lang];
+  document.getElementById('card').className = 'card lang-' + lang;
+  document.getElementById('h1').innerHTML = c.h1;
+  document.getElementById('sub').textContent = c.sub;
+  document.getElementById('next').textContent = c.next;
+  document.getElementById('panel').src = 'panel-' + lang + '.png';
+</script>
+</body>
+</html>

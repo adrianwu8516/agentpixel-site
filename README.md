@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="og.png" alt="AgentPixel — 最強的辦公軟體，是一個 Terminal。" width="820">
+<img src="og.png" alt="AgentPixel — Terminal，升級成辦公軟體了。" width="820">
 
 <br><br>
 
@@ -17,9 +17,11 @@
 
 ## 這是什麼
 
-**看著 AI 寫，隨時動手改。像搭檔一樣，一起把工作做完。**
+**Terminal，升級成辦公軟體了。**
 
-你下指令，Agent 寫文件，你在旁邊看著它一個字一個字寫出來。不順眼的地方，自己改。
+AI 在左邊寫，你在右邊改——同一份檔案、同一個時間。你看的是文件，不是指令。我們叫它並肩工作。
+
+Excel、Word、PDF、CSV、Notebook、資料庫……40 多種格式都在 agent 旁邊直接看；表格類的檔案直接改儲存格、存回原檔。
 
 別人給你一個 agent 的對話框，AgentPixel 給你整台終端機——檔案總管、即時預覽、多個 agent 並排、額度儀表，全部在同一個畫面裡。原生 macOS / Windows App，本機優先，資料不離開你的電腦。
 
@@ -31,7 +33,7 @@ Beta 階段，免費下載。
 
 | 平台 | 檔案 | 需求 |
 |---|---|---|
-| **macOS** | [`.dmg`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) · 33 MB | Apple Silicon（M 系列）only |
+| **macOS** | [`.dmg`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) · 54 MB | Apple Silicon（M 系列）only |
 | **Windows** | [`.exe`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) 38 MB · [`.msi`](https://github.com/adrianwu8516/agentpixel-site/releases/latest) 47 MB | Windows 10 1809 或更新 · x64 |
 
 > 所有版本都在 [Releases](https://github.com/adrianwu8516/agentpixel-site/releases) 頁面。
