@@ -46,6 +46,7 @@
 
   /* per-language sizing */
   .lang-zh .h1 { font-size: 66px; }
+  .lang-cn .h1 { font-size: 66px; }
   .lang-en .h1 { font-size: 52px; letter-spacing: -.025em; top: 204px; line-height: 1.08; }
   .lang-en .sub { top: 392px; font-size: 18px; width: 600px; }
   .lang-en .chips { bottom: 112px; }
@@ -68,6 +69,8 @@
   var COPY = {
     zh: { h1: '<span class="w">Terminal，</span><br><span class="a">升級成辦公軟體了。</span>',
           sub: 'AI 在左邊寫，你在右邊改。你看的是文件，不是指令。', next: '你的下一個 CLI' },
+    cn: { h1: '<span class="w">Terminal，</span><br><span class="a">升级成办公软件了。</span>',
+          sub: 'AI 在左边写，你在右边改。你看的是文档，不是指令。', next: '你的下一个 CLI', panel: 'panel-zh.png' },
     en: { h1: '<span class="w">The terminal<br>just became</span><br><span class="a">office software.</span>',
           sub: 'The AI writes on the left, you edit on the right. You look at the document, not the commands.', next: 'your next CLI' },
     ja: { h1: '<span class="w">ターミナルが、</span><br><span class="a">オフィスソフトに<br>なりました。</span>',
@@ -80,7 +83,7 @@
   document.getElementById('h1').innerHTML = c.h1;
   document.getElementById('sub').textContent = c.sub;
   document.getElementById('next').textContent = c.next;
-  document.getElementById('panel').src = 'panel-' + lang + '.png';
+  document.getElementById('panel').src = c.panel || ('panel-' + lang + '.png');
 </script>
 </body>
 </html>
