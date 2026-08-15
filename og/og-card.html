@@ -40,7 +40,7 @@
   .chips { position: absolute; left: 64px; bottom: 138px; display: flex; gap: 12px; }
   .chip { font: 500 14px/1 ui-monospace, "SF Mono", Menlo, monospace; color: #cfd5e0; border: 1px solid #2a3140; border-radius: 999px; padding: 10px 16px; }
   .chip.next { color: #6b7485; border-style: dashed; }
-  .panel { position: absolute; right: 92px; top: 178px; width: 420px; height: 277px; border-radius: 12px;
+  .panel { position: absolute; right: 62px; top: 168px; width: 460px; height: 312px; border-radius: 12px;
            box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); }
   .url { position: absolute; right: 64px; bottom: 44px; font: 14px/1 ui-monospace, "SF Mono", Menlo, monospace; color: #525d70; }
 
@@ -70,7 +70,7 @@
     zh: { h1: '<span class="w">Terminal，</span><br><span class="a">升級成辦公軟體了。</span>',
           sub: 'AI 在左邊寫，你在右邊改。你看的是文件，不是指令。', next: '你的下一個 CLI' },
     cn: { h1: '<span class="w">Terminal，</span><br><span class="a">升级成办公软件了。</span>',
-          sub: 'AI 在左边写，你在右边改。你看的是文档，不是指令。', next: '你的下一个 CLI', panel: 'panel-zh.png' },
+          sub: 'AI 在左边写，你在右边改。你看的是文档，不是指令。', next: '你的下一个 CLI' },
     en: { h1: '<span class="w">The terminal<br>just became</span><br><span class="a">office software.</span>',
           sub: 'The AI writes on the left, you edit on the right. You look at the document, not the commands.', next: 'your next CLI' },
     ja: { h1: '<span class="w">ターミナルが、</span><br><span class="a">オフィスソフトに<br>なりました。</span>',
@@ -83,7 +83,7 @@
   document.getElementById('h1').innerHTML = c.h1;
   document.getElementById('sub').textContent = c.sub;
   document.getElementById('next').textContent = c.next;
-  document.getElementById('panel').src = c.panel || ('panel-' + lang + '.png');
+  document.getElementById('panel').src = 'panel-' + lang + '.png';
 </script>
 </body>
 </html>

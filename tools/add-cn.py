@@ -36,7 +36,7 @@ cn = json.loads(subprocess.run(
 ).stdout)
 
 # meta.ogimg must point at the cn-specific OG asset, not a converted zh.png
-cn["meta.ogimg"] = "og-cn.png?v=1"
+cn["meta.ogimg"] = "og-cn.png?v=2"
 
 def dict_literal(d):
     lines = ["    cn: {"]
