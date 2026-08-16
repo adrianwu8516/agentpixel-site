@@ -1,17 +1,27 @@
 #!/usr/bin/env python3
-"""Bake cn/en/ja index.html from the zh master (index.html).
+"""Bake every language page from one master document.
 
-The four pages are the same document; cn/en/ja only differ in
-  1. per-language <head> meta (title, description, canonical, og:*, twitter:*, JSON-LD),
-  2. the static text pre-rendered inside every [data-i18n] / [data-i18n-html]
-     / [data-i18n-attr] element (SEO + first paint before the JS runs),
-  3. pick() returning a fixed language.
-Everything else (CSS, markup, the I18N dictionaries, scripts) is byte-identical.
-The zh master itself is also re-baked in place, so its own static text stays
-normalized against the zh dict (catches drift from hand-edits).
+`index.html` is both the editable master and the site's default-language
+page. Every other language is the same document with three things swapped:
 
-Usage:  python3 tools/bake.py          # writes cn/, en/, ja/ index.html + normalizes the master
-        python3 tools/bake.py --check  # only validate keys, write nothing
+  1. per-language <head> meta (title, description, canonical, og:*,
+     twitter:*, JSON-LD),
+  2. the static text pre-rendered inside every [data-i18n] /
+     [data-i18n-html] / [data-i18n-attr] element, so the page reads
+     correctly before the JS runs and to crawlers that never run it,
+  3. pick() pinned to that language.
+
+Everything else — CSS, markup, the I18N dictionaries, scripts — is
+byte-identical across all four files.
+
+**SOURCE_LANG is the language the master file is currently baked in**, and
+it is what the swap patterns match against. It is not necessarily the
+site's default: on 2026-08-17 the default moved to English while Chinese
+kept the master's editing history, and for one run those differed. Keep
+this in step with whatever `index.html` actually contains.
+
+Usage:  python3 tools/bake.py          # write every page
+        python3 tools/bake.py --check  # validate keys only, write nothing
 """
 import json, re, subprocess, sys, pathlib
 
@@ -19,14 +29,18 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 MASTER = ROOT / "index.html"
 SITE = "https://adrianwu8516.github.io/agentpixel-site/"
 
-# lang code -> (folder, html-lang, og:locale, JSON-LD inLanguage)
+# The language `index.html` currently holds. See the note above.
+SOURCE_LANG = "en"
+
+# lang -> (folder or None for the site root, html lang, og:locale, JSON-LD)
 LANGS = {
-    "zh": (None,  "zh-Hant", "zh_TW", "zh-Hant"),
+    "en": (None,  "en",      "en_US", "en"),
     "cn": ("cn",  "zh-Hans", "zh_CN", "zh-Hans"),
-    "en": ("en",  "en",      "en_US", "en"),
+    "zh": ("tw",  "zh-Hant", "zh_TW", "zh-Hant"),
     "ja": ("ja",  "ja",      "ja_JP", "ja"),
 }
-ORDER = ["zh", "cn", "en", "ja"]
+# Also the order the switcher renders in.
+ORDER = ["en", "cn", "zh", "ja"]
 
 src = MASTER.read_text(encoding="utf-8")
 
@@ -37,9 +51,9 @@ if not m:
 i18n = json.loads(subprocess.check_output(
     ["node", "-e", "process.stdout.write(JSON.stringify(" + m.group(1) + "))"]))
 DICTS = {lang: i18n[lang] for lang in ORDER}
-zh = DICTS["zh"]
+base = DICTS[SOURCE_LANG]
 
-# ── 2. validate: every key referenced in markup exists in all four dicts ──
+# ── 2. validate: every key referenced in markup exists in every dict ───
 keys = set(re.findall(r'data-i18n(?:-html)?="([^"]+)"', src))
 for attr in re.findall(r'data-i18n-attr="([^"]+)"', src):
     for pair in attr.split("|"):
@@ -48,10 +62,7 @@ missing = {lang: sorted(k for k in keys if k not in d) for lang, d in DICTS.item
 bad = {k: v for k, v in missing.items() if v}
 if bad:
     sys.exit(f"missing keys: {bad}")
-extra = {lang: sorted(set(d) - set(zh)) for lang, d in DICTS.items() if lang != "zh"}
-if any(extra.values()):
-    print("note: keys present in a translation but not zh:", extra)
-print(f"i18n OK — {len(keys)} keys referenced, all present in zh/cn/en/ja")
+print(f"i18n OK — {len(keys)} keys referenced, all present in {'/'.join(ORDER)}")
 if "--check" in sys.argv:
     sys.exit(0)
 
@@ -59,7 +70,7 @@ def esc_attr(v):
     return v.replace("&", "&amp;").replace('"', "&quot;")
 
 def find_close(out, tag, start):
-    # nesting-aware: skip inner <tag …>…</tag> pairs of the same tag name
+    """Nesting-aware close-tag search: skip inner <tag …></tag> pairs."""
     depth, i = 1, start
     open_re = re.compile(r"<" + tag + r"\b[^>]*?(/?)>")
     close_s = "</" + tag + ">"
@@ -84,101 +95,106 @@ def bake(lang, d, meta):
             start = mm.end()
             close = find_close(out, tag, start)
             cur = out[start:close]
-            if cur != zh[key]:
-                print(f"  note[{lang}]: master text for {key} != zh dict ({cur[:40]!r} vs {zh[key][:40]!r}) — overwritten")
+            if cur != base[key]:
+                print(f"  note[{lang}]: master text for {key} != {SOURCE_LANG} dict "
+                      f"({cur[:40]!r} vs {base[key][:40]!r}) — overwritten")
             res.append(out[pos:start]); res.append(d[key]); pos = close
         res.append(out[pos:])
         return "".join(res)
     out = swap_inner(out, "data-i18n")
     out = swap_inner(out, "data-i18n-html")
+
     def swap_attr(mm):
         tag = mm.group(0)
         for pair in mm.group(1).split("|"):
             name, key = pair.split(":")
-            old = f'{name}="{esc_attr(zh[key])}"'
+            old = f'{name}="{esc_attr(base[key])}"'
             new = f'{name}="{esc_attr(d[key])}"'
             if old not in tag:
                 sys.exit(f"[{lang}] attr {name} for {key} not found in tag: {tag[:120]}")
             tag = tag.replace(old, new)
         return tag
     out = re.sub(r'<[^>]*data-i18n-attr="([^"]+)"[^>]*>', swap_attr, out)
+
     for old, new in meta:
         if out.count(old) != 1:
-            sys.exit(f"[{lang}] head pattern count != 1: {old[:100]}")
+            sys.exit(f"[{lang}] head pattern count != 1 ({out.count(old)}): {old[:100]}")
         out = out.replace(old, new)
-    old_pick = ("    var n = (navigator.language || 'zh').toLowerCase();\n"
-                "    if (n.indexOf('ja') === 0) return 'ja';\n"
-                "    if (/^zh-(cn|hans|sg)/.test(n)) return 'cn';\n"
-                "    if (n.indexOf('zh') === 0) return 'zh';\n"
-                "    return 'en';\n")
-    if lang != "zh":
-        if out.count(old_pick) != 1:
-            sys.exit("pick() block not found")
-        out = out.replace(old_pick, f'    return "{lang}";\n')
+
+    pin = f'    return "{lang}";\n'
+    generic = ("    var n = (navigator.language || 'en').toLowerCase();\n"
+               "    if (n.indexOf('ja') === 0) return 'ja';\n"
+               "    if (/^zh-(cn|hans|sg)/.test(n)) return 'cn';\n"
+               "    if (n.indexOf('zh') === 0) return 'zh';\n"
+               "    return 'en';\n")
+    if generic in out:
+        out = out.replace(generic, pin)
+    else:
+        sys.exit("pick()'s detection block not found — did its text change?")
     return out
 
-OGALT = {
-    "cn": "AgentPixel 主视觉：「{}」右侧是四个像素风 Agent 并排在笔电前工作的深色控制台。".format(DICTS["cn"]["meta.ogtitle"]),
-    "en": "AgentPixel key visual: “{}” with four pixel-art agents working side by side at laptops on a dark console.".format(DICTS["en"]["meta.ogtitle"]),
-    "ja": "AgentPixel のキービジュアル：「{}」右側は 4 体のピクセルアートのエージェントがノートPCで作業しているダークなコンソール。".format(DICTS["ja"]["meta.ogtitle"]),
-}
-TWALT = {
-    "cn": "AgentPixel 主视觉：四个像素风 Agent 并排在笔电前工作的深色控制台。",
-    "en": "AgentPixel key visual: four pixel-art agents working side by side at laptops on a dark console.",
-    "ja": "AgentPixel のキービジュアル：4 体のピクセルアートのエージェントがノートPCで作業しているダークなコンソール。",
-}
-LEGACY = {
-    "cn": "<!-- 不支持 Open Graph 的旧式 / 中文平台抓取器（LINE、QQ、部分内置浏览器） -->",
-    "en": "<!-- Legacy / non-Open-Graph scrapers (LINE, QQ, some in-app browsers) -->",
-    "ja": "<!-- Open Graph 非対応 / レガシーなクローラー向け（LINE、QQ、各種アプリ内ブラウザ） -->",
+ALT = {
+    "en": ('AgentPixel key visual: “{og}” with four pixel-art agents working side by side at laptops on a dark console.',
+           "AgentPixel key visual: four pixel-art agents working side by side at laptops on a dark console.",
+           "<!-- Legacy / non-Open-Graph scrapers (LINE, QQ, some in-app browsers) -->"),
+    "cn": ('AgentPixel 主视觉：「{og}」右侧是四个像素风 Agent 并排在笔电前工作的深色控制台。',
+           "AgentPixel 主视觉：四个像素风 Agent 并排在笔电前工作的深色控制台。",
+           "<!-- 不支持 Open Graph 的旧式 / 中文平台抓取器（LINE、QQ、部分内置浏览器） -->"),
+    "zh": ('AgentPixel 主視覺：「{og}」右側是四個像素風 Agent 並排在筆電前工作的深色控制台。',
+           "AgentPixel 主視覺：四個像素風 Agent 並排在筆電前工作的深色控制台。",
+           "<!-- 不吃 Open Graph 的舊式 / 中文平台抓取器（LINE、QQ、部分內建瀏覽器） -->"),
+    "ja": ('AgentPixel のキービジュアル：「{og}」右側は 4 体のピクセルアートのエージェントがノートPCで作業しているダークなコンソール。',
+           "AgentPixel のキービジュアル：4 体のピクセルアートのエージェントがノートPCで作業しているダークなコンソール。",
+           "<!-- Open Graph 非対応 / レガシーなクローラー向け（LINE、QQ、各種アプリ内ブラウザ） -->"),
 }
 
+def url_for(lang):
+    folder = LANGS[lang][0]
+    return SITE if folder is None else f"{SITE}{folder}/"
+
+def locale_block(lang):
+    own = LANGS[lang][2]
+    others = [LANGS[l][2] for l in ORDER if l != lang]
+    return (f'<meta property="og:locale" content="{own}">\n' +
+            "\n".join(f'<meta property="og:locale:alternate" content="{a}">' for a in others))
+
 def head_pairs(lang):
-    folder, html_lang, locale, jsonld_lang = LANGS[lang]
-    d = DICTS[lang]
-    url = SITE if lang == "zh" else f"{SITE}{folder}/"
-    ogimg = d["meta.ogimg"]
-    zh_title, zh_desc, zh_og, zh_ogd = zh["meta.title"], zh["meta.desc"], zh["meta.ogtitle"], zh["meta.ogdesc"]
-    zh_ogimg = zh["meta.ogimg"]
-    alt_locales = [LANGS[l][2] for l in ORDER if l != lang]
-    zh_locale_block = ('<meta property="og:locale" content="zh_TW">\n'
-                        '<meta property="og:locale:alternate" content="zh_CN">\n'
-                        '<meta property="og:locale:alternate" content="en_US">\n'
-                        '<meta property="og:locale:alternate" content="ja_JP">')
-    new_locale_block = (f'<meta property="og:locale" content="{locale}">\n' +
-                         "\n".join(f'<meta property="og:locale:alternate" content="{a}">' for a in alt_locales))
+    d, s0 = DICTS[lang], DICTS[SOURCE_LANG]
+    img, img0 = d["meta.ogimg"], s0["meta.ogimg"]
+    ogalt, twalt, legacy = ALT[lang]
+    ogalt0, twalt0, legacy0 = ALT[SOURCE_LANG]
     return [
-        ('<html lang="zh-Hant"><head>', f'<html lang="{html_lang}"><head>'),
-        (f"<title>{zh_title}</title>", f"<title>{d['meta.title']}</title>"),
-        (f'<meta name="description" content="{zh_desc}">', f'<meta name="description" content="{d["meta.desc"]}">'),
-        (f'<link rel="canonical" href="{SITE}">', f'<link rel="canonical" href="{url}">'),
-        (zh_locale_block, new_locale_block),
-        (f'"url":"{SITE}","image":"{SITE}{zh_ogimg}","description":"{zh_ogd}","inLanguage":"zh-Hant"',
-         f'"url":"{url}","image":"{SITE}{ogimg}","description":"{d["meta.ogdesc"]}","inLanguage":"{jsonld_lang}"'),
-        (f'<meta property="og:url" content="{SITE}">', f'<meta property="og:url" content="{url}">'),
-        (f'<meta property="og:title" content="{zh_og}">', f'<meta property="og:title" content="{d["meta.ogtitle"]}">'),
-        (f'<meta property="og:description" content="{zh_ogd}">', f'<meta property="og:description" content="{d["meta.ogdesc"]}">'),
-        (f'<meta property="og:image" content="{SITE}{zh_ogimg}">', f'<meta property="og:image" content="{SITE}{ogimg}">'),
-        (f'<meta property="og:image:secure_url" content="{SITE}{zh_ogimg}">', f'<meta property="og:image:secure_url" content="{SITE}{ogimg}">'),
-        (f'<meta property="og:image:alt" content="AgentPixel 主視覺：「{zh_og}」右側是四個像素風 Agent 並排在筆電前工作的深色控制台。">',
-         f'<meta property="og:image:alt" content="{OGALT[lang]}">'),
-        (f'<meta name="twitter:title" content="{zh_og}">', f'<meta name="twitter:title" content="{d["meta.ogtitle"]}">'),
-        (f'<meta name="twitter:description" content="{zh_ogd}">', f'<meta name="twitter:description" content="{d["meta.ogdesc"]}">'),
-        (f'<meta name="twitter:image" content="{SITE}{zh_ogimg}">', f'<meta name="twitter:image" content="{SITE}{ogimg}">'),
-        ('<meta name="twitter:image:alt" content="AgentPixel 主視覺：四個像素風 Agent 並排在筆電前工作的深色控制台。">',
-         f'<meta name="twitter:image:alt" content="{TWALT[lang]}">'),
-        ('<!-- 不吃 Open Graph 的舊式 / 中文平台抓取器（LINE、QQ、部分內建瀏覽器） -->', LEGACY[lang]),
-        (f'<link rel="image_src" href="{SITE}{zh_ogimg}">', f'<link rel="image_src" href="{SITE}{ogimg}">'),
-        (f'<meta itemprop="name" content="{zh_title}">', f'<meta itemprop="name" content="{d["meta.title"]}">'),
-        (f'<meta itemprop="description" content="{zh_ogd}">', f'<meta itemprop="description" content="{d["meta.ogdesc"]}">'),
-        (f'<meta itemprop="image" content="{SITE}{zh_ogimg}">', f'<meta itemprop="image" content="{SITE}{ogimg}">'),
+        (f'<html lang="{LANGS[SOURCE_LANG][1]}"><head>', f'<html lang="{LANGS[lang][1]}"><head>'),
+        (f"<title>{s0['meta.title']}</title>", f"<title>{d['meta.title']}</title>"),
+        (f'<meta name="description" content="{s0["meta.desc"]}">', f'<meta name="description" content="{d["meta.desc"]}">'),
+        (f'<link rel="canonical" href="{url_for(SOURCE_LANG)}">', f'<link rel="canonical" href="{url_for(lang)}">'),
+        (locale_block(SOURCE_LANG), locale_block(lang)),
+        (f'"url":"{url_for(SOURCE_LANG)}","image":"{SITE}{img0}","description":"{s0["meta.ogdesc"]}","inLanguage":"{LANGS[SOURCE_LANG][3]}"',
+         f'"url":"{url_for(lang)}","image":"{SITE}{img}","description":"{d["meta.ogdesc"]}","inLanguage":"{LANGS[lang][3]}"'),
+        (f'<meta property="og:url" content="{url_for(SOURCE_LANG)}">', f'<meta property="og:url" content="{url_for(lang)}">'),
+        (f'<meta property="og:title" content="{s0["meta.ogtitle"]}">', f'<meta property="og:title" content="{d["meta.ogtitle"]}">'),
+        (f'<meta property="og:description" content="{s0["meta.ogdesc"]}">', f'<meta property="og:description" content="{d["meta.ogdesc"]}">'),
+        (f'<meta property="og:image" content="{SITE}{img0}">', f'<meta property="og:image" content="{SITE}{img}">'),
+        (f'<meta property="og:image:secure_url" content="{SITE}{img0}">', f'<meta property="og:image:secure_url" content="{SITE}{img}">'),
+        (f'<meta property="og:image:alt" content="{ogalt0.format(og=s0["meta.ogtitle"])}">',
+         f'<meta property="og:image:alt" content="{ogalt.format(og=d["meta.ogtitle"])}">'),
+        (f'<meta name="twitter:title" content="{s0["meta.ogtitle"]}">', f'<meta name="twitter:title" content="{d["meta.ogtitle"]}">'),
+        (f'<meta name="twitter:description" content="{s0["meta.ogdesc"]}">', f'<meta name="twitter:description" content="{d["meta.ogdesc"]}">'),
+        (f'<meta name="twitter:image" content="{SITE}{img0}">', f'<meta name="twitter:image" content="{SITE}{img}">'),
+        (f'<meta name="twitter:image:alt" content="{twalt0}">', f'<meta name="twitter:image:alt" content="{twalt}">'),
+        (legacy0, legacy),
+        (f'<link rel="image_src" href="{SITE}{img0}">', f'<link rel="image_src" href="{SITE}{img}">'),
+        (f'<meta itemprop="name" content="{s0["meta.title"]}">', f'<meta itemprop="name" content="{d["meta.title"]}">'),
+        (f'<meta itemprop="description" content="{s0["meta.ogdesc"]}">', f'<meta itemprop="description" content="{d["meta.ogdesc"]}">'),
+        (f'<meta itemprop="image" content="{SITE}{img0}">', f'<meta itemprop="image" content="{SITE}{img}">'),
     ]
 
 for lang in ORDER:
     folder = LANGS[lang][0]
-    meta_pairs = [] if lang == "zh" else head_pairs(lang)
-    out = bake(lang, DICTS[lang], meta_pairs)
-    target = MASTER if lang == "zh" else ROOT / folder / "index.html"
+    # The source language still goes through head_pairs; every pair is an
+    # identity replacement, which keeps one code path instead of two.
+    out = bake(lang, DICTS[lang], head_pairs(lang))
+    target = MASTER if folder is None else ROOT / folder / "index.html"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(out, encoding="utf-8")
     print(f"wrote {target.relative_to(ROOT)} ({len(out.splitlines())} lines)")

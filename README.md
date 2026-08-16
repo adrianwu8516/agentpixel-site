@@ -9,7 +9,7 @@
 [![downloads](https://img.shields.io/github/downloads/adrianwu8516/agentpixel-site/total?label=downloads&color=8a94a8)](https://github.com/adrianwu8516/agentpixel-site/releases)
 [![beta](https://img.shields.io/badge/beta-免費下載-525d70)](#下載)
 
-**[官方網站](https://adrianwu8516.github.io/agentpixel-site/)** · [简体中文](https://adrianwu8516.github.io/agentpixel-site/cn/) · [English](https://adrianwu8516.github.io/agentpixel-site/en/) · [日本語](https://adrianwu8516.github.io/agentpixel-site/ja/)
+**[Official site](https://adrianwu8516.github.io/agentpixel-site/)** · [简体中文](https://adrianwu8516.github.io/agentpixel-site/cn/) · [繁體中文](https://adrianwu8516.github.io/agentpixel-site/tw/) · [日本語](https://adrianwu8516.github.io/agentpixel-site/ja/)
 
 </div>
 
@@ -80,10 +80,11 @@ Beta 階段，免費下載。
 這裡是 AgentPixel 的**官方網站原始碼**（GitHub Pages）與**發行檔下載來源**（Releases）。App 本身的原始碼不在這裡。
 
 ```
-index.html          繁體中文（預設 / master —— 改文案請改這裡，其餘三個語系由 tools/bake.py 產生）
+index.html          English（預設 / master —— 改文案請改這裡，其餘語系由 tools/bake.py 產生）
 cn/index.html       简体中文（由 tools/add-cn.py 用 OpenCC 從繁中轉換 + 人工校對術語）
-en/index.html       English
+tw/index.html       繁體中文
 ja/index.html       日本語
+en/index.html       轉址到根目錄（英文在 2026-08-17 搬到根目錄，舊連結繼續有效）
 og*.png             各語系的社群分享預覽圖
 ```
 
