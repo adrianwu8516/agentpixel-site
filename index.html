@@ -2267,16 +2267,17 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
       <div class="card">
         <span class="corner tl"></span><span class="corner br"></span>
-        <span data-i18n="s4.c3k" class="kicker">本機優先</span>
-        <h3 data-i18n="s4.c3h">你的檔案不會離開這台電腦</h3>
+        <span data-i18n="s4.c3k" class="kicker">不綁廠商</span>
+        <h3 data-i18n="s4.c3h">能在終端機裡跑的，這裡都能跑</h3>
         <ul>
-          <li data-i18n="s4.c3a">agent 直接讀寫你本機的資料夾。沒有上傳、沒有同步、沒有我們的伺服器。</li>
-          <li data-i18n="s4.c3b">連遠端也是連回你自己的電腦，不是連到別人的雲端。</li>
+          <li data-i18n-html="s4.c3a">Claude Code、Codex、GitHub Copilot CLI <b>還多懂一層</b>——它知道誰在忙、誰在等你、誰做完了。</li>
+          <li data-i18n="s4.c3b">其他的照樣跑：Gemini CLI、Antigravity、aider，或明年才出現的那個。這本來就是一台真的終端機。</li>
         </ul>
         <div class="card-checklist">
-          <div class="ck-row ok"><span class="ck-box"></span><span data-i18n="s4.c3l1" class="ck-name">你的檔案</span><span data-i18n="s4.c3v" class="ck-scope">這台電腦</span></div>
-          <div class="ck-row ok"><span class="ck-box"></span><span data-i18n="s4.c3l2" class="ck-name">對話紀錄</span><span data-i18n="s4.c3v" class="ck-scope">這台電腦</span></div>
-          <div class="ck-row ok"><span class="ck-box"></span><span data-i18n="s4.c3l3" class="ck-name">遠端連線</span><span data-i18n="s4.c3v2" class="ck-scope">連回這台電腦</span></div>
+          <div class="ck-row ok"><span class="ck-box"></span><span class="ck-name">Claude Code</span><span data-i18n="s4.c3v" class="ck-scope">看得懂狀態</span></div>
+          <div class="ck-row ok"><span class="ck-box"></span><span class="ck-name">Codex</span><span data-i18n="s4.c3v" class="ck-scope">看得懂狀態</span></div>
+          <div class="ck-row ok"><span class="ck-box"></span><span class="ck-name">Copilot CLI</span><span data-i18n="s4.c3v" class="ck-scope">看得懂狀態</span></div>
+          <div class="ck-row wait"><span class="ck-box"></span><span data-i18n="s4.c3l4" class="ck-name">其他任何 CLI</span><span data-i18n="s4.c3v2" class="ck-scope">照樣跑</span></div>
         </div>
       </div>
     </div>
@@ -2287,13 +2288,8 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
   <div class="mani-inner">
     <div class="wrap">
       <span data-i18n="mani.label" class="label">不綁定廠商</span>
-      <p data-i18n-html="mani.big" class="mani-big">今天用 Claude，明天用 Codex，<br>後天用<span class="grad">還沒出生的那個</span>。</p>
-      <p data-i18n="mani.small" class="mani-small">AgentPixel 不在乎你用誰。這句話，Anthropic 和 Microsoft 都說不出口。</p>
-      <div class="mani-logos">
-        <span class="mani-chip">Claude Code</span>
-        <span class="mani-chip">Codex</span>
-        <span data-i18n="mani.next" class="mani-chip next">你的下一個 CLI</span>
-      </div>
+      <p data-i18n-html="mani.big" class="mani-big">我們不賭哪一家會贏。<br><span class="grad">你也不必。</span></p>
+      <p data-i18n="mani.small" class="mani-small">換 agent 的時候，你不用連工作檯一起換。</p>
     </div>
   </div>
 </section>
@@ -2359,12 +2355,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- 繁體中文 ---------------- */
     zh: {
-      's4.c3k': '本機優先',
-      's4.c3l1': '你的檔案',
-      's4.c3l2': '對話紀錄',
-      's4.c3l3': '遠端連線',
-      's4.c3v': '這台電腦',
-      's4.c3v2': '連回這台電腦',
+      's4.c3l4': '其他任何 CLI',
+      's4.c3k': '不綁廠商',
+      's4.c3v': '看得懂狀態',
+      's4.c3v2': '照樣跑',
       'nav.manager': '代管',
       's5.h2': '連手機都不想看的時候，交給 Manager。',
       's5.lede': '遠端能讓你在外面點頭。但有些時候你根本不想被打擾——開會、上飛機、睡覺。',
@@ -2431,14 +2425,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       's4.c2k': '狀態持久化', 's4.c2h': '關掉重開，現場還在',
       's4.c2a': '分頁佈局、工作目錄、每個 agent 的位置，完整還原。',
       's4.c2b': '當機、重開機、下班關電腦，都接得回來。',
-      's4.c3h': '你的檔案不會離開這台電腦',
-      's4.c3a': 'agent 直接讀寫你本機的資料夾。沒有上傳、沒有同步、沒有我們的伺服器。',
-      's4.c3b': '連遠端也是連回你自己的電腦，不是連到別人的雲端。',
+      's4.c3h': '能在終端機裡跑的，這裡都能跑',
+      's4.c3a': 'Claude Code、Codex、GitHub Copilot CLI <b>還多懂一層</b>——它知道誰在忙、誰在等你、誰做完了。',
+      's4.c3b': '其他的照樣跑：Gemini CLI、Antigravity、aider，或明年才出現的那個。這本來就是一台真的終端機。',
 
       'mani.label': '不綁定廠商',
-      'mani.big': '今天用 Claude，明天用 Codex，<br>後天用<span class="grad">還沒出生的那個</span>。',
-      'mani.small': 'AgentPixel 不在乎你用誰。這句話，Anthropic 和 Microsoft 都說不出口。',
-      'mani.next': '你的下一個 CLI',
+      'mani.big': '我們不賭哪一家會贏。<br><span class="grad">你也不必。</span>',
+      'mani.small': '換 agent 的時候，你不用連工作檯一起換。',
 
       'dl.h2': '把你的 Terminal 升級成辦公軟體',
       'dl.sub': 'Beta 階段，免費下載。',
@@ -2510,12 +2503,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'w.4': 'Q2-expenses.xlsx — 直接看，直接改'
     },
     cn: {
-      "s4.c3k": "本机优先",
-      "s4.c3l1": "你的文件",
-      "s4.c3l2": "对话记录",
-      "s4.c3l3": "远程连接",
-      "s4.c3v": "这台电脑",
-      "s4.c3v2": "连回这台电脑",
+      "s4.c3l4": "其他任何 CLI",
+      "s4.c3k": "不绑厂商",
+      "s4.c3v": "看得懂状态",
+      "s4.c3v2": "照样跑",
       "nav.manager": "代管",
       "s5.h2": "连手机都不想看的时候，交给 Manager。",
       "s5.lede": "远程能让你在外面点头。但有些时候你根本不想被打扰——开会、上飞机、睡觉。",
@@ -2585,13 +2576,12 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       "s4.c2h": "关掉重开，现场还在",
       "s4.c2a": "标签页布局、工作目录、每个 agent 的位置，完整还原。",
       "s4.c2b": "当机、重开机、下班关电脑，都接得回来。",
-      "s4.c3h": "你的文件不会离开这台电脑",
-      "s4.c3a": "agent 直接读写你本机的文件夹。没有上传、没有同步、没有我们的服务器。",
-      "s4.c3b": "连远程也是连回你自己的电脑，不是连到别人的云端。",
+      "s4.c3h": "能在终端里跑的，这里都能跑",
+      "s4.c3a": "Claude Code、Codex、GitHub Copilot CLI <b>还多懂一层</b>——它知道谁在忙、谁在等你、谁做完了。",
+      "s4.c3b": "其他的照样跑：Gemini CLI、Antigravity、aider，或明年才出现的那个。这本来就是一台真的终端。",
       "mani.label": "不绑定厂商",
-      "mani.big": "今天用 Claude，明天用 Codex，<br>后天用<span class=\"grad\">还没出生的那个</span>。",
-      "mani.small": "AgentPixel 不在乎你用谁。这句话，Anthropic 和 Microsoft 都说不出口。",
-      "mani.next": "你的下一个 CLI",
+      "mani.big": "我们不赌哪一家会赢。<br><span class=\"grad\">你也不必。</span>",
+      "mani.small": "换 agent 的时候，你不用连工作台一起换。",
       "dl.h2": "把你的 Terminal 升级成办公软件",
       "dl.sub": "Beta 阶段，免费下载。",
       "dl.btn": "下载 macOS 版（.dmg）",
@@ -2669,12 +2659,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- English ---------------- */
     en: {
-      's4.c3k': 'Local-first',
-      's4.c3l1': 'Your files',
-      's4.c3l2': 'Transcripts',
-      's4.c3l3': 'Remote access',
-      's4.c3v': 'this machine',
-      's4.c3v2': 'back to this machine',
+      's4.c3l4': 'Any other CLI',
+      's4.c3k': 'Vendor-neutral',
+      's4.c3v': 'state-aware',
+      's4.c3v2': 'just runs',
       'nav.manager': 'Hand off',
       's5.h2': 'When you don’t even want to look at your phone.',
       's5.lede': 'Remote lets you say yes from anywhere. Some hours you don’t want to be reachable at all — a meeting, a flight, a night’s sleep.',
@@ -2741,14 +2729,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       's4.c2k': 'Session restore', 's4.c2h': 'Quit, reopen, nothing moved',
       's4.c2a': 'Tab layout, working directories, every agent\u2019s spot \u2014 all restored.',
       's4.c2b': 'Crash, reboot, or just going home. It comes back.',
-      's4.c3h': 'Your files never leave this machine',
-      's4.c3a': 'Agents read and write your local folders directly. No upload, no sync, no server of ours.',
-      's4.c3b': 'Even remote access connects back to your own machine, not to somebody’s cloud.',
+      's4.c3h': 'If it runs in a terminal, it runs here',
+      's4.c3a': 'Claude Code, Codex and GitHub Copilot CLI get <b>one layer more</b> — it knows which is working, which is waiting on you, and which is done.',
+      's4.c3b': 'The rest just run — Gemini CLI, Antigravity, aider, or whatever ships next year. This is a real terminal.',
 
       'mani.label': 'Vendor-neutral',
-      'mani.big': 'Claude today. Codex tomorrow.<br><span class="grad">Whatever ships next.</span>',
-      'mani.small': 'AgentPixel doesn\u2019t care which one you use. Neither Anthropic nor Microsoft can say that.',
-      'mani.next': 'your next CLI',
+      'mani.big': 'We’re not betting on a winner.<br><span class="grad">You don’t have to either.</span>',
+      'mani.small': 'When you change agents, you shouldn’t have to change your workbench too.',
 
       'dl.h2': 'Upgrade your terminal to office software',
       'dl.sub': 'Free while it\u2019s in beta.',
@@ -2822,12 +2809,10 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- 日本語 ---------------- */
     ja: {
-      's4.c3k': 'ローカル優先',
-      's4.c3l1': 'ファイル',
-      's4.c3l2': '会話ログ',
-      's4.c3l3': 'リモート接続',
-      's4.c3v': 'この端末',
-      's4.c3v2': 'この端末へ戻る',
+      's4.c3l4': 'その他の CLI',
+      's4.c3k': 'ベンダー中立',
+      's4.c3v': '状態を把握',
+      's4.c3v2': 'そのまま動く',
       'nav.manager': '代理',
       's5.h2': 'スマホも見たくないときは、Manager に任せる。',
       's5.lede': 'リモートなら外からでも承認できる。でも会議中、飛行機の中、寝ている間は、そもそも邪魔されたくない。',
@@ -2894,14 +2879,13 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       's4.c2k': '状態の永続化', 's4.c2h': '閉じて開き直しても、そのまま',
       's4.c2a': 'タブ配置も作業ディレクトリも、各エージェントの位置も完全に復元。',
       's4.c2b': 'クラッシュも再起動も、退勤時のシャットダウンも問題ない。',
-      's4.c3h': 'あなたのファイルは、この端末から出ない',
-      's4.c3a': 'エージェントはローカルのフォルダを直接読み書きします。アップロードも同期も、当社のサーバーもありません。',
-      's4.c3b': 'リモート接続も、あなた自身の端末に戻ってくる接続です。どこかのクラウドではありません。',
+      's4.c3h': 'ターミナルで動くものは、ここでも動く',
+      's4.c3a': 'Claude Code・Codex・GitHub Copilot CLI は<b>もう一段深く</b>——どれが動いていて、どれがあなたを待っていて、どれが終わったかを把握します。',
+      's4.c3b': 'それ以外もそのまま動きます。Gemini CLI、Antigravity、aider、来年出るものも。これは本物のターミナルだからです。',
 
       'mani.label': 'ベンダー中立',
-      'mani.big': '今日は Claude、明日は Codex、<br>明後日は<span class="grad">まだ存在しないやつ</span>。',
-      'mani.small': 'AgentPixel はどれを使おうと気にしない。Anthropic にも Microsoft にも言えない一言。',
-      'mani.next': '次に来る CLI',
+      'mani.big': 'どこが勝つかに賭けていません。<br><span class="grad">あなたも賭けなくていい。</span>',
+      'mani.small': 'エージェントを乗り換えるとき、作業台まで乗り換える必要はありません。',
 
       'dl.h2': 'あなたのターミナルを、オフィスソフトに',
       'dl.sub': 'ベータ版につき無料。',
