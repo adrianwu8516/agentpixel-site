@@ -244,8 +244,8 @@
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.05fr 1.15fr;
-    gap: 56px;
+    grid-template-columns: 0.92fr 1.28fr;
+    gap: 48px;
     align-items: center;
   }
   @media (max-width: 940px) {
@@ -284,11 +284,31 @@
   h1.headline {
     font-size: clamp(38px, 5.4vw, 64px);
     line-height: 1.06;
+    /* see the CJK overrides below */
     letter-spacing: -0.025em;
     font-weight: 800;
     margin: 0;
     text-wrap: balance;
   }
+  /* Full-width scripts: same optical weight, far less horizontal room.
+     Without this the hero title alone is wider than the demo beside it. */
+  html[lang="zh-Hant"] h1.headline,
+  html[lang="zh-Hans"] h1.headline {
+    font-size: clamp(32px, 3.5vw, 44px);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+  html[lang="ja"] h1.headline {
+    font-size: clamp(30px, 3.2vw, 40px);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+  @media (max-width: 940px) {
+    html[lang="zh-Hant"] h1.headline,
+    html[lang="zh-Hans"] h1.headline,
+    html[lang="ja"] h1.headline { font-size: clamp(28px, 6.4vw, 40px); }
+  }
+
   h1.headline .grad {
     background: linear-gradient(120deg, var(--amber-soft) 10%, var(--amber) 55%, var(--amber-deep) 100%);
     -webkit-background-clip: text;
@@ -1519,6 +1539,59 @@ section.extras { padding: 104px 0 0; }
 .ck-row.wait .ck-scope { color: var(--amber-soft); }
 
 /* --- remote slogan (replaces the numbered list) --- */
+/* ── Manager delegation (section 03) ─────────────────────────────
+   Reuses the remote section's two-column shape so the two "you are
+   away" stories read as a pair: 02 is you still reachable, 03 is you
+   not reachable at all. */
+.mg-panel { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+.mg-block-label {
+  font-family: ui-monospace, Menlo, monospace; font-size: 10.5px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--faint);
+  margin-bottom: 8px;
+}
+.mg-brief {
+  border: 1px solid var(--line-bright); border-radius: 10px; padding: 13px 15px;
+  background: rgba(255,176,32,.045);
+}
+.mg-brief p {
+  margin: 0 0 6px; font-size: 13px; line-height: 1.65; color: var(--text);
+}
+.mg-brief p:last-of-type { margin-bottom: 0; }
+.mg-brief .mg-you { color: var(--amber-soft); }
+.mg-meta {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 11px;
+  padding-top: 10px; border-top: 1px solid var(--line);
+  font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--faint);
+}
+.mg-meta b { color: var(--text); font-weight: 600; }
+.mg-log { display: flex; flex-direction: column; gap: 7px; }
+.mg-entry {
+  display: grid; grid-template-columns: 16px 1fr auto; gap: 10px;
+  align-items: baseline; font-size: 12.5px;
+}
+.mg-entry .mg-mark { font-size: 12px; line-height: 1.5; }
+.mg-entry.done .mg-mark { color: var(--teal); }
+.mg-entry.held .mg-mark { color: var(--amber); }
+.mg-entry .mg-who { color: var(--text); }
+.mg-entry .mg-q { color: var(--faint); }
+.mg-entry .mg-verdict {
+  font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+  padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+}
+.mg-entry.done .mg-verdict { color: var(--teal); border: 1px solid rgba(53,224,200,.35); background: rgba(53,224,200,.07); }
+.mg-entry.held .mg-verdict { color: var(--amber-soft); border: 1px solid rgba(255,176,32,.4); background: rgba(255,176,32,.07); }
+.mg-guard {
+  display: flex; gap: 9px; align-items: flex-start;
+  border-top: 1px solid var(--line); padding-top: 13px;
+  font-size: 12px; line-height: 1.6; color: var(--faint);
+}
+.mg-guard b { color: var(--text); font-weight: 600; }
+.mg-guard svg { flex-shrink: 0; margin-top: 2px; }
+@media (max-width: 520px) {
+  .mg-entry { grid-template-columns: 16px 1fr; }
+  .mg-entry .mg-verdict { grid-column: 2; justify-self: start; }
+}
+
 .rm-slogan { border-left: 2px solid var(--amber); padding-left: 24px; }
 .rm-slogan h3 {
   font-size: clamp(23px, 3vw, 32px); font-weight: 800;
@@ -1604,8 +1677,9 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
     </div>
     <div class="nav-links">
       <a data-i18n="nav.see" href="#see">並んで働く</a>
-      <a data-i18n="nav.office" href="#office">オフィス</a>
       <a data-i18n="nav.remote" href="#remote">リモート</a>
+      <a data-i18n="nav.manager" href="#manager">代理</a>
+      <a data-i18n="nav.office" href="#office">オフィス</a>
       <a data-i18n="nav.dl" href="#download">ダウンロード</a>
     </div>
     <div class="lang" role="group" aria-label="Language / 語言 / 语言 / 言語">
@@ -1629,7 +1703,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
           <span class="pulse"></span>
           <span data-i18n="hero.eyebrow">AI と並んで働く · Claude Code と Codex</span>
         </div>
-        <h1 data-i18n-html="hero.h1" class="headline punch">ターミナルが、<br><span class="grad">オフィスソフトに<br>なりました。</span></h1>
+        <h1 data-i18n-html="hero.h1" class="headline punch">ターミナルが、<br><span class="grad">オフィスソフトに<br>なりました</span></h1>
         <p data-i18n="hero.sub" class="sub">AI が左で書き、あなたが右で直す——同じファイル、同じ瞬間。見ているのは書類で、コマンドじゃない。</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="https://github.com/adrianwu8516/agentpixel-site/releases/download/v0.4.5-beta/AgentPixel-0.4.5-beta-arm64.dmg">
@@ -1825,13 +1899,142 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
   </div>
 </section>
 
-<section class="office-floor" id="office">
+<section class="pillar" id="remote">
   <div class="wrap">
     <div class="pillar-head">
       <span class="pillar-index">[ 02 ]</span>
-      <h2 data-i18n="s2.h2">あなたのエージェントに、顔がついた。</h2>
+      <h2 data-i18n="s3.h2">外に出ても、エージェントは働き続ける。</h2>
     </div>
-    <p data-i18n="s2.lede" class="pillar-lede">誰が動いていて、誰が手を挙げ、誰が終わったか。ついでに、マシン全体の使用量、AgentPixel の使用量、あと何個動かせるかも。</p>
+    <p data-i18n="s3.lede" class="pillar-lede">会議に行っている間、YES か NO を待つだけで15分止まっていた。</p>
+
+    <div class="rm-grid">
+      <div class="rm-slogan">
+        <h3 data-i18n-html="s3.slogan">他は、エージェント1つのチャット画面。<br><span class="grad">うちは、ターミナルまるごと。</span></h3>
+        <p data-i18n-html="s3.sub">タブの切り替えも、CLI の変更も、新しい作業の開始も、スマホからできる。詰まったら通知が届き、一度タップすれば再開。動いているのは<b>あなたの Mac</b> のまま。</p>
+      </div>
+
+      <div class="rm-stage">
+        <div class="window">
+          <div class="win-bar">
+            <div class="traffic"><i></i><i></i><i></i></div>
+            <p data-i18n="w.3" class="win-title">リモート — スマホで引き継ぐ</p>
+          </div>
+          <div class="rm-body">
+            <div class="rm-mac">
+              <div class="rm-tabs">
+                <div class="rm-tab"><span class="dot run"></span>worker-1<span class="rm-cli">claude</span></div>
+                <div class="rm-tab hot"><span class="dot stop"></span>worker-2<span class="rm-cli">codex</span></div>
+                <div class="rm-tab"><span class="dot idle"></span>worker-3<span class="rm-cli">claude</span></div>
+              </div>
+              <div class="rm-toggle">
+                <span data-i18n="d.r.toggle">リモートアクセス</span>
+                <span class="rm-sw"></span>
+              </div>
+              <div data-i18n-html="d.r.paired" class="rm-paired"><i></i>ペアリング済み · iPhone</div>
+              <div class="rm-qr">
+                <div class="rm-qr-box"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><rect width="29" height="29" fill="#fff"></rect><g fill="#111"><rect x="9" y="0" width="1" height="1"></rect><rect x="10" y="0" width="1" height="1"></rect><rect x="11" y="0" width="1" height="1"></rect><rect x="15" y="0" width="1" height="1"></rect><rect x="17" y="0" width="1" height="1"></rect><rect x="18" y="0" width="1" height="1"></rect><rect x="20" y="0" width="1" height="1"></rect><rect x="8" y="1" width="1" height="1"></rect><rect x="11" y="1" width="1" height="1"></rect><rect x="14" y="1" width="1" height="1"></rect><rect x="17" y="1" width="1" height="1"></rect><rect x="18" y="1" width="1" height="1"></rect><rect x="20" y="1" width="1" height="1"></rect><rect x="8" y="2" width="1" height="1"></rect><rect x="9" y="2" width="1" height="1"></rect><rect x="16" y="2" width="1" height="1"></rect><rect x="10" y="3" width="1" height="1"></rect><rect x="11" y="3" width="1" height="1"></rect><rect x="12" y="3" width="1" height="1"></rect><rect x="13" y="3" width="1" height="1"></rect><rect x="14" y="3" width="1" height="1"></rect><rect x="15" y="3" width="1" height="1"></rect><rect x="16" y="3" width="1" height="1"></rect><rect x="18" y="3" width="1" height="1"></rect><rect x="19" y="3" width="1" height="1"></rect><rect x="20" y="3" width="1" height="1"></rect><rect x="8" y="4" width="1" height="1"></rect><rect x="12" y="4" width="1" height="1"></rect><rect x="14" y="4" width="1" height="1"></rect><rect x="15" y="4" width="1" height="1"></rect><rect x="9" y="5" width="1" height="1"></rect><rect x="10" y="5" width="1" height="1"></rect><rect x="11" y="5" width="1" height="1"></rect><rect x="12" y="5" width="1" height="1"></rect><rect x="13" y="5" width="1" height="1"></rect><rect x="16" y="5" width="1" height="1"></rect><rect x="18" y="5" width="1" height="1"></rect><rect x="8" y="6" width="1" height="1"></rect><rect x="9" y="6" width="1" height="1"></rect><rect x="11" y="6" width="1" height="1"></rect><rect x="14" y="6" width="1" height="1"></rect><rect x="15" y="6" width="1" height="1"></rect><rect x="18" y="6" width="1" height="1"></rect><rect x="19" y="6" width="1" height="1"></rect><rect x="20" y="6" width="1" height="1"></rect><rect x="11" y="7" width="1" height="1"></rect><rect x="12" y="7" width="1" height="1"></rect><rect x="17" y="7" width="1" height="1"></rect><rect x="0" y="8" width="1" height="1"></rect><rect x="2" y="8" width="1" height="1"></rect><rect x="7" y="8" width="1" height="1"></rect><rect x="9" y="8" width="1" height="1"></rect><rect x="12" y="8" width="1" height="1"></rect><rect x="15" y="8" width="1" height="1"></rect><rect x="20" y="8" width="1" height="1"></rect><rect x="21" y="8" width="1" height="1"></rect><rect x="22" y="8" width="1" height="1"></rect><rect x="26" y="8" width="1" height="1"></rect><rect x="27" y="8" width="1" height="1"></rect><rect x="1" y="9" width="1" height="1"></rect><rect x="3" y="9" width="1" height="1"></rect><rect x="6" y="9" width="1" height="1"></rect><rect x="9" y="9" width="1" height="1"></rect><rect x="12" y="9" width="1" height="1"></rect><rect x="15" y="9" width="1" height="1"></rect><rect x="16" y="9" width="1" height="1"></rect><rect x="21" y="9" width="1" height="1"></rect><rect x="22" y="9" width="1" height="1"></rect><rect x="23" y="9" width="1" height="1"></rect><rect x="25" y="9" width="1" height="1"></rect><rect x="26" y="9" width="1" height="1"></rect><rect x="27" y="9" width="1" height="1"></rect><rect x="0" y="10" width="1" height="1"></rect><rect x="3" y="10" width="1" height="1"></rect><rect x="4" y="10" width="1" height="1"></rect><rect x="6" y="10" width="1" height="1"></rect><rect x="7" y="10" width="1" height="1"></rect><rect x="13" y="10" width="1" height="1"></rect><rect x="14" y="10" width="1" height="1"></rect><rect x="21" y="10" width="1" height="1"></rect><rect x="22" y="10" width="1" height="1"></rect><rect x="23" y="10" width="1" height="1"></rect><rect x="25" y="10" width="1" height="1"></rect><rect x="26" y="10" width="1" height="1"></rect><rect x="0" y="11" width="1" height="1"></rect><rect x="1" y="11" width="1" height="1"></rect><rect x="6" y="11" width="1" height="1"></rect><rect x="12" y="11" width="1" height="1"></rect><rect x="14" y="11" width="1" height="1"></rect><rect x="15" y="11" width="1" height="1"></rect><rect x="16" y="11" width="1" height="1"></rect><rect x="17" y="11" width="1" height="1"></rect><rect x="19" y="11" width="1" height="1"></rect><rect x="27" y="11" width="1" height="1"></rect><rect x="28" y="11" width="1" height="1"></rect><rect x="4" y="12" width="1" height="1"></rect><rect x="8" y="12" width="1" height="1"></rect><rect x="10" y="12" width="1" height="1"></rect><rect x="11" y="12" width="1" height="1"></rect><rect x="14" y="12" width="1" height="1"></rect><rect x="15" y="12" width="1" height="1"></rect><rect x="17" y="12" width="1" height="1"></rect><rect x="20" y="12" width="1" height="1"></rect><rect x="24" y="12" width="1" height="1"></rect><rect x="26" y="12" width="1" height="1"></rect><rect x="27" y="12" width="1" height="1"></rect><rect x="0" y="13" width="1" height="1"></rect><rect x="1" y="13" width="1" height="1"></rect><rect x="3" y="13" width="1" height="1"></rect><rect x="7" y="13" width="1" height="1"></rect><rect x="8" y="13" width="1" height="1"></rect><rect x="9" y="13" width="1" height="1"></rect><rect x="13" y="13" width="1" height="1"></rect><rect x="14" y="13" width="1" height="1"></rect><rect x="20" y="13" width="1" height="1"></rect><rect x="22" y="13" width="1" height="1"></rect><rect x="25" y="13" width="1" height="1"></rect><rect x="26" y="13" width="1" height="1"></rect><rect x="27" y="13" width="1" height="1"></rect><rect x="0" y="14" width="1" height="1"></rect><rect x="3" y="14" width="1" height="1"></rect><rect x="5" y="14" width="1" height="1"></rect><rect x="9" y="14" width="1" height="1"></rect><rect x="11" y="14" width="1" height="1"></rect><rect x="12" y="14" width="1" height="1"></rect><rect x="15" y="14" width="1" height="1"></rect><rect x="19" y="14" width="1" height="1"></rect><rect x="20" y="14" width="1" height="1"></rect><rect x="26" y="14" width="1" height="1"></rect><rect x="27" y="14" width="1" height="1"></rect><rect x="28" y="14" width="1" height="1"></rect><rect x="4" y="15" width="1" height="1"></rect><rect x="5" y="15" width="1" height="1"></rect><rect x="6" y="15" width="1" height="1"></rect><rect x="9" y="15" width="1" height="1"></rect><rect x="11" y="15" width="1" height="1"></rect><rect x="17" y="15" width="1" height="1"></rect><rect x="19" y="15" width="1" height="1"></rect><rect x="24" y="15" width="1" height="1"></rect><rect x="26" y="15" width="1" height="1"></rect><rect x="0" y="16" width="1" height="1"></rect><rect x="3" y="16" width="1" height="1"></rect><rect x="5" y="16" width="1" height="1"></rect><rect x="6" y="16" width="1" height="1"></rect><rect x="7" y="16" width="1" height="1"></rect><rect x="8" y="16" width="1" height="1"></rect><rect x="11" y="16" width="1" height="1"></rect><rect x="13" y="16" width="1" height="1"></rect><rect x="17" y="16" width="1" height="1"></rect><rect x="19" y="16" width="1" height="1"></rect><rect x="21" y="16" width="1" height="1"></rect><rect x="22" y="16" width="1" height="1"></rect><rect x="25" y="16" width="1" height="1"></rect><rect x="28" y="16" width="1" height="1"></rect><rect x="1" y="17" width="1" height="1"></rect><rect x="3" y="17" width="1" height="1"></rect><rect x="9" y="17" width="1" height="1"></rect><rect x="10" y="17" width="1" height="1"></rect><rect x="12" y="17" width="1" height="1"></rect><rect x="13" y="17" width="1" height="1"></rect><rect x="16" y="17" width="1" height="1"></rect><rect x="17" y="17" width="1" height="1"></rect><rect x="18" y="17" width="1" height="1"></rect><rect x="19" y="17" width="1" height="1"></rect><rect x="20" y="17" width="1" height="1"></rect><rect x="21" y="17" width="1" height="1"></rect><rect x="27" y="17" width="1" height="1"></rect><rect x="0" y="18" width="1" height="1"></rect><rect x="1" y="18" width="1" height="1"></rect><rect x="7" y="18" width="1" height="1"></rect><rect x="11" y="18" width="1" height="1"></rect><rect x="12" y="18" width="1" height="1"></rect><rect x="15" y="18" width="1" height="1"></rect><rect x="19" y="18" width="1" height="1"></rect><rect x="20" y="18" width="1" height="1"></rect><rect x="21" y="18" width="1" height="1"></rect><rect x="22" y="18" width="1" height="1"></rect><rect x="25" y="18" width="1" height="1"></rect><rect x="26" y="18" width="1" height="1"></rect><rect x="28" y="18" width="1" height="1"></rect><rect x="2" y="19" width="1" height="1"></rect><rect x="4" y="19" width="1" height="1"></rect><rect x="7" y="19" width="1" height="1"></rect><rect x="9" y="19" width="1" height="1"></rect><rect x="12" y="19" width="1" height="1"></rect><rect x="13" y="19" width="1" height="1"></rect><rect x="1" y="20" width="1" height="1"></rect><rect x="2" y="20" width="1" height="1"></rect><rect x="7" y="20" width="1" height="1"></rect><rect x="8" y="20" width="1" height="1"></rect><rect x="9" y="20" width="1" height="1"></rect><rect x="10" y="20" width="1" height="1"></rect><rect x="11" y="20" width="1" height="1"></rect><rect x="13" y="20" width="1" height="1"></rect><rect x="14" y="20" width="1" height="1"></rect><rect x="17" y="20" width="1" height="1"></rect><rect x="18" y="20" width="1" height="1"></rect><rect x="20" y="20" width="1" height="1"></rect><rect x="21" y="20" width="1" height="1"></rect><rect x="28" y="20" width="1" height="1"></rect><rect x="8" y="21" width="1" height="1"></rect><rect x="9" y="21" width="1" height="1"></rect><rect x="13" y="21" width="1" height="1"></rect><rect x="17" y="21" width="1" height="1"></rect><rect x="18" y="21" width="1" height="1"></rect><rect x="20" y="21" width="1" height="1"></rect><rect x="21" y="21" width="1" height="1"></rect><rect x="23" y="21" width="1" height="1"></rect><rect x="24" y="21" width="1" height="1"></rect><rect x="26" y="21" width="1" height="1"></rect><rect x="28" y="21" width="1" height="1"></rect><rect x="8" y="22" width="1" height="1"></rect><rect x="10" y="22" width="1" height="1"></rect><rect x="12" y="22" width="1" height="1"></rect><rect x="14" y="22" width="1" height="1"></rect><rect x="15" y="22" width="1" height="1"></rect><rect x="16" y="22" width="1" height="1"></rect><rect x="17" y="22" width="1" height="1"></rect><rect x="19" y="22" width="1" height="1"></rect><rect x="22" y="22" width="1" height="1"></rect><rect x="23" y="22" width="1" height="1"></rect><rect x="24" y="22" width="1" height="1"></rect><rect x="27" y="22" width="1" height="1"></rect><rect x="12" y="23" width="1" height="1"></rect><rect x="13" y="23" width="1" height="1"></rect><rect x="14" y="23" width="1" height="1"></rect><rect x="15" y="23" width="1" height="1"></rect><rect x="18" y="23" width="1" height="1"></rect><rect x="21" y="23" width="1" height="1"></rect><rect x="24" y="23" width="1" height="1"></rect><rect x="27" y="23" width="1" height="1"></rect><rect x="28" y="23" width="1" height="1"></rect><rect x="8" y="24" width="1" height="1"></rect><rect x="11" y="24" width="1" height="1"></rect><rect x="13" y="24" width="1" height="1"></rect><rect x="16" y="24" width="1" height="1"></rect><rect x="20" y="24" width="1" height="1"></rect><rect x="23" y="24" width="1" height="1"></rect><rect x="25" y="24" width="1" height="1"></rect><rect x="27" y="24" width="1" height="1"></rect><rect x="9" y="25" width="1" height="1"></rect><rect x="17" y="25" width="1" height="1"></rect><rect x="23" y="25" width="1" height="1"></rect><rect x="26" y="25" width="1" height="1"></rect><rect x="28" y="25" width="1" height="1"></rect><rect x="10" y="26" width="1" height="1"></rect><rect x="11" y="26" width="1" height="1"></rect><rect x="13" y="26" width="1" height="1"></rect><rect x="14" y="26" width="1" height="1"></rect><rect x="16" y="26" width="1" height="1"></rect><rect x="19" y="26" width="1" height="1"></rect><rect x="20" y="26" width="1" height="1"></rect><rect x="22" y="26" width="1" height="1"></rect><rect x="9" y="27" width="1" height="1"></rect><rect x="10" y="27" width="1" height="1"></rect><rect x="12" y="27" width="1" height="1"></rect><rect x="18" y="27" width="1" height="1"></rect><rect x="20" y="27" width="1" height="1"></rect><rect x="21" y="27" width="1" height="1"></rect><rect x="22" y="27" width="1" height="1"></rect><rect x="23" y="27" width="1" height="1"></rect><rect x="24" y="27" width="1" height="1"></rect><rect x="27" y="27" width="1" height="1"></rect><rect x="28" y="27" width="1" height="1"></rect><rect x="12" y="28" width="1" height="1"></rect><rect x="13" y="28" width="1" height="1"></rect><rect x="14" y="28" width="1" height="1"></rect><rect x="15" y="28" width="1" height="1"></rect><rect x="16" y="28" width="1" height="1"></rect><rect x="17" y="28" width="1" height="1"></rect><rect x="19" y="28" width="1" height="1"></rect><rect x="23" y="28" width="1" height="1"></rect></g><g fill="#111"><rect x="0" y="0" width="7" height="7"></rect><rect x="22" y="0" width="7" height="7"></rect><rect x="0" y="22" width="7" height="7"></rect></g><g fill="#fff"><rect x="1" y="1" width="5" height="5"></rect><rect x="23" y="1" width="5" height="5"></rect><rect x="1" y="23" width="5" height="5"></rect></g><g fill="#111"><rect x="2" y="2" width="3" height="3"></rect><rect x="24" y="2" width="3" height="3"></rect><rect x="2" y="24" width="3" height="3"></rect></g></svg></div>
+                <div class="rm-qr-meta">
+                  <span data-i18n="d.r.qrlabel" class="rm-qr-label">スキャンして新しい端末をペアリング</span>
+                  <span class="rm-qr-url">agentpixel.app/r/8f2c…</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rm-phone">
+              <div class="rm-notch"></div>
+              <div class="rm-ptitle">AGENTPIXEL</div>
+              <div class="rm-row"><span class="dot run"></span>worker-1 · running</div>
+              <div class="rm-row"><span class="dot stop"></span>worker-2 · blocked</div>
+              <div class="rm-row"><span class="dot idle"></span>worker-3 · idle</div>
+              <div data-i18n="d.r.newtab" class="rm-new">＋ 新しいタブ</div>
+              <div class="rm-card">
+                <div data-i18n="d.r.ask" class="rm-ctitle">🔔 worker-2 が確認待ち</div>
+                <span class="rm-cmd">rm -rf ./tmp</span>
+                <div class="rm-acts">
+                  <span data-i18n="d.r.yes" class="rm-act yes">許可</span>
+                  <span data-i18n="d.r.no" class="rm-act no">拒否</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillar" id="manager">
+  <div class="wrap">
+    <div class="pillar-head">
+      <span class="pillar-index">[ 03 ]</span>
+      <h2 data-i18n="s5.h2">スマホも見たくないときは、Manager に任せる。</h2>
+    </div>
+    <p data-i18n="s5.lede" class="pillar-lede">リモートなら外からでも承認できる。でも会議中、飛行機の中、寝ている間は、そもそも邪魔されたくない。</p>
+
+    <div class="rm-grid">
+      <div class="rm-slogan">
+        <h3 data-i18n-html="s5.slogan">一度伝えておけば、<br><span class="grad">ひと晩じゅう見ていてくれる。</span></h3>
+        <p data-i18n-html="s5.sub">出かける前にルールを書いておけば、オフラインの間 Manager が<b>そのルールに沿って他のエージェントの質問に答えます</b>。通してよいものは通し、自分で判断すると言ったものは止めて待つ。戻ったときには、下した判断とその理由がすべて並んでいます。</p>
+      </div>
+
+      <div class="rm-stage">
+        <div class="window">
+          <div class="win-bar">
+            <div class="traffic"><i></i><i></i><i></i></div>
+            <p data-i18n="w.5" class="win-title">Manager — 代理中 · 残り 1 時間 12 分</p>
+          </div>
+          <div class="mg-panel">
+            <div>
+              <div data-i18n="d.g.blabel" class="mg-block-label">出かける前に伝えたこと</div>
+              <div class="mg-brief">
+                <p data-i18n-html="d.g.b1"><span class="mg-you">agent 1 はリファクタ中</span>。ファイル分割は許可して。</p>
+                <p data-i18n-html="d.g.b2"><span class="mg-you">DB スキーマ</span>やテストを触るなら、止めて私を待って。</p>
+                <div class="mg-meta">
+                  <span data-i18n-html="d.g.m1">離席 <b>2 時間</b></span>
+                  <span data-i18n-html="d.g.m2">伝えていない件 · <b>自分で判断する</b></span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div data-i18n="d.g.llabel" class="mg-block-label">Manager が 2 回、代わりに答えました</div>
+              <div class="mg-log">
+                <div class="mg-entry done">
+                  <span class="mg-mark">✓</span>
+                  <span><span class="mg-who">worker-1</span> <span data-i18n="d.g.q1" class="mg-q">3 ファイルに分割？</span></span>
+                  <span data-i18n="d.g.v1" class="mg-verdict">指示どおり許可</span>
+                </div>
+                <div class="mg-entry done">
+                  <span class="mg-mark">✓</span>
+                  <span><span class="mg-who">worker-2</span> <span data-i18n="d.g.q2" class="mg-q">テストファイルを追加？</span></span>
+                  <span data-i18n="d.g.v2" class="mg-verdict">指示どおり許可</span>
+                </div>
+                <div class="mg-entry held">
+                  <span class="mg-mark">⏸</span>
+                  <span><span class="mg-who">worker-3</span> <span data-i18n="d.g.q3" class="mg-q">users テーブルを変更？</span></span>
+                  <span data-i18n="d.g.v3" class="mg-verdict">あなたを待つ</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mg-guard">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span data-i18n-html="d.g.guard">どう伝えていても、<b>削除・sudo・force push</b> のような破壊的な操作は必ず止まってあなたを待ちます。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="office-floor" id="office">
+  <div class="wrap">
+    <div class="pillar-head">
+      <span class="pillar-index">[ 04 ]</span>
+      <h2 data-i18n="s2.h2">誰が動いていて、誰が待っているか。</h2>
+    </div>
+    <p data-i18n="s2.lede" class="pillar-lede">ついでにマシンが耐えられるかも：全体の使用量、AgentPixel の使用量、あと何個動かせるか。</p>
 
     <div class="po-wrap">
       <div class="po-stage">
@@ -2012,70 +2215,6 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
   </div>
 </section>
 
-<section class="pillar" id="remote">
-  <div class="wrap">
-    <div class="pillar-head">
-      <span class="pillar-index">[ 03 ]</span>
-      <h2 data-i18n="s3.h2">外に出ても、エージェントは働き続ける。</h2>
-    </div>
-    <p data-i18n="s3.lede" class="pillar-lede">会議に行っている間、YES か NO を待つだけで15分止まっていた。</p>
-
-    <div class="rm-grid">
-      <div class="rm-slogan">
-        <h3 data-i18n-html="s3.slogan">他は、エージェント1つのチャット画面。<br><span class="grad">うちは、ターミナルまるごと。</span></h3>
-        <p data-i18n-html="s3.sub">タブの切り替えも、CLI の変更も、新しい作業の開始も、スマホからできる。詰まったら通知が届き、一度タップすれば再開。動いているのは<b>あなたの Mac</b> のまま。</p>
-      </div>
-
-      <div class="rm-stage">
-        <div class="window">
-          <div class="win-bar">
-            <div class="traffic"><i></i><i></i><i></i></div>
-            <p data-i18n="w.3" class="win-title">リモート — スマホで引き継ぐ</p>
-          </div>
-          <div class="rm-body">
-            <div class="rm-mac">
-              <div class="rm-tabs">
-                <div class="rm-tab"><span class="dot run"></span>worker-1<span class="rm-cli">claude</span></div>
-                <div class="rm-tab hot"><span class="dot stop"></span>worker-2<span class="rm-cli">codex</span></div>
-                <div class="rm-tab"><span class="dot idle"></span>worker-3<span class="rm-cli">claude</span></div>
-              </div>
-              <div class="rm-toggle">
-                <span data-i18n="d.r.toggle">リモートアクセス</span>
-                <span class="rm-sw"></span>
-              </div>
-              <div data-i18n-html="d.r.paired" class="rm-paired"><i></i>ペアリング済み · iPhone</div>
-              <div class="rm-qr">
-                <div class="rm-qr-box"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><rect width="29" height="29" fill="#fff"></rect><g fill="#111"><rect x="9" y="0" width="1" height="1"></rect><rect x="10" y="0" width="1" height="1"></rect><rect x="11" y="0" width="1" height="1"></rect><rect x="15" y="0" width="1" height="1"></rect><rect x="17" y="0" width="1" height="1"></rect><rect x="18" y="0" width="1" height="1"></rect><rect x="20" y="0" width="1" height="1"></rect><rect x="8" y="1" width="1" height="1"></rect><rect x="11" y="1" width="1" height="1"></rect><rect x="14" y="1" width="1" height="1"></rect><rect x="17" y="1" width="1" height="1"></rect><rect x="18" y="1" width="1" height="1"></rect><rect x="20" y="1" width="1" height="1"></rect><rect x="8" y="2" width="1" height="1"></rect><rect x="9" y="2" width="1" height="1"></rect><rect x="16" y="2" width="1" height="1"></rect><rect x="10" y="3" width="1" height="1"></rect><rect x="11" y="3" width="1" height="1"></rect><rect x="12" y="3" width="1" height="1"></rect><rect x="13" y="3" width="1" height="1"></rect><rect x="14" y="3" width="1" height="1"></rect><rect x="15" y="3" width="1" height="1"></rect><rect x="16" y="3" width="1" height="1"></rect><rect x="18" y="3" width="1" height="1"></rect><rect x="19" y="3" width="1" height="1"></rect><rect x="20" y="3" width="1" height="1"></rect><rect x="8" y="4" width="1" height="1"></rect><rect x="12" y="4" width="1" height="1"></rect><rect x="14" y="4" width="1" height="1"></rect><rect x="15" y="4" width="1" height="1"></rect><rect x="9" y="5" width="1" height="1"></rect><rect x="10" y="5" width="1" height="1"></rect><rect x="11" y="5" width="1" height="1"></rect><rect x="12" y="5" width="1" height="1"></rect><rect x="13" y="5" width="1" height="1"></rect><rect x="16" y="5" width="1" height="1"></rect><rect x="18" y="5" width="1" height="1"></rect><rect x="8" y="6" width="1" height="1"></rect><rect x="9" y="6" width="1" height="1"></rect><rect x="11" y="6" width="1" height="1"></rect><rect x="14" y="6" width="1" height="1"></rect><rect x="15" y="6" width="1" height="1"></rect><rect x="18" y="6" width="1" height="1"></rect><rect x="19" y="6" width="1" height="1"></rect><rect x="20" y="6" width="1" height="1"></rect><rect x="11" y="7" width="1" height="1"></rect><rect x="12" y="7" width="1" height="1"></rect><rect x="17" y="7" width="1" height="1"></rect><rect x="0" y="8" width="1" height="1"></rect><rect x="2" y="8" width="1" height="1"></rect><rect x="7" y="8" width="1" height="1"></rect><rect x="9" y="8" width="1" height="1"></rect><rect x="12" y="8" width="1" height="1"></rect><rect x="15" y="8" width="1" height="1"></rect><rect x="20" y="8" width="1" height="1"></rect><rect x="21" y="8" width="1" height="1"></rect><rect x="22" y="8" width="1" height="1"></rect><rect x="26" y="8" width="1" height="1"></rect><rect x="27" y="8" width="1" height="1"></rect><rect x="1" y="9" width="1" height="1"></rect><rect x="3" y="9" width="1" height="1"></rect><rect x="6" y="9" width="1" height="1"></rect><rect x="9" y="9" width="1" height="1"></rect><rect x="12" y="9" width="1" height="1"></rect><rect x="15" y="9" width="1" height="1"></rect><rect x="16" y="9" width="1" height="1"></rect><rect x="21" y="9" width="1" height="1"></rect><rect x="22" y="9" width="1" height="1"></rect><rect x="23" y="9" width="1" height="1"></rect><rect x="25" y="9" width="1" height="1"></rect><rect x="26" y="9" width="1" height="1"></rect><rect x="27" y="9" width="1" height="1"></rect><rect x="0" y="10" width="1" height="1"></rect><rect x="3" y="10" width="1" height="1"></rect><rect x="4" y="10" width="1" height="1"></rect><rect x="6" y="10" width="1" height="1"></rect><rect x="7" y="10" width="1" height="1"></rect><rect x="13" y="10" width="1" height="1"></rect><rect x="14" y="10" width="1" height="1"></rect><rect x="21" y="10" width="1" height="1"></rect><rect x="22" y="10" width="1" height="1"></rect><rect x="23" y="10" width="1" height="1"></rect><rect x="25" y="10" width="1" height="1"></rect><rect x="26" y="10" width="1" height="1"></rect><rect x="0" y="11" width="1" height="1"></rect><rect x="1" y="11" width="1" height="1"></rect><rect x="6" y="11" width="1" height="1"></rect><rect x="12" y="11" width="1" height="1"></rect><rect x="14" y="11" width="1" height="1"></rect><rect x="15" y="11" width="1" height="1"></rect><rect x="16" y="11" width="1" height="1"></rect><rect x="17" y="11" width="1" height="1"></rect><rect x="19" y="11" width="1" height="1"></rect><rect x="27" y="11" width="1" height="1"></rect><rect x="28" y="11" width="1" height="1"></rect><rect x="4" y="12" width="1" height="1"></rect><rect x="8" y="12" width="1" height="1"></rect><rect x="10" y="12" width="1" height="1"></rect><rect x="11" y="12" width="1" height="1"></rect><rect x="14" y="12" width="1" height="1"></rect><rect x="15" y="12" width="1" height="1"></rect><rect x="17" y="12" width="1" height="1"></rect><rect x="20" y="12" width="1" height="1"></rect><rect x="24" y="12" width="1" height="1"></rect><rect x="26" y="12" width="1" height="1"></rect><rect x="27" y="12" width="1" height="1"></rect><rect x="0" y="13" width="1" height="1"></rect><rect x="1" y="13" width="1" height="1"></rect><rect x="3" y="13" width="1" height="1"></rect><rect x="7" y="13" width="1" height="1"></rect><rect x="8" y="13" width="1" height="1"></rect><rect x="9" y="13" width="1" height="1"></rect><rect x="13" y="13" width="1" height="1"></rect><rect x="14" y="13" width="1" height="1"></rect><rect x="20" y="13" width="1" height="1"></rect><rect x="22" y="13" width="1" height="1"></rect><rect x="25" y="13" width="1" height="1"></rect><rect x="26" y="13" width="1" height="1"></rect><rect x="27" y="13" width="1" height="1"></rect><rect x="0" y="14" width="1" height="1"></rect><rect x="3" y="14" width="1" height="1"></rect><rect x="5" y="14" width="1" height="1"></rect><rect x="9" y="14" width="1" height="1"></rect><rect x="11" y="14" width="1" height="1"></rect><rect x="12" y="14" width="1" height="1"></rect><rect x="15" y="14" width="1" height="1"></rect><rect x="19" y="14" width="1" height="1"></rect><rect x="20" y="14" width="1" height="1"></rect><rect x="26" y="14" width="1" height="1"></rect><rect x="27" y="14" width="1" height="1"></rect><rect x="28" y="14" width="1" height="1"></rect><rect x="4" y="15" width="1" height="1"></rect><rect x="5" y="15" width="1" height="1"></rect><rect x="6" y="15" width="1" height="1"></rect><rect x="9" y="15" width="1" height="1"></rect><rect x="11" y="15" width="1" height="1"></rect><rect x="17" y="15" width="1" height="1"></rect><rect x="19" y="15" width="1" height="1"></rect><rect x="24" y="15" width="1" height="1"></rect><rect x="26" y="15" width="1" height="1"></rect><rect x="0" y="16" width="1" height="1"></rect><rect x="3" y="16" width="1" height="1"></rect><rect x="5" y="16" width="1" height="1"></rect><rect x="6" y="16" width="1" height="1"></rect><rect x="7" y="16" width="1" height="1"></rect><rect x="8" y="16" width="1" height="1"></rect><rect x="11" y="16" width="1" height="1"></rect><rect x="13" y="16" width="1" height="1"></rect><rect x="17" y="16" width="1" height="1"></rect><rect x="19" y="16" width="1" height="1"></rect><rect x="21" y="16" width="1" height="1"></rect><rect x="22" y="16" width="1" height="1"></rect><rect x="25" y="16" width="1" height="1"></rect><rect x="28" y="16" width="1" height="1"></rect><rect x="1" y="17" width="1" height="1"></rect><rect x="3" y="17" width="1" height="1"></rect><rect x="9" y="17" width="1" height="1"></rect><rect x="10" y="17" width="1" height="1"></rect><rect x="12" y="17" width="1" height="1"></rect><rect x="13" y="17" width="1" height="1"></rect><rect x="16" y="17" width="1" height="1"></rect><rect x="17" y="17" width="1" height="1"></rect><rect x="18" y="17" width="1" height="1"></rect><rect x="19" y="17" width="1" height="1"></rect><rect x="20" y="17" width="1" height="1"></rect><rect x="21" y="17" width="1" height="1"></rect><rect x="27" y="17" width="1" height="1"></rect><rect x="0" y="18" width="1" height="1"></rect><rect x="1" y="18" width="1" height="1"></rect><rect x="7" y="18" width="1" height="1"></rect><rect x="11" y="18" width="1" height="1"></rect><rect x="12" y="18" width="1" height="1"></rect><rect x="15" y="18" width="1" height="1"></rect><rect x="19" y="18" width="1" height="1"></rect><rect x="20" y="18" width="1" height="1"></rect><rect x="21" y="18" width="1" height="1"></rect><rect x="22" y="18" width="1" height="1"></rect><rect x="25" y="18" width="1" height="1"></rect><rect x="26" y="18" width="1" height="1"></rect><rect x="28" y="18" width="1" height="1"></rect><rect x="2" y="19" width="1" height="1"></rect><rect x="4" y="19" width="1" height="1"></rect><rect x="7" y="19" width="1" height="1"></rect><rect x="9" y="19" width="1" height="1"></rect><rect x="12" y="19" width="1" height="1"></rect><rect x="13" y="19" width="1" height="1"></rect><rect x="1" y="20" width="1" height="1"></rect><rect x="2" y="20" width="1" height="1"></rect><rect x="7" y="20" width="1" height="1"></rect><rect x="8" y="20" width="1" height="1"></rect><rect x="9" y="20" width="1" height="1"></rect><rect x="10" y="20" width="1" height="1"></rect><rect x="11" y="20" width="1" height="1"></rect><rect x="13" y="20" width="1" height="1"></rect><rect x="14" y="20" width="1" height="1"></rect><rect x="17" y="20" width="1" height="1"></rect><rect x="18" y="20" width="1" height="1"></rect><rect x="20" y="20" width="1" height="1"></rect><rect x="21" y="20" width="1" height="1"></rect><rect x="28" y="20" width="1" height="1"></rect><rect x="8" y="21" width="1" height="1"></rect><rect x="9" y="21" width="1" height="1"></rect><rect x="13" y="21" width="1" height="1"></rect><rect x="17" y="21" width="1" height="1"></rect><rect x="18" y="21" width="1" height="1"></rect><rect x="20" y="21" width="1" height="1"></rect><rect x="21" y="21" width="1" height="1"></rect><rect x="23" y="21" width="1" height="1"></rect><rect x="24" y="21" width="1" height="1"></rect><rect x="26" y="21" width="1" height="1"></rect><rect x="28" y="21" width="1" height="1"></rect><rect x="8" y="22" width="1" height="1"></rect><rect x="10" y="22" width="1" height="1"></rect><rect x="12" y="22" width="1" height="1"></rect><rect x="14" y="22" width="1" height="1"></rect><rect x="15" y="22" width="1" height="1"></rect><rect x="16" y="22" width="1" height="1"></rect><rect x="17" y="22" width="1" height="1"></rect><rect x="19" y="22" width="1" height="1"></rect><rect x="22" y="22" width="1" height="1"></rect><rect x="23" y="22" width="1" height="1"></rect><rect x="24" y="22" width="1" height="1"></rect><rect x="27" y="22" width="1" height="1"></rect><rect x="12" y="23" width="1" height="1"></rect><rect x="13" y="23" width="1" height="1"></rect><rect x="14" y="23" width="1" height="1"></rect><rect x="15" y="23" width="1" height="1"></rect><rect x="18" y="23" width="1" height="1"></rect><rect x="21" y="23" width="1" height="1"></rect><rect x="24" y="23" width="1" height="1"></rect><rect x="27" y="23" width="1" height="1"></rect><rect x="28" y="23" width="1" height="1"></rect><rect x="8" y="24" width="1" height="1"></rect><rect x="11" y="24" width="1" height="1"></rect><rect x="13" y="24" width="1" height="1"></rect><rect x="16" y="24" width="1" height="1"></rect><rect x="20" y="24" width="1" height="1"></rect><rect x="23" y="24" width="1" height="1"></rect><rect x="25" y="24" width="1" height="1"></rect><rect x="27" y="24" width="1" height="1"></rect><rect x="9" y="25" width="1" height="1"></rect><rect x="17" y="25" width="1" height="1"></rect><rect x="23" y="25" width="1" height="1"></rect><rect x="26" y="25" width="1" height="1"></rect><rect x="28" y="25" width="1" height="1"></rect><rect x="10" y="26" width="1" height="1"></rect><rect x="11" y="26" width="1" height="1"></rect><rect x="13" y="26" width="1" height="1"></rect><rect x="14" y="26" width="1" height="1"></rect><rect x="16" y="26" width="1" height="1"></rect><rect x="19" y="26" width="1" height="1"></rect><rect x="20" y="26" width="1" height="1"></rect><rect x="22" y="26" width="1" height="1"></rect><rect x="9" y="27" width="1" height="1"></rect><rect x="10" y="27" width="1" height="1"></rect><rect x="12" y="27" width="1" height="1"></rect><rect x="18" y="27" width="1" height="1"></rect><rect x="20" y="27" width="1" height="1"></rect><rect x="21" y="27" width="1" height="1"></rect><rect x="22" y="27" width="1" height="1"></rect><rect x="23" y="27" width="1" height="1"></rect><rect x="24" y="27" width="1" height="1"></rect><rect x="27" y="27" width="1" height="1"></rect><rect x="28" y="27" width="1" height="1"></rect><rect x="12" y="28" width="1" height="1"></rect><rect x="13" y="28" width="1" height="1"></rect><rect x="14" y="28" width="1" height="1"></rect><rect x="15" y="28" width="1" height="1"></rect><rect x="16" y="28" width="1" height="1"></rect><rect x="17" y="28" width="1" height="1"></rect><rect x="19" y="28" width="1" height="1"></rect><rect x="23" y="28" width="1" height="1"></rect></g><g fill="#111"><rect x="0" y="0" width="7" height="7"></rect><rect x="22" y="0" width="7" height="7"></rect><rect x="0" y="22" width="7" height="7"></rect></g><g fill="#fff"><rect x="1" y="1" width="5" height="5"></rect><rect x="23" y="1" width="5" height="5"></rect><rect x="1" y="23" width="5" height="5"></rect></g><g fill="#111"><rect x="2" y="2" width="3" height="3"></rect><rect x="24" y="2" width="3" height="3"></rect><rect x="2" y="24" width="3" height="3"></rect></g></svg></div>
-                <div class="rm-qr-meta">
-                  <span data-i18n="d.r.qrlabel" class="rm-qr-label">スキャンして新しい端末をペアリング</span>
-                  <span class="rm-qr-url">agentpixel.app/r/8f2c…</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="rm-phone">
-              <div class="rm-notch"></div>
-              <div class="rm-ptitle">AGENTPIXEL</div>
-              <div class="rm-row"><span class="dot run"></span>worker-1 · running</div>
-              <div class="rm-row"><span class="dot stop"></span>worker-2 · blocked</div>
-              <div class="rm-row"><span class="dot idle"></span>worker-3 · idle</div>
-              <div data-i18n="d.r.newtab" class="rm-new">＋ 新しいタブ</div>
-              <div class="rm-card">
-                <div data-i18n="d.r.ask" class="rm-ctitle">🔔 worker-2 が確認待ち</div>
-                <span class="rm-cmd">rm -rf ./tmp</span>
-                <div class="rm-acts">
-                  <span data-i18n="d.r.yes" class="rm-act yes">許可</span>
-                  <span data-i18n="d.r.no" class="rm-act no">拒否</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="extras">
   <div class="wrap">
     <div class="extras-head">
@@ -2220,6 +2359,25 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- 繁體中文 ---------------- */
     zh: {
+      'nav.manager': '代管',
+      's5.h2': '連手機都不想看的時候，交給 Manager。',
+      's5.lede': '遠端能讓你在外面點頭。但有些時候你根本不想被打擾——開會、上飛機、睡覺。',
+      's5.slogan': '你交代一次，<br><span class="grad">它照著看顧一整晚。</span>',
+      's5.sub': '出門前寫下你的規則，Manager 就會在你離線的期間，<b>照著規則替你回答其他 agent 的提問</b>——該放行的放行，你說要留給自己的就停下來等你。回來時，它做過的每個決定和理由都列給你看。',
+      'w.5': 'Manager — 代管中 · 剩 1 小時 12 分',
+      'd.g.blabel': '你出門前的交代',
+      'd.g.b1': '<span class="mg-you">agent 1 在做重構</span>，要拆檔案就說好。',
+      'd.g.b2': '要動 <span class="mg-you">DB schema</span> 或改測試，停下來等我。',
+      'd.g.m1': '預計離開 <b>2 小時</b>',
+      'd.g.m2': '沒交代到的 · <b>留給我處理</b>',
+      'd.g.llabel': 'Manager 替你回答了 2 次',
+      'd.g.q1': '拆成三個檔案？',
+      'd.g.q2': '新增一個測試檔？',
+      'd.g.q3': '改 users 表結構？',
+      'd.g.v1': '照交代放行',
+      'd.g.v2': '照交代放行',
+      'd.g.v3': '留給你',
+      'd.g.guard': '不論你怎麼交代，<b>刪除、sudo、force push</b> 這類破壞性操作一律仍會停下來等你。',
       'meta.title': 'AgentPixel — Terminal，升級成辦公軟體了',
       'meta.desc': 'AI 在左邊寫，你在右邊改——同一份檔案、同一個時間。Excel、Word、PDF、CSV 都在旁邊直接看，該改就改。支援 Claude Code 與 Codex。',
       'meta.ogtitle': 'Terminal，升級成辦公軟體了。',
@@ -2229,11 +2387,11 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'nav.see': '並肩工作', 'nav.office': '辦公室', 'nav.remote': '遠端', 'nav.dl': '下載', 'nav.dlbtn': '下載',
 
       'hero.eyebrow': '跟 AI 並肩工作 · Claude Code 與 Codex',
-      'hero.h1': '<span class="nowrap">Terminal，</span><span class="grad">升級成辦公軟體了。</span>',
+      'hero.h1': '<span class="nowrap">Terminal，</span><span class="grad">升級成辦公軟體了</span>',
       'hero.sub': 'AI 在左邊寫，你在右邊改——同一份檔案、同一個時間。你看的是文件，不是指令。',
       'hero.cta1': '下載 macOS 版',
       'hero.cta2': '看它怎麼跑',
-      'hero.note': 'macOS 需 <b>Apple Silicon</b> · Windows 需 <b>10 1809</b> 以上 · Beta 免費',
+      'hero.note': 'macOS 需 <b>Apple Silicon</b> · Windows <b>10 1809+</b> · Beta 免費',
 
       'strip.1': '不綁定廠商 · <span class="mono">Claude Code</span> 與 <span class="mono">Codex</span>',
       'strip.2': '原生 macOS App · 輕量省電',
@@ -2251,8 +2409,8 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       's1.f3a': '試算表、Word、PDF、CSV、Notebook、資料庫……<b>都在同一個視窗裡渲染出來</b>，不用切去別的 App。',
       's1.f3b': '表格類（CSV、Excel、SQLite）直接改儲存格、存回原檔；文件類一鍵交給預設 App。',
 
-      's2.h2': '你的 Agent 們，現在有臉了。',
-      's2.lede': '誰在忙、誰舉手、誰做完了，一眼看完。順便告訴你：整台電腦用了多少、AgentPixel 占多少、還撐得住幾個。',
+      's2.h2': '誰在忙、誰在等你，一眼看完。',
+      's2.lede': '順便告訴你機器撐不撐得住：整台電腦用了多少、AgentPixel 占多少、還能再開幾個。',
       's2.callout': 'worker-2 舉手了 ↓',
       's2.restore': '⟲ 關掉重開 · 大家都還在座位上',
 
@@ -2350,6 +2508,25 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'w.4': 'Q2-expenses.xlsx — 直接看，直接改'
     },
     cn: {
+      "nav.manager": "代管",
+      "s5.h2": "连手机都不想看的时候，交给 Manager。",
+      "s5.lede": "远程能让你在外面点头。但有些时候你根本不想被打扰——开会、上飞机、睡觉。",
+      "s5.slogan": "你交代一次，<br><span class=\"grad\">它照着看顾一整晚。</span>",
+      "s5.sub": "出门前写下你的规则，Manager 就会在你离线的期间，<b>照着规则替你回答其他 agent 的提问</b>——该放行的放行，你说要留给自己的就停下来等你。回来时，它做过的每个决定和理由都列给你看。",
+      "w.5": "Manager — 代管中 · 剩 1 小时 12 分",
+      "d.g.blabel": "你出门前的交代",
+      "d.g.b1": "<span class=\"mg-you\">agent 1 在做重构</span>，要拆文件就说好。",
+      "d.g.b2": "要动 <span class=\"mg-you\">DB schema</span> 或改测试，停下来等我。",
+      "d.g.m1": "预计离开 <b>2 小时</b>",
+      "d.g.m2": "没交代到的 · <b>留给我处理</b>",
+      "d.g.llabel": "Manager 替你回答了 2 次",
+      "d.g.q1": "拆成三个文件？",
+      "d.g.q2": "新增一个测试文件？",
+      "d.g.q3": "改 users 表结构？",
+      "d.g.v1": "照交代放行",
+      "d.g.v2": "照交代放行",
+      "d.g.v3": "留给你",
+      "d.g.guard": "不论你怎么交代，<b>删除、sudo、force push</b> 这类破坏性操作一律仍会停下来等你。",
       "meta.title": "AgentPixel — Terminal，升级成办公软件了",
       "meta.desc": "AI 在左边写，你在右边改——同一份文件、同一个时间。Excel、Word、PDF、CSV 都在旁边直接看，该改就改。支持 Claude Code 与 Codex。",
       "meta.ogtitle": "Terminal，升级成办公软件了。",
@@ -2361,11 +2538,11 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       "nav.dl": "下载",
       "nav.dlbtn": "下载",
       "hero.eyebrow": "跟 AI 并肩工作 · Claude Code 与 Codex",
-      "hero.h1": "<span class=\"nowrap\">Terminal，</span><span class=\"grad\">升级成办公软件了。</span>",
+      "hero.h1": "<span class=\"nowrap\">Terminal，</span><span class=\"grad\">升级成办公软件了</span>",
       "hero.sub": "AI 在左边写，你在右边改——同一份文件、同一个时间。你看的是文档，不是指令。",
       "hero.cta1": "下载 macOS 版",
       "hero.cta2": "看它怎么跑",
-      "hero.note": "macOS 需 <b>Apple Silicon</b> · Windows 需 <b>10 1809</b> 以上 · Beta 免费",
+      "hero.note": "macOS 需 <b>Apple Silicon</b> · Windows <b>10 1809+</b> · Beta 免费",
       "strip.1": "不绑定厂商 · <span class=\"mono\">Claude Code</span> 与 <span class=\"mono\">Codex</span>",
       "strip.2": "原生 macOS App · 轻量省电",
       "strip.3": "本机优先 · 数据不离开你的电脑",
@@ -2383,8 +2560,8 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       "s1.f3h": "40 多种格式，在旁边直接看，该改就改",
       "s1.f3a": "试算表、Word、PDF、CSV、Notebook、数据库……<b>都在同一个窗口里渲染出来</b>，不用切去别的 App。",
       "s1.f3b": "表格类（CSV、Excel、SQLite）直接改单元格、存回原档；文档类一键交给默认 App。",
-      "s2.h2": "你的 Agent 们，现在有脸了。",
-      "s2.lede": "谁在忙、谁举手、谁做完了，一眼看完。顺便告诉你：整台电脑用了多少、AgentPixel 占多少、还撑得住几个。",
+      "s2.h2": "谁在忙、谁在等你，一眼看完。",
+      "s2.lede": "顺便告诉你机器撑不撑得住：整台电脑用了多少、AgentPixel 占多少、还能再开几个。",
       "s2.callout": "worker-2 举手了 ↓",
       "s2.restore": "⟲ 关掉重开 · 大家都还在座位上",
       "s3.h2": "走出门，Agent 还在帮你上班。",
@@ -2488,6 +2665,25 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- English ---------------- */
     en: {
+      'nav.manager': 'Hand off',
+      's5.h2': 'When you don’t even want to look at your phone.',
+      's5.lede': 'Remote lets you say yes from anywhere. Some hours you don’t want to be reachable at all — a meeting, a flight, a night’s sleep.',
+      's5.slogan': 'Brief it once,<br><span class="grad">it holds the line all night.</span>',
+      's5.sub': 'Write your rules before you go, and while you are offline the Manager <b>answers the other agents’ questions against them</b> — clearing what you cleared, holding what you said to hold. Every decision and its reason is waiting for you when you get back.',
+      'w.5': 'Manager — on duty · 1h 12m left',
+      'd.g.blabel': 'What you told it before leaving',
+      'd.g.b1': '<span class="mg-you">agent 1 is refactoring</span> — if it wants to split files, say yes.',
+      'd.g.b2': 'Touching the <span class="mg-you">DB schema</span> or the tests — stop and wait for me.',
+      'd.g.m1': 'Away for <b>2 hours</b>',
+      'd.g.m2': 'Anything else · <b>leave it to me</b>',
+      'd.g.llabel': 'The Manager answered twice for you',
+      'd.g.q1': 'split into three files?',
+      'd.g.q2': 'add a test file?',
+      'd.g.q3': 'alter the users table?',
+      'd.g.v1': 'cleared, as briefed',
+      'd.g.v2': 'cleared, as briefed',
+      'd.g.v3': 'held for you',
+      'd.g.guard': 'However you brief it, destructive operations — <b>deletes, sudo, force push</b> — always still wait for you.',
       'meta.title': 'AgentPixel — The terminal just became office software',
       'meta.desc': 'The AI writes on the left, you edit on the right \u2014 same file, same moment. Excel, Word, PDF and CSV open right beside the agent, ready to edit. Works with Claude Code and Codex.',
       'meta.ogtitle': 'The terminal just became office software.',
@@ -2497,7 +2693,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'nav.see': 'Side by side', 'nav.office': 'The office', 'nav.remote': 'Remote', 'nav.dl': 'Download', 'nav.dlbtn': 'Download',
 
       'hero.eyebrow': 'Work beside your agents \u00b7 Claude Code & Codex',
-      'hero.h1': 'The terminal just became<br><span class="grad">office software.</span>',
+      'hero.h1': 'The terminal just became<br><span class="grad">office software</span>',
       'hero.sub': 'The AI writes on the left, you edit on the right \u2014 same file, same moment. You look at the document, not the commands.',
       'hero.cta1': 'Download for macOS',
       'hero.cta2': 'See it run',
@@ -2519,8 +2715,8 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       's1.f3a': 'Spreadsheets, Word, PDF, CSV, notebooks, databases \u2014 <b>all rendered in the same window</b>, no switching apps.',
       's1.f3b': 'Grid files (CSV, Excel, SQLite) edit in place and save back to the original; documents hand off to your default app in one click.',
 
-      's2.h2': 'Your agents now have faces.',
-      's2.lede': 'Who\u2019s working, who\u2019s stuck, who\u2019s done \u2014 at a glance. Plus what the whole machine is using, what AgentPixel is using, and how many more it can take.',
+      's2.h2': 'Who’s busy, who’s waiting on you.',
+      's2.lede': 'And whether your machine can take it: what the whole computer is using, what AgentPixel is using, and how many more it can hold.',
       's2.callout': 'worker-2 needs you \u2193',
       's2.restore': '\u27f2 Quit and reopen \u00b7 everyone\u2019s still at their desk',
 
@@ -2620,6 +2816,25 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
 
     /* ---------------- 日本語 ---------------- */
     ja: {
+      'nav.manager': '代理',
+      's5.h2': 'スマホも見たくないときは、Manager に任せる。',
+      's5.lede': 'リモートなら外からでも承認できる。でも会議中、飛行機の中、寝ている間は、そもそも邪魔されたくない。',
+      's5.slogan': '一度伝えておけば、<br><span class="grad">ひと晩じゅう見ていてくれる。</span>',
+      's5.sub': '出かける前にルールを書いておけば、オフラインの間 Manager が<b>そのルールに沿って他のエージェントの質問に答えます</b>。通してよいものは通し、自分で判断すると言ったものは止めて待つ。戻ったときには、下した判断とその理由がすべて並んでいます。',
+      'w.5': 'Manager — 代理中 · 残り 1 時間 12 分',
+      'd.g.blabel': '出かける前に伝えたこと',
+      'd.g.b1': '<span class="mg-you">agent 1 はリファクタ中</span>。ファイル分割は許可して。',
+      'd.g.b2': '<span class="mg-you">DB スキーマ</span>やテストを触るなら、止めて私を待って。',
+      'd.g.m1': '離席 <b>2 時間</b>',
+      'd.g.m2': '伝えていない件 · <b>自分で判断する</b>',
+      'd.g.llabel': 'Manager が 2 回、代わりに答えました',
+      'd.g.q1': '3 ファイルに分割？',
+      'd.g.q2': 'テストファイルを追加？',
+      'd.g.q3': 'users テーブルを変更？',
+      'd.g.v1': '指示どおり許可',
+      'd.g.v2': '指示どおり許可',
+      'd.g.v3': 'あなたを待つ',
+      'd.g.guard': 'どう伝えていても、<b>削除・sudo・force push</b> のような破壊的な操作は必ず止まってあなたを待ちます。',
       'meta.title': 'AgentPixel — ターミナルが、オフィスソフトになりました',
       'meta.desc': 'AI が左で書き、あなたが右で直す——同じファイル、同じ瞬間。Excel・Word・PDF・CSV もすぐ横で開いて、そのまま編集。Claude Code と Codex に対応。',
       'meta.ogtitle': 'ターミナルが、オフィスソフトになりました。',
@@ -2629,7 +2844,7 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       'nav.see': '並んで働く', 'nav.office': 'オフィス', 'nav.remote': 'リモート', 'nav.dl': 'ダウンロード', 'nav.dlbtn': 'ダウンロード',
 
       'hero.eyebrow': 'AI と並んで働く · Claude Code と Codex',
-      'hero.h1': 'ターミナルが、<br><span class="grad">オフィスソフトに<br>なりました。</span>',
+      'hero.h1': 'ターミナルが、<br><span class="grad">オフィスソフトに<br>なりました</span>',
       'hero.sub': 'AI が左で書き、あなたが右で直す——同じファイル、同じ瞬間。見ているのは書類で、コマンドじゃない。',
       'hero.cta1': 'macOS版をダウンロード',
       'hero.cta2': '動きを見る',
@@ -2651,8 +2866,8 @@ html[lang="ja"] p.sub, html[lang="ja"] .pillar-lede { line-height: 1.75; }
       's1.f3a': '表計算、Word、PDF、CSV、ノートブック、データベース……<b>すべて同じウィンドウで表示</b>。別のアプリに切り替えなくていい。',
       's1.f3b': '表形式（CSV・Excel・SQLite）はセルを直接編集して元のファイルに保存。文書類はワンクリックで既定のアプリへ。',
 
-      's2.h2': 'あなたのエージェントに、顔がついた。',
-      's2.lede': '誰が動いていて、誰が手を挙げ、誰が終わったか。ついでに、マシン全体の使用量、AgentPixel の使用量、あと何個動かせるかも。',
+      's2.h2': '誰が動いていて、誰が待っているか。',
+      's2.lede': 'ついでにマシンが耐えられるかも：全体の使用量、AgentPixel の使用量、あと何個動かせるか。',
       's2.callout': 'worker-2 が手を挙げた ↓',
       's2.restore': '⟲ 閉じて開き直しても、全員まだ席にいる',
 
