@@ -121,16 +121,25 @@ def bake(lang, d, meta):
             sys.exit(f"[{lang}] head pattern count != 1 ({out.count(old)}): {old[:100]}")
         out = out.replace(old, new)
 
+    # `pick()` used to sniff navigator.language and fall through to a
+    # default; bacae80 ("English becomes the default") deleted the sniffing
+    # and left a bare `return "en";` as pick()'s last line. bake.py was not
+    # updated with it, so every run since has exited here without writing a
+    # single language variant — silently, because the message reads like a
+    # warning. Found 2026-08-22 when en/ja/cn kept their old download links
+    # through a release.
+    #
+    # The fallback line is what each variant pins, so that is what gets
+    # replaced. Count-checked: `return 'en';` inside the explicit-request
+    # ladder above uses single quotes and is not matched.
     pin = f'    return "{lang}";\n'
-    generic = ("    var n = (navigator.language || 'en').toLowerCase();\n"
-               "    if (n.indexOf('ja') === 0) return 'ja';\n"
-               "    if (/^zh-(cn|hans|sg)/.test(n)) return 'cn';\n"
-               "    if (n.indexOf('zh') === 0) return 'zh';\n"
-               "    return 'en';\n")
-    if generic in out:
-        out = out.replace(generic, pin)
-    else:
-        sys.exit("pick()'s detection block not found — did its text change?")
+    fallback = '    return "en";\n'
+    if out.count(fallback) != 1:
+        sys.exit(
+            f"pick()'s fallback appears {out.count(fallback)} times, expected 1 — "
+            "if pick() changed shape again, update this replacement with it."
+        )
+    out = out.replace(fallback, pin)
     return out
 
 ALT = {
